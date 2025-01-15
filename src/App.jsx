@@ -36,20 +36,23 @@ function App() {
           <FAQ />
         </section>
 
-        <section id="contacto" className="py-16 bg-primary text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-12">Contacto</h2>
-            <div className="max-w-lg mx-auto">
-              <p className="text-lg mb-6">
-                Quito, Ecuador<br />
-                +593 999 266 015<br />
-                info@abogadosonlineecuador.com
-              </p>
-              <div className="text-lg mb-6">
-                <h3 className="font-semibold mb-2">Horario de Atención</h3>
-                <p>
-                  Lunes a Viernes<br />
-                  8:00 AM - 6:00 PM
+        <section id="contacto" className="py-20 bg-primary text-white">
+          <div className="container mx-auto px-4">
+            <h2 className="text-4xl font-bold text-center mb-12">Contacto</h2>
+            <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="text-center md:text-left">
+                <h3 className="text-xl font-semibold mb-6">Información de Contacto</h3>
+                <p className="text-lg space-y-4">
+                  <span className="block">Quito, Ecuador</span>
+                  <span className="block">+593 999 266 015</span>
+                  <span className="block">info@abogadosonlineecuador.com</span>
+                </p>
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="text-xl font-semibold mb-6">Horario de Atención</h3>
+                <p className="text-lg space-y-2">
+                  <span className="block">Lunes a Viernes</span>
+                  <span className="block">8:00 AM - 6:00 PM</span>
                 </p>
               </div>
             </div>
@@ -62,25 +65,15 @@ function App() {
       </main>
 
       <footer className="bg-primary text-white py-8">
-        <div className="container mx-auto px-4 text-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div>
-              <h3 className="text-lg font-semibold mb-4">Horario de Atención</h3>
-              <p className="text-sm">
-                Lunes a Viernes<br />
-                8:00 AM - 6:00 PM
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
-              <ul className="text-sm space-y-2">
+              <ul className="flex flex-wrap justify-center md:justify-start gap-6">
                 <li><a href="#servicios" className="hover:text-accent transition-colors">Servicios</a></li>
                 <li><a href="#calculadora" className="hover:text-accent transition-colors">Calculadora</a></li>
                 <li><a href="#faq" className="hover:text-accent transition-colors">Preguntas Frecuentes</a></li>
               </ul>
             </div>
-          </div>
-          <div className="border-t border-white/10 pt-8">
             <p className="text-sm">
               © {new Date().getFullYear()} Abogados Online Ecuador. Todos los derechos reservados.
             </p>
