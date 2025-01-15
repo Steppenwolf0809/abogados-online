@@ -16,7 +16,7 @@ const Header = ({ onShowForm }) => {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 80;
+      const headerOffset = 100;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -24,7 +24,20 @@ const Header = ({ onShowForm }) => {
         top: offsetPosition,
         behavior: 'smooth'
       });
+
+      // Ensure mobile menu is closed after clicking
       setIsMobileMenuOpen(false);
+
+      // Add a small delay to handle any dynamic content loading
+      setTimeout(() => {
+        const finalPosition = element.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        if (Math.abs(window.pageYOffset - finalPosition) > 10) {
+          window.scrollTo({
+            top: finalPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
     }
   };
 

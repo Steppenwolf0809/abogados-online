@@ -36,6 +36,26 @@ function App() {
           <FAQ />
         </section>
 
+        <section id="contacto" className="py-16 bg-primary text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-12">Contacto</h2>
+            <div className="max-w-lg mx-auto">
+              <p className="text-lg mb-6">
+                Quito, Ecuador<br />
+                +593 999 266 015<br />
+                info@abogadosonlineecuador.com
+              </p>
+              <div className="text-lg mb-6">
+                <h3 className="font-semibold mb-2">Horario de Atención</h3>
+                <p>
+                  Lunes a Viernes<br />
+                  8:00 AM - 6:00 PM
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <WhatsAppButton />
 
         {showForm && <AppointmentForm onClose={() => setShowForm(false)} />}
@@ -43,15 +63,7 @@ function App() {
 
       <footer className="bg-primary text-white py-8">
         <div className="container mx-auto px-4 text-center">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div id="contacto">
-              <h3 className="text-lg font-semibold mb-4">Contacto</h3>
-              <p className="text-sm">
-                Quito, Ecuador<br />
-                +593 999 266 015<br />
-                info@abogadosonlineecuador.com
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div>
               <h3 className="text-lg font-semibold mb-4">Horario de Atención</h3>
               <p className="text-sm">
