@@ -333,6 +333,10 @@ const NotaryCalculator = () => {
                   <span className="font-semibold text-gray-800">Total:</span>
                   <span className="font-bold text-blue-600 calculator-numbers text-2xl">${resultado.total}</span>
                 </div>
+                <div className="mt-6 text-sm text-gray-500 border-t border-gray-200 pt-4">
+                  <p className="mb-2">* Los valores mostrados son referenciales y pueden variar según el caso específico.</p>
+                  <p>* El costo final puede incluir certificaciones adicionales, copias certificadas u otros valores según los requerimientos del trámite.</p>
+                </div>
               </div>
             </div>
           )}
