@@ -1,7 +1,8 @@
 {
-  "buildCommand": "npm install terser && npm run build",
+  "buildCommand": "npm install && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "installCommand": "npm install",
   "redirects": [
     {
       "source": "https://abogadosonlineecuador.com",
