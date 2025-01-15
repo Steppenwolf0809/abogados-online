@@ -19,6 +19,13 @@ export default defineConfig({
     sourcemap: true,
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+        },
+      },
+    },
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'lucide-react'],
