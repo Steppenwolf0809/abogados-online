@@ -22,7 +22,7 @@ const HeroSection = ({ onShowForm }) => {
       <AdaptiveVideo />
       
       {/* Contenido */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 h-screen flex items-center">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 min-h-screen flex items-center">
         <div className="text-center max-w-3xl mx-auto text-white">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
             Trámites Notariales

@@ -215,7 +215,14 @@ const NotaryCalculator = () => {
               value={otorgantes}
               onChange={(e) => {
                 const value = e.target.value;
-                setOtorgantes(value === '' ? 1 : parseInt(value) || 1);
+                if (value === '') {
+                  setOtorgantes('');
+                } else {
+                  const numValue = parseInt(value);
+                  if (!isNaN(numValue)) {
+                    setOtorgantes(numValue);
+                  }
+                }
               }}
               min="1"
               placeholder="Número de otorgantes"
@@ -234,7 +241,14 @@ const NotaryCalculator = () => {
               value={numeroFirmas}
               onChange={(e) => {
                 const value = e.target.value;
-                setNumeroFirmas(value === '' ? 1 : parseInt(value) || 1);
+                if (value === '') {
+                  setNumeroFirmas('');
+                } else {
+                  const numValue = parseInt(value);
+                  if (!isNaN(numValue)) {
+                    setNumeroFirmas(numValue);
+                  }
+                }
               }}
               min="1"
               placeholder="Número de firmas a reconocer"
@@ -254,7 +268,14 @@ const NotaryCalculator = () => {
               value={numeroHojas}
               onChange={(e) => {
                 const value = e.target.value;
-                setNumeroHojas(value === '' ? 1 : parseInt(value) || 1);
+                if (value === '') {
+                  setNumeroHojas('');
+                } else {
+                  const numValue = parseInt(value);
+                  if (!isNaN(numValue)) {
+                    setNumeroHojas(numValue);
+                  }
+                }
               }}
               min="1"
               placeholder="Número de hojas"
@@ -273,7 +294,14 @@ const NotaryCalculator = () => {
               value={numeroMenores}
               onChange={(e) => {
                 const value = e.target.value;
-                setNumeroMenores(value === '' ? 1 : parseInt(value) || 1);
+                if (value === '') {
+                  setNumeroMenores('');
+                } else {
+                  const numValue = parseInt(value);
+                  if (!isNaN(numValue)) {
+                    setNumeroMenores(numValue);
+                  }
+                }
               }}
               min="1"
               placeholder="Número de menores que viajan"
