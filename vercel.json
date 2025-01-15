@@ -1,12 +1,18 @@
 {
-  "buildCommand": "npm install && npm run build",
-  "outputDirectory": "dist",
   "framework": "vite",
+  "buildCommand": "npm run build",
   "installCommand": "npm install",
+  "outputDirectory": "dist",
   "redirects": [
     {
-      "source": "https://abogadosonlineecuador.com",
-      "destination": "https://www.abogadosonlineecuador.com",
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "abogadosonlineecuador.com"
+        }
+      ],
+      "destination": "https://www.abogadosonlineecuador.com/:path*",
       "permanent": true
     }
   ],
