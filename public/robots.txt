@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.abogadosonlineecuador.com/sitemap.xml
+
+# Directories
+Allow: /servicios/
+Allow: /calculadora/
+Allow: /contacto/
+
+# Files
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
