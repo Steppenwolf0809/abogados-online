@@ -44,11 +44,11 @@ function App() {
       <footer className="bg-primary text-white py-8">
         <div className="container mx-auto px-4 text-center">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
+            <div id="contacto">
               <h3 className="text-lg font-semibold mb-4">Contacto</h3>
               <p className="text-sm">
                 Quito, Ecuador<br />
-                +593 99 999 9999<br />
+                +593 999 266 015<br />
                 info@abogadosonlineecuador.com
               </p>
             </div>
