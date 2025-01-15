@@ -36,6 +36,14 @@
     "Original y copia a color de la Cédula de Ciudadanía y Certificado de Votación del declarante",
     "Documentos de respaldo de la declaración (si aplica)"
   ],
+  "declaracion_juridica": [
+    "Petición de abogada/o",
+    "Original y copia a color de la Cédula de Ciudadanía y Certificado de Votación del representante legal",
+    "Nombramiento del representante legal inscrito en el Registro Mercantil",
+    "RUC de la empresa",
+    "Documentos de respaldo de la declaración (si aplica)",
+    "Acta de Junta General autorizando la declaración (cuando aplique)"
+  ],
   "autorizacion_viaje": [
     "Petición de abogada/o",
     "Partida de nacimiento (en algunos casos)",

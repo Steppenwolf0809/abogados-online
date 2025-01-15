@@ -10,6 +10,7 @@ const TIPOS_SERVICIO = {
   PODER_NATURAL: 'poder_natural',
   PODER_JURIDICO: 'poder_juridico',
   DECLARACION: 'declaracion',
+  DECLARACION_JURIDICA: 'declaracion_juridica',
   TESTAMENTO: 'testamento',
   DIVORCIO: 'divorcio',
   UNION_HECHO: 'union_hecho',
@@ -30,9 +31,13 @@ const SERVICIOS_INDETERMINADOS = {
     tarifa: tarifas.serviciosIndeterminados.poderes.personaJuridica.tarifa
   },
   declaracion: {
-    nombre: "Declaración Juramentada",
+    nombre: "Declaración Juramentada (Persona Natural)",
     tarifa: tarifas.serviciosIndeterminados.declaracionesJuramentadas.personaNatural.tarifa,
     otorganteAdicional: tarifas.serviciosIndeterminados.declaracionesJuramentadas.personaNatural.otorganteAdicional
+  },
+  declaracion_juridica: {
+    nombre: "Declaración Juramentada (Persona Jurídica)",
+    tarifa: tarifas.serviciosIndeterminados.declaracionesJuramentadas.personaJuridica.tarifa
   },
   testamento: {
     nombre: "Testamento Abierto",
@@ -168,7 +173,8 @@ const NotaryCalculator = () => {
             </optgroup>
             <optgroup label="Servicios sin Cuantía">
               <option value={TIPOS_SERVICIO.RECONOCIMIENTO_FIRMA}>Reconocimiento de Firma</option>
-              <option value={TIPOS_SERVICIO.DECLARACION}>Declaración Juramentada</option>
+              <option value={TIPOS_SERVICIO.DECLARACION}>Declaración Juramentada (Persona Natural)</option>
+              <option value={TIPOS_SERVICIO.DECLARACION_JURIDICA}>Declaración Juramentada (Persona Jurídica)</option>
               <option value={TIPOS_SERVICIO.COPIA_CERTIFICADA}>Copia Certificada</option>
               <option value={TIPOS_SERVICIO.PODER_NATURAL}>Poder (Persona Natural)</option>
               <option value={TIPOS_SERVICIO.PODER_JURIDICO}>Poder (Persona Jurídica)</option>
