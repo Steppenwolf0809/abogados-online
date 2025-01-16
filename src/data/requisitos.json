@@ -76,5 +76,17 @@
     "Originales y copias de arrendador y arrendatario",
     "Pago de impuesto predial o documento que justifique la calidad de propietario del arrendador",
     "Poder (en caso de que uno de los contratantes esté representado por otra persona)"
+  ],
+  "posesion_efectiva": [
+    "Petición de abogada/o",
+    "Partida de defunción del causante",
+    "Partida de Matrimonio del causante (Si hay cónyuge sobreviviente)",
+    "Partidas de nacimiento (íntegras) de todos los herederos",
+    "Copias a color de las Cédulas de Ciudadanía y Certificados de Votación de todos los herederos",
+    "Información sobre los bienes dejados por el causante (opcional, pero recomendado)"
+  ],
+  "protocolizacion": [
+    "Documento original a protocolizar",
+    "Petición de abogada/o"
   ]
 }

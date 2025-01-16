@@ -94,6 +94,12 @@
     "unionHecho": {"tarifa": 47.00},
     "disolucionSociedadConyugal": {"tarifa": 159.80},
     "copiaCertificada": {"tarifa": 1.79},
-    "materializacion": {"tarifa": 1.34}
+    "materializacion": {"tarifa": 1.34},
+    "posesionEfectiva": {
+      "tarifa": 188.00
+    },
+    "protocolizacion": {
+      "tarifa": 14.10
+    }
   }
 }

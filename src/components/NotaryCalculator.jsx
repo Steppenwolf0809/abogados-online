@@ -17,7 +17,9 @@ const TIPOS_SERVICIO = {
   AUTORIZACION_VIAJE: 'autorizacion_viaje',
   RECONOCIMIENTO_FIRMA: 'reconocimiento_firma',
   COPIA_CERTIFICADA: 'copia_certificada',
-  MATERIALIZACION: 'materializacion'
+  MATERIALIZACION: 'materializacion',
+  POSESION_EFECTIVA: 'posesionEfectiva',
+  PROTOCOLIZACION: 'protocolizacion'
 };
 
 const SERVICIOS_INDETERMINADOS = {
@@ -66,6 +68,14 @@ const SERVICIOS_INDETERMINADOS = {
   materializacion: {
     nombre: "Materialización",
     tarifa: tarifas.serviciosIndeterminados.materializacion.tarifa
+  },
+  posesionEfectiva: {
+    nombre: "Posesión Efectiva",
+    tarifa: tarifas.serviciosIndeterminados.posesionEfectiva.tarifa
+  },
+  protocolizacion: {
+    nombre: "Protocolización",
+    tarifa: tarifas.serviciosIndeterminados.protocolizacion.tarifa
   }
 };
 
@@ -91,7 +101,8 @@ const NotaryCalculator = () => {
     } else if (tipoServicio === TIPOS_SERVICIO.AUTORIZACION_VIAJE) {
       subtotal = servicio.tarifa * numeroMenores;
     } else if (tipoServicio === TIPOS_SERVICIO.COPIA_CERTIFICADA || 
-               tipoServicio === TIPOS_SERVICIO.MATERIALIZACION) {
+               tipoServicio === TIPOS_SERVICIO.MATERIALIZACION ||
+               tipoServicio === TIPOS_SERVICIO.PROTOCOLIZACION) {
       subtotal = servicio.tarifa * numeroHojas;
     } else if (servicio.otorganteAdicional && otorgantes > 1) {
       subtotal += servicio.otorganteAdicional * (otorgantes - 1);
@@ -183,6 +194,8 @@ const NotaryCalculator = () => {
               <option value={TIPOS_SERVICIO.DIVORCIO}>Divorcio</option>
               <option value={TIPOS_SERVICIO.UNION_HECHO}>Unión de Hecho</option>
               <option value={TIPOS_SERVICIO.TESTAMENTO}>Testamento</option>
+              <option value={TIPOS_SERVICIO.POSESION_EFECTIVA}>Posesión Efectiva</option>
+              <option value={TIPOS_SERVICIO.PROTOCOLIZACION}>Protocolización</option>
             </optgroup>
           </select>
         </div>
@@ -263,7 +276,8 @@ const NotaryCalculator = () => {
         )}
 
         {(tipoServicio === TIPOS_SERVICIO.COPIA_CERTIFICADA ||
-          tipoServicio === TIPOS_SERVICIO.MATERIALIZACION) && (
+          tipoServicio === TIPOS_SERVICIO.MATERIALIZACION ||
+          tipoServicio === TIPOS_SERVICIO.PROTOCOLIZACION) && (
           <div className="max-w-2xl mx-auto">
             <label className="block text-base font-medium text-gray-700 mb-3">
               Número de Hojas
