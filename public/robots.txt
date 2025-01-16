@@ -4,12 +4,25 @@ Allow: /
 # Sitemap
 Sitemap: https://www.abogadosonlineecuador.com/sitemap.xml
 
-# Directories
-Allow: /servicios/
-Allow: /calculadora/
-Allow: /contacto/
+# Secciones principales
+Allow: /#servicios
+Allow: /#calculadora
+Allow: /#contacto
+Allow: /#faq
 
-# Files
+# Recursos estáticos
+Allow: /images/
+Allow: /videos/
+Allow: /icons/
+
+# Archivos privados y recursos del sistema
 Disallow: /*.json$
 Disallow: /*.js$
 Disallow: /*.css$
+Disallow: /*.map$
+Disallow: /api/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Crawl delay
+Crawl-delay: 10
