@@ -44,7 +44,7 @@ function App() {
                 <h3 className="text-xl font-semibold mb-6">Información de Contacto</h3>
                 <p className="text-lg space-y-4">
                   <span className="block">Quito, Ecuador</span>
-                  <span className="block">+593 999 266 015</span>
+                  <span className="block">+593 97 931 7579</span>
                   <span className="block">info@abogadosonlineecuador.com</span>
                 </p>
               </div>
@@ -52,7 +52,7 @@ function App() {
                 <h3 className="text-xl font-semibold mb-6">Horario de Atención</h3>
                 <p className="text-lg space-y-2">
                   <span className="block">Lunes a Viernes</span>
-                  <span className="block">8:00 AM - 6:00 PM</span>
+                  <span className="block">9:00 AM - 6:00 PM</span>
                 </p>
               </div>
             </div>

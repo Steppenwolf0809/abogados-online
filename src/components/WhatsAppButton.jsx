@@ -1,7 +1,7 @@
 import React from 'react';
 
 const WhatsAppButton = () => {
-  const phoneNumber = '+593999266015';
+  const phoneNumber = '+593979317579';
   const message = encodeURIComponent('Hola, me gustaría obtener más información sobre los servicios notariales.');
 
   return (
