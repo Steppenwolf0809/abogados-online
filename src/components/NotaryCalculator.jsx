@@ -18,7 +18,7 @@ const TIPOS_SERVICIO = {
   RECONOCIMIENTO_FIRMA: 'reconocimiento_firma',
   COPIA_CERTIFICADA: 'copia_certificada',
   MATERIALIZACION: 'materializacion',
-  POSESION_EFECTIVA: 'posesionEfectiva',
+  POSESION_EFECTIVA: 'posesion_efectiva',
   PROTOCOLIZACION: 'protocolizacion'
 };
 
@@ -69,7 +69,7 @@ const SERVICIOS_INDETERMINADOS = {
     nombre: "Materialización",
     tarifa: tarifas.serviciosIndeterminados.materializacion.tarifa
   },
-  posesionEfectiva: {
+  posesion_efectiva: {
     nombre: "Posesión Efectiva",
     tarifa: tarifas.serviciosIndeterminados.posesionEfectiva.tarifa
   },
