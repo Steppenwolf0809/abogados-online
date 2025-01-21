@@ -25,7 +25,7 @@ const AppointmentForm = ({ onClose }) => {
     try {
       const result = await emailjs.sendForm(
         "service_iof7r68",
-        "template_xl5oqwp",
+        "template_xi5oqwp",
         e.target
       );
 
