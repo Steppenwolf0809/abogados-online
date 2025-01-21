@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import Button from './ui/button';
 
 const AppointmentForm = ({ onClose }) => {
@@ -10,11 +11,38 @@ const AppointmentForm = ({ onClose }) => {
     mensaje: ''
   });
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+
+  useEffect(() => {
+    emailjs.init("Tn5EZ3QzZ25qIpTbi");
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para enviar el formulario
-    console.log('Formulario enviado:', formData);
-    onClose();
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      await emailjs.send(
+        "service_iof7r68",
+        "template_xl5oqwp",
+        {
+          nombre: formData.nombre,
+          email: formData.email,
+          telefono: formData.telefono,
+          tipoServicio: formData.tipoServicio,
+          mensaje: formData.mensaje
+        }
+      );
+
+      onClose();
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error);
+      setSubmitError('Hubo un error al enviar el formulario. Por favor, intenta de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -129,11 +157,19 @@ const AppointmentForm = ({ onClose }) => {
               >
                 Cancelar
               </Button>
+              {submitError && (
+                <div className="text-red-600 text-sm mb-4">
+                  {submitError}
+                </div>
+              )}
               <Button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg"
+                disabled={isSubmitting}
+                className={`px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               >
-                Enviar Solicitud
+                {isSubmitting ? 'Enviando...' : 'Enviar Solicitud'}
               </Button>
             </div>
           </form>
