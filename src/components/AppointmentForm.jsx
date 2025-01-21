@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import Button from './ui/button';
+
+// Inicializar EmailJS una sola vez
+emailjs.init("Tn5EZ3QzZ25qIpTbi");
 
 const AppointmentForm = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -14,32 +17,16 @@ const AppointmentForm = ({ onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
 
-  useEffect(() => {
-    emailjs.init("Tn5EZ3QzZ25qIpTbi");
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError(null);
 
-    const templateParams = {
-      to_name: "Abogados Online Ecuador",
-      from_name: formData.nombre,
-      reply_to: formData.email,
-      telefono: formData.telefono,
-      tipo_servicio: formData.tipoServicio,
-      mensaje: formData.mensaje,
-      to_email: "info@abogadosonlineecuador.com"
-    };
-
-    console.log('Enviando formulario con datos:', templateParams);
-
     try {
-      const result = await emailjs.send(
+      const result = await emailjs.sendForm(
         "service_iof7r68",
         "template_xl5oqwp",
-        templateParams
+        e.target
       );
 
       console.log('Respuesta de EmailJS:', result);
