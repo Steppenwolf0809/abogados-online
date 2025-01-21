@@ -23,23 +23,30 @@ const AppointmentForm = ({ onClose }) => {
     setIsSubmitting(true);
     setSubmitError(null);
 
+    const templateParams = {
+      nombre: formData.nombre,
+      email: formData.email,
+      telefono: formData.telefono,
+      tipoServicio: formData.tipoServicio,
+      mensaje: formData.mensaje
+    };
+
+    console.log('Enviando formulario con datos:', templateParams);
+
     try {
-      await emailjs.send(
+      const result = await emailjs.send(
         "service_iof7r68",
         "template_xl5oqwp",
-        {
-          nombre: formData.nombre,
-          email: formData.email,
-          telefono: formData.telefono,
-          tipoServicio: formData.tipoServicio,
-          mensaje: formData.mensaje
-        }
+        templateParams
       );
 
+      console.log('Respuesta de EmailJS:', result);
+      alert('Formulario enviado correctamente');
       onClose();
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
       setSubmitError('Hubo un error al enviar el formulario. Por favor, intenta de nuevo.');
+      alert('Error al enviar el formulario: ' + error.message);
     } finally {
       setIsSubmitting(false);
     }
