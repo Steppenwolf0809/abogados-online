@@ -24,11 +24,13 @@ const AppointmentForm = ({ onClose }) => {
     setSubmitError(null);
 
     const templateParams = {
-      nombre: formData.nombre,
-      email: formData.email,
+      to_name: "Abogados Online Ecuador",
+      from_name: formData.nombre,
+      reply_to: formData.email,
       telefono: formData.telefono,
-      tipoServicio: formData.tipoServicio,
-      mensaje: formData.mensaje
+      tipo_servicio: formData.tipoServicio,
+      mensaje: formData.mensaje,
+      to_email: "info@abogadosonlineecuador.com"
     };
 
     console.log('Enviando formulario con datos:', templateParams);
