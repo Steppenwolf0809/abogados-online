@@ -88,5 +88,12 @@
   "protocolizacion": [
     "Documento original a protocolizar",
     "Petición de abogada/o"
+  ],
+  "compraventaVehiculos": [
+    "2 contratos de compraventa llenos y firmados con color azul",
+    "Original y copia a color de la Cédula de ciudadanía y Certificado de votación de los comparecientes (vendedor y comprador)",
+    "Original y copia a color de la matrícula del vehículo",
+    "Certificado Único Vehicular actualizado",
+    "Poder especial (en caso de que uno de los comparecientes no pueda asistir)"
   ]
 }

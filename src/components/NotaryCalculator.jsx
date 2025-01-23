@@ -19,7 +19,8 @@ const TIPOS_SERVICIO = {
   COPIA_CERTIFICADA: 'copia_certificada',
   MATERIALIZACION: 'materializacion',
   POSESION_EFECTIVA: 'posesion_efectiva',
-  PROTOCOLIZACION: 'protocolizacion'
+  PROTOCOLIZACION: 'protocolizacion',
+  COMPRAVENTA_VEHICULOS: 'compraventaVehiculos'
 };
 
 const SERVICIOS_INDETERMINADOS = {
@@ -76,6 +77,11 @@ const SERVICIOS_INDETERMINADOS = {
   protocolizacion: {
     nombre: "Protocolización",
     tarifa: tarifas.serviciosIndeterminados.protocolizacion.tarifa
+  },
+  compraventaVehiculos: {
+    nombre: "Compraventa de Vehículos",
+    tarifa: tarifas.serviciosIndeterminados.compraventaVehiculos.tarifa,
+    firmanteAdicional: tarifas.serviciosIndeterminados.compraventaVehiculos.firmanteAdicional
   }
 };
 
@@ -96,7 +102,8 @@ const NotaryCalculator = () => {
     const servicio = SERVICIOS_INDETERMINADOS[tipoServicio];
     let subtotal = servicio.tarifa;
 
-    if (tipoServicio === TIPOS_SERVICIO.RECONOCIMIENTO_FIRMA) {
+    if (tipoServicio === TIPOS_SERVICIO.RECONOCIMIENTO_FIRMA || 
+        tipoServicio === TIPOS_SERVICIO.COMPRAVENTA_VEHICULOS) {
       subtotal = servicio.tarifa * numeroFirmas;
     } else if (tipoServicio === TIPOS_SERVICIO.AUTORIZACION_VIAJE) {
       subtotal = servicio.tarifa * numeroMenores;
@@ -196,6 +203,7 @@ const NotaryCalculator = () => {
               <option value={TIPOS_SERVICIO.TESTAMENTO}>Testamento</option>
               <option value={TIPOS_SERVICIO.POSESION_EFECTIVA}>Posesión Efectiva</option>
               <option value={TIPOS_SERVICIO.PROTOCOLIZACION}>Protocolización</option>
+              <option value={TIPOS_SERVICIO.COMPRAVENTA_VEHICULOS}>Compraventa de Vehículos</option>
             </optgroup>
           </select>
         </div>
@@ -249,10 +257,11 @@ const NotaryCalculator = () => {
           </div>
         )}
 
-        {tipoServicio === TIPOS_SERVICIO.RECONOCIMIENTO_FIRMA && (
+        {(tipoServicio === TIPOS_SERVICIO.RECONOCIMIENTO_FIRMA ||
+          tipoServicio === TIPOS_SERVICIO.COMPRAVENTA_VEHICULOS) && (
           <div className="max-w-2xl mx-auto">
             <label className="block text-base font-medium text-gray-700 mb-3">
-              Número de Firmas
+              {tipoServicio === TIPOS_SERVICIO.COMPRAVENTA_VEHICULOS ? 'Número de Firmantes' : 'Número de Firmas'}
             </label>
             <input
               type="number"
