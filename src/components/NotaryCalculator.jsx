@@ -223,9 +223,14 @@ const NotaryCalculator = () => {
                 onChange={(e) => setMonto(e.target.value)}
                 min="0"
                 step="0.01"
-                placeholder={tipoServicio === TIPOS_SERVICIO.ARRIENDO ? 'Ingrese el canon mensual' : 'Ingrese el monto'}
+              placeholder={tipoServicio === TIPOS_SERVICIO.ARRIENDO ? 'Ingrese el canon mensual' : 'Ingrese el monto'}
               />
             </div>
+            {tipoServicio === TIPOS_SERVICIO.TRANSFERENCIA && (
+              <div className="mt-2 text-sm text-amber-600 bg-amber-50 p-3 rounded-lg">
+                <strong>Nota importante:</strong> Si el avalúo catastral es mayor al precio de venta, se debe considerar el avalúo catastral para el cálculo de las tasas notariales.
+              </div>
+            )}
           </div>
         )}
 
