@@ -62,7 +62,8 @@ const AdaptiveVideo = () => {
         webkit-playsinline="true"
         preload="auto"
         poster="/brand/Logo/Logo - Imágenes/Logo con slogan/Logo con slogan.png"
-        className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-80"
+        className="absolute top-1/2 left-1/2 w-full h-full transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-80"
+        style={{ maxHeight: '100vh' }}
         onError={(e) => {
           console.error('Video error:', e);
           setVideoError(true);

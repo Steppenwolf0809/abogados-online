@@ -227,8 +227,8 @@ const NotaryCalculator = () => {
               />
             </div>
             {tipoServicio === TIPOS_SERVICIO.TRANSFERENCIA && (
-              <div className="mt-2 text-sm text-amber-600 bg-amber-50 p-3 rounded-lg">
-                <strong>Nota importante:</strong> Si el avalúo catastral es mayor al precio de venta, se debe considerar el avalúo catastral para el cálculo de las tasas notariales.
+              <div className="mt-2 text-sm text-blue-700 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                <strong className="text-blue-800">Nota importante:</strong> Si el avalúo catastral es mayor al precio de venta, se debe considerar el avalúo catastral para el cálculo de las tasas notariales.
               </div>
             )}
           </div>
