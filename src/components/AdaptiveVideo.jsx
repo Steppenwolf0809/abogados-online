@@ -3,13 +3,41 @@ import React, { useState, useEffect } from 'react';
 const AdaptiveVideo = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
+    // Detectar iOS
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    setIsIOS(iOS);
+
     // Precargar el video
     const video = document.createElement('video');
-    video.src = '/videos/hero-background.mp4';
-    video.oncanplay = () => setIsVideoLoaded(true);
-    video.onerror = () => setVideoError(true);
+    if (iOS) {
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', 'true');
+    }
+    
+    const loadVideo = () => {
+      video.oncanplay = () => setIsVideoLoaded(true);
+      video.onerror = (e) => {
+        console.error('Video error:', e);
+        setVideoError(true);
+      };
+      
+      // Intentar primero con WebM
+      video.src = '/videos/hero-background.webm';
+      video.onerror = () => {
+        // Si WebM falla, intentar con MP4
+        video.src = '/videos/hero-background.mp4';
+      };
+    };
+
+    if (document.readyState === 'complete') {
+      loadVideo();
+    } else {
+      window.addEventListener('load', loadVideo);
+      return () => window.removeEventListener('load', loadVideo);
+    }
   }, []);
 
   const renderGradientBackground = () => (
@@ -31,9 +59,16 @@ const AdaptiveVideo = () => {
         loop
         muted
         playsInline
+        webkit-playsinline="true"
+        preload="auto"
+        poster="/brand/Logo/Logo - Imágenes/Logo con slogan/Logo con slogan.png"
         className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-80"
-        onError={() => setVideoError(true)}
+        onError={(e) => {
+          console.error('Video error:', e);
+          setVideoError(true);
+        }}
       >
+        <source src="/videos/hero-background.webm" type="video/webm" />
         <source src="/videos/hero-background.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-gradient-to-br from-[#0A1E4C]/40 via-[#0A1E4C]/30 to-transparent"></div>

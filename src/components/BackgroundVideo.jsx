@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const BackgroundVideo = () => {
   const [videoError, setVideoError] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    // Detectar iOS
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    setIsIOS(iOS);
+  }, []);
 
   if (videoError) {
     return (
@@ -24,9 +31,16 @@ const BackgroundVideo = () => {
         loop
         muted
         playsInline
+        webkit-playsinline="true"
+        preload="auto"
+        poster="/brand/Logo/Logo - Imágenes/Logo con slogan/Logo con slogan.png"
         className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-70"
-        onError={() => setVideoError(true)}
+        onError={(e) => {
+          console.error('Video error:', e);
+          setVideoError(true);
+        }}
       >
+        <source src="/videos/hero-background.webm" type="video/webm" />
         <source src="/videos/hero-background.mp4" type="video/mp4" />
       </video>
       {/* Overlay con gradiente */}
