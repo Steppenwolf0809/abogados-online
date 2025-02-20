@@ -108,13 +108,13 @@ const MunicipalCalculator = () => {
                 Valor de Transferencia
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                 <input
                   type="number"
                   name="valorTransferencia"
                   value={formData.valorTransferencia}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full pl-7"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -127,13 +127,13 @@ const MunicipalCalculator = () => {
                 Valor de Adquisición
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                 <input
                   type="number"
                   name="valorAdquisicion"
                   value={formData.valorAdquisicion}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full pl-7"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -146,13 +146,13 @@ const MunicipalCalculator = () => {
                 Avalúo Catastral
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                 <input
                   type="number"
                   name="avaluoCatastral"
                   value={formData.avaluoCatastral}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full pl-7"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -200,13 +200,13 @@ const MunicipalCalculator = () => {
                 Valor de Mejoras
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                 <input
                   type="number"
                   name="mejoras"
                   value={formData.mejoras}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full pl-7"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -218,13 +218,13 @@ const MunicipalCalculator = () => {
                 Contribución por Mejoras
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                 <input
                   type="number"
                   name="contribucionMejoras"
                   value={formData.contribucionMejoras}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full pl-7"
                   placeholder="0.00"
                   min="0"
                   step="0.01"

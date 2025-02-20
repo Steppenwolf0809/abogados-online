@@ -49,10 +49,10 @@ export function calcularImpuestos({
   let tarifaUtilidad;
   if (tipoTransferencia === 'Donación') {
     tarifaUtilidad = 0.01; // 1%
-  } else if (new Date(fechaAdquisicion) >= new Date('2006-01-01')) {
-    tarifaUtilidad = tipoTransferente === 'Inmobiliaria' ? 0.04 : 0.005; // 4% o 0.5%
+  } else if (tipoTransferente === 'Inmobiliaria') {
+    tarifaUtilidad = 0.04; // 4%
   } else {
-    tarifaUtilidad = 0.10; // 10%
+    tarifaUtilidad = 0.10; // 10% para persona natural
   }
 
   const impuestoUtilidad = baseImponibleUtilidad * tarifaUtilidad;
