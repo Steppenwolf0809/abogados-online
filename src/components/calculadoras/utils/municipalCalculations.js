@@ -55,28 +55,28 @@ export function calcularImpuestos({
     tarifaUtilidad = 0.10; // 10% para persona natural
   }
 
-  const impuestoUtilidad = baseImponibleUtilidad * tarifaUtilidad;
+  const impuestoUtilidad = Math.round(baseImponibleUtilidad * tarifaUtilidad * 100) / 100;
 
   // 2. Cálculo de Alcabala
   const baseImponibleAlcabala = Math.max(valorTransferencia, avaluoCatastral);
   const tarifaAlcabala = 0.01; // 1%
   const rebajaAlcabala = calcularRebajaAlcabala(fechaAdquisicion, fechaTransferencia);
-  const impuestoAlcabala = baseImponibleAlcabala * tarifaAlcabala * (1 - rebajaAlcabala);
+  const impuestoAlcabala = Math.round(baseImponibleAlcabala * tarifaAlcabala * (1 - rebajaAlcabala) * 100) / 100;
 
   return {
     utilidad: {
-      utilidadBruta: utilidadBruta.toFixed(2),
+      utilidadBruta: Math.round(utilidadBruta * 100) / 100,
       añosTranscurridos,
-      deduccionTiempo: deduccionTiempo.toFixed(2),
-      baseImponible: baseImponibleUtilidad.toFixed(2),
+      deduccionTiempo: Math.round(deduccionTiempo * 100) / 100,
+      baseImponible: Math.round(baseImponibleUtilidad * 100) / 100,
       tarifa: (tarifaUtilidad * 100).toFixed(1) + '%',
-      impuesto: impuestoUtilidad.toFixed(2)
+      impuesto: impuestoUtilidad
     },
     alcabala: {
-      baseImponible: baseImponibleAlcabala.toFixed(2),
+      baseImponible: Math.round(baseImponibleAlcabala * 100) / 100,
       rebaja: (rebajaAlcabala * 100).toFixed(0) + '%',
-      impuesto: impuestoAlcabala.toFixed(2)
+      impuesto: impuestoAlcabala
     },
-    total: (impuestoUtilidad + impuestoAlcabala).toFixed(2)
+    total: Math.round((impuestoUtilidad + impuestoAlcabala) * 100) / 100
   };
 }
