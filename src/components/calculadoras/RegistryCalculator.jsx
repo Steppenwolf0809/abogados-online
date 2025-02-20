@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../ui/button';
+import { calcularArancelFinal, RANGOS } from '../../utils/registryCalculations.js';
 
 const RegistryCalculator = () => {
   const [formData, setFormData] = useState({
@@ -10,18 +11,6 @@ const RegistryCalculator = () => {
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState('');
 
-  const RANGOS = [
-    { min: 0.01, max: 3000.00, arancel: 22.00 },
-    { min: 3000.01, max: 6600.00, arancel: 30.00 },
-    { min: 6600.01, max: 10000.00, arancel: 35.00 },
-    { min: 10000.01, max: 15000.00, arancel: 40.00 },
-    { min: 15000.01, max: 25000.00, arancel: 50.00 },
-    { min: 25000.01, max: 30000.00, arancel: 100.00 },
-    { min: 30000.01, max: 35000.00, arancel: 160.00 },
-    { min: 35000.01, max: 40000.00, arancel: 200.00 },
-    { min: 40000.01, max: Infinity, baseArancel: 100.00, porcentajeExceso: 0.005 }
-  ];
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -31,26 +20,6 @@ const RegistryCalculator = () => {
     setError('');
   };
 
-  const calcularArancel = (valorContrato) => {
-    if (valorContrato <= 0) return { arancel: 0, rango: null };
-
-    const rango = RANGOS.find(r => valorContrato >= r.min && valorContrato <= r.max);
-    let arancel;
-    
-    if (valorContrato > 40000.01) {
-      const exceso = valorContrato - 10000.00;
-      arancel = 100.00 + (exceso * 0.005); // 0.5%
-    } else {
-      arancel = rango.arancel;
-    }
-
-    return {
-      arancel: Math.min(arancel, 500.00),
-      rango: RANGOS.indexOf(rango) + 1,
-      excedeMaximo: arancel > 500.00
-    };
-  };
-
   const calcular = () => {
     const valor = parseFloat(formData.valorContrato);
     if (!valor || valor <= 0) {
@@ -58,22 +27,8 @@ const RegistryCalculator = () => {
       return;
     }
 
-    const { arancel, rango, excedeMaximo } = calcularArancel(valor);
-    let arancelFinal = arancel;
-
-    // Aplicar descuento tercera edad
-    if (formData.terceraEdad) {
-      arancelFinal = arancelFinal * 0.5; // 50% de descuento
-    }
-
-    setResultado({
-      valorContrato: valor,
-      rango,
-      arancelBase: arancel,
-      descuentoTerceraEdad: formData.terceraEdad ? arancel * 0.5 : 0,
-      arancelFinal,
-      excedeMaximo
-    });
+    const resultado = calcularArancelFinal(valor, formData.terceraEdad);
+    setResultado(resultado);
   };
 
   return (
