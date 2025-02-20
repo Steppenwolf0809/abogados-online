@@ -3,8 +3,18 @@
 export function calcularAños(fechaAdquisicion, fechaTransferencia) {
   const adquisicion = new Date(fechaAdquisicion);
   const transferencia = new Date(fechaTransferencia);
-  const diferencia = transferencia.getFullYear() - adquisicion.getFullYear();
-  return Math.min(diferencia, 20); // Máximo 20 años
+  
+  // Calcular la diferencia en años
+  let años = transferencia.getFullYear() - adquisicion.getFullYear();
+  
+  // Ajustar si no ha completado el año
+  if (transferencia.getMonth() < adquisicion.getMonth() || 
+      (transferencia.getMonth() === adquisicion.getMonth() && 
+       transferencia.getDate() < adquisicion.getDate())) {
+    años--;
+  }
+  
+  return Math.min(Math.max(0, años), 20); // Entre 0 y 20 años
 }
 
 export function calcularMeses(fechaAdquisicion, fechaTransferencia) {

@@ -247,7 +247,13 @@ const MunicipalCalculator = () => {
           </Button>
 
           {resultado && (
-            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden">
+              {/* Marca de agua para capturas de pantalla */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                <div className="transform rotate-30 text-4xl font-bold text-gray-300 whitespace-nowrap">
+                  www.abogadosonlineecuador.com
+                </div>
+              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 Resultados del Cálculo
               </h3>
