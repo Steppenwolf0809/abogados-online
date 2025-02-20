@@ -13,6 +13,7 @@ export default defineConfig({
     alias: {
       '@': '/src',
     },
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'lucide-react', 'react-router-dom'],
