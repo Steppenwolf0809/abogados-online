@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from './ui/button';
 import AdaptiveVideo from './AdaptiveVideo';
 
-const HeroSection = ({ onShowForm }) => {
+const HeroSection = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-primary">
@@ -29,12 +29,13 @@ const HeroSection = ({ onShowForm }) => {
                 Calculadoras de Costos
               </Button>
             </Link>
-            <Button 
-              onClick={onShowForm}
-              className="bg-white/90 text-blue-600 hover:bg-blue-600 hover:text-white text-xl px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 backdrop-blur-sm"
-            >
-              Consulta Gratuita
-            </Button>
+            <Link to="/contacto">
+              <Button 
+                className="bg-white/90 text-blue-600 hover:bg-blue-600 hover:text-white text-xl px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 backdrop-blur-sm"
+              >
+                Consulta Gratuita
+              </Button>
+            </Link>
           </div>
 
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
