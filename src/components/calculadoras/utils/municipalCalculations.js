@@ -35,7 +35,8 @@ export function calcularImpuestos({
   contribucionMejoras
 }) {
   // 1. Cálculo de Utilidad
-  const utilidadBruta = valorTransferencia - (
+  const valorBase = Math.max(valorTransferencia, avaluoCatastral);
+  const utilidadBruta = valorBase - (
     valorAdquisicion +
     mejoras +
     contribucionMejoras

@@ -107,14 +107,14 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Valor de Transferencia
               </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+              <div className="relative flex items-center">
+                <span className="absolute left-3 text-gray-500">$</span>
                 <input
                   type="number"
                   name="valorTransferencia"
                   value={formData.valorTransferencia}
                   onChange={handleChange}
-                  className="input-field w-full pl-7"
+                  className="input-field w-full pl-8"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -126,14 +126,14 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Valor de Adquisición
               </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+              <div className="relative flex items-center">
+                <span className="absolute left-3 text-gray-500">$</span>
                 <input
                   type="number"
                   name="valorAdquisicion"
                   value={formData.valorAdquisicion}
                   onChange={handleChange}
-                  className="input-field w-full pl-7"
+                  className="input-field w-full pl-8"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -145,14 +145,14 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Avalúo Catastral
               </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+              <div className="relative flex items-center">
+                <span className="absolute left-3 text-gray-500">$</span>
                 <input
                   type="number"
                   name="avaluoCatastral"
                   value={formData.avaluoCatastral}
                   onChange={handleChange}
-                  className="input-field w-full pl-7"
+                  className="input-field w-full pl-8"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -199,14 +199,14 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Valor de Mejoras
               </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+              <div className="relative flex items-center">
+                <span className="absolute left-3 text-gray-500">$</span>
                 <input
                   type="number"
                   name="mejoras"
                   value={formData.mejoras}
                   onChange={handleChange}
-                  className="input-field w-full pl-7"
+                  className="input-field w-full pl-8"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -217,14 +217,14 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Contribución por Mejoras
               </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+              <div className="relative flex items-center">
+                <span className="absolute left-3 text-gray-500">$</span>
                 <input
                   type="number"
                   name="contribucionMejoras"
                   value={formData.contribucionMejoras}
                   onChange={handleChange}
-                  className="input-field w-full pl-7"
+                  className="input-field w-full pl-8"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
