@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = ({ onShowForm }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -81,15 +82,21 @@ const Header = ({ onShowForm }) => {
             ].map((item) => (
               <button
                 key={item.id}
-                onClick={() => item.type === 'scroll' ? scrollToSection(item.id) : window.location.href = item.href}
+                onClick={() => item.type === 'scroll' && scrollToSection(item.id)}
                 className={`relative font-medium ${
                   isScrolled ? 'text-gray-800' : 'text-white'
-                } ${item.type === 'link' ? 'text-blue-600' : ''} hover:text-blue-600 transition-colors duration-300 
-                after:content-[''] after:absolute after:left-0 after:bottom-[-4px] 
-                after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all 
-                after:duration-300 hover:after:w-full`}
+                } hover:text-blue-600 transition-colors duration-300`}
               >
-                {item.name}
+                {item.type === 'link' ? (
+                  <Link 
+                    to={item.href}
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  item.name
+                )}
               </button>
             ))}
             <button
@@ -148,8 +155,6 @@ const Header = ({ onShowForm }) => {
                 onClick={() => {
                   if (item.type === 'scroll') {
                     scrollToSection(item.id);
-                  } else {
-                    window.location.href = item.href;
                   }
                   setIsMobileMenuOpen(false);
                 }}
@@ -159,7 +164,16 @@ const Header = ({ onShowForm }) => {
                     : 'text-white hover:bg-white/10'
                 }`}
               >
-                {item.name}
+                {item.type === 'link' ? (
+                  <Link 
+                    to={item.href}
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  item.name
+                )}
               </button>
             ))}
             <button

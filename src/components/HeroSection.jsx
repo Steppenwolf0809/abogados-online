@@ -1,21 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from './ui/button';
 import AdaptiveVideo from './AdaptiveVideo';
 
 const HeroSection = ({ onShowForm }) => {
-  const scrollToCalculator = () => {
-    const calculatorSection = document.querySelector('#calculadora');
-    if (calculatorSection) {
-      const headerOffset = 80;
-      const elementPosition = calculatorSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-primary">
@@ -34,12 +22,13 @@ const HeroSection = ({ onShowForm }) => {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <Button 
-              onClick={scrollToCalculator}
-              className="bg-blue-600 hover:bg-blue-700 text-xl px-8 py-4 rounded-lg text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-            >
-              Calcular Costos Notariales
-            </Button>
+            <Link to="/calculadoras">
+              <Button 
+                className="bg-blue-600 hover:bg-blue-700 text-xl px-8 py-4 rounded-lg text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              >
+                Calculadoras de Costos
+              </Button>
+            </Link>
             <Button 
               onClick={onShowForm}
               className="bg-white/90 text-blue-600 hover:bg-blue-600 hover:text-white text-xl px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 backdrop-blur-sm"
