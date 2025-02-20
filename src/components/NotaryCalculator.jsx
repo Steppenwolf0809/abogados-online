@@ -374,7 +374,24 @@ const NotaryCalculator = () => {
             </div>
           )}
 
-          <div className="p-8 bg-gray-50 rounded-xl shadow-sm">
+            <div className="p-8 bg-gray-50 rounded-xl shadow-sm relative overflow-hidden">
+              {/* Marca de agua para capturas de pantalla */}
+              <div className="absolute inset-0 grid gap-4 opacity-[0.03] pointer-events-none select-none"
+                   style={{
+                     gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+                     transform: 'rotate(-45deg)',
+                     transformOrigin: 'center',
+                     marginTop: '-50%',
+                     marginLeft: '-50%',
+                     width: '200%',
+                     height: '200%'
+                   }}>
+                {Array(40).fill('abogadosonlineecuador.com').map((text, i) => (
+                  <div key={i} className="text-sm font-bold text-gray-900 whitespace-nowrap">
+                    {text}
+                  </div>
+                ))}
+              </div>
             <RequisitosServicio tramiteId={tipoServicio} />
           </div>
         </div>
