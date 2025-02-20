@@ -107,14 +107,13 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Valor de Transferencia
               </label>
-              <div className="relative flex items-center">
-                <span className="absolute left-3 text-gray-500">$</span>
+              <div>
                 <input
                   type="number"
                   name="valorTransferencia"
                   value={formData.valorTransferencia}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -126,14 +125,13 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Valor de Adquisición
               </label>
-              <div className="relative flex items-center">
-                <span className="absolute left-3 text-gray-500">$</span>
+              <div>
                 <input
                   type="number"
                   name="valorAdquisicion"
                   value={formData.valorAdquisicion}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -145,14 +143,13 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Avalúo Catastral
               </label>
-              <div className="relative flex items-center">
-                <span className="absolute left-3 text-gray-500">$</span>
+              <div>
                 <input
                   type="number"
                   name="avaluoCatastral"
                   value={formData.avaluoCatastral}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -199,14 +196,13 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Valor de Mejoras
               </label>
-              <div className="relative flex items-center">
-                <span className="absolute left-3 text-gray-500">$</span>
+              <div>
                 <input
                   type="number"
                   name="mejoras"
                   value={formData.mejoras}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -217,14 +213,13 @@ const MunicipalCalculator = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Contribución por Mejoras
               </label>
-              <div className="relative flex items-center">
-                <span className="absolute left-3 text-gray-500">$</span>
+              <div>
                 <input
                   type="number"
                   name="contribucionMejoras"
                   value={formData.contribucionMejoras}
                   onChange={handleChange}
-                  className="input-field w-full pl-8"
+                  className="input-field w-full"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -249,10 +244,21 @@ const MunicipalCalculator = () => {
           {resultado && (
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden">
               {/* Marca de agua para capturas de pantalla */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-                <div className="transform rotate-30 text-4xl font-bold text-gray-300 whitespace-nowrap">
-                  www.abogadosonlineecuador.com
-                </div>
+              <div className="absolute inset-0 grid gap-8 opacity-[0.02] pointer-events-none select-none"
+                   style={{
+                     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                     transform: 'rotate(-45deg)',
+                     transformOrigin: 'center',
+                     marginTop: '-50%',
+                     marginLeft: '-50%',
+                     width: '200%',
+                     height: '200%'
+                   }}>
+                {Array(20).fill('www.abogadosonlineecuador.com').map((text, i) => (
+                  <div key={i} className="text-2xl font-bold text-gray-900 whitespace-nowrap">
+                    {text}
+                  </div>
+                ))}
               </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 Resultados del Cálculo
