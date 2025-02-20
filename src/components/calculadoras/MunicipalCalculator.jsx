@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { calcularImpuestos } from './utils/municipalCalculations.js';
 import Button from '../ui/button';
 import PrintableResult from '../PrintableResult';
-import Watermark from '../ui/Watermark';
 
 const MunicipalCalculator = () => {
   const [formData, setFormData] = useState({
@@ -63,7 +62,12 @@ const MunicipalCalculator = () => {
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
       <div className="relative">
-        <Watermark size="large" />
+        {/* Marca de agua */}
+        <div className="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
+          <div className="transform rotate-45 text-6xl font-bold text-gray-300">
+            Abogados Online Ecuador
+          </div>
+        </div>
 
         <div className="relative z-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
@@ -241,7 +245,23 @@ const MunicipalCalculator = () => {
           {resultado && (
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden results-section">
               <PrintableResult resultado={resultado} tipo="municipal" formData={formData} />
-              <Watermark size="large" />
+              {/* Marca de agua para capturas de pantalla */}
+              <div className="absolute inset-0 grid gap-8 opacity-[0.06] pointer-events-none select-none -z-10"
+                   style={{
+                     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                     transform: 'rotate(-45deg)',
+                     transformOrigin: 'center',
+                     marginTop: '-25%',
+                     marginLeft: '-25%',
+                     width: '150%',
+                     height: '150%'
+                   }}>
+                {Array(20).fill('www.abogadosonlineecuador.com').map((text, i) => (
+                  <div key={i} className="text-xl md:text-2xl font-bold text-gray-800 whitespace-nowrap text-center tracking-widest">
+                    {text}
+                  </div>
+                ))}
+              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 Resultados del Cálculo
               </h3>
@@ -341,11 +361,6 @@ const MunicipalCalculator = () => {
               </div>
             </div>
           )}
-
-          <div className="p-8 bg-gray-50 rounded-xl shadow-sm relative overflow-hidden">
-            <Watermark size="medium" />
-            <RequisitosServicio tramiteId={tipoServicio} />
-          </div>
         </div>
       </div>
     </div>
