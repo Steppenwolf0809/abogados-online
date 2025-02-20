@@ -14,6 +14,9 @@ export default defineConfig({
       '@': '/src',
     },
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'lucide-react', 'react-router-dom'],
+  },
   build: {
     outDir: 'dist',
     sourcemap: true,
@@ -22,12 +25,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
+          vendor: ['react', 'react-dom', 'react-router-dom'],
         },
       },
     },
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'lucide-react'],
   },
 });

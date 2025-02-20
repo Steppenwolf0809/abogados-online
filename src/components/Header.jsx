@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = ({ onShowForm }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,7 +14,15 @@ const Header = ({ onShowForm }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   const scrollToSection = (id) => {
+    if (!isHomePage) {
+      window.location.href = `/#${id}`;
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
       const headerOffset = 100;
@@ -25,21 +33,8 @@ const Header = ({ onShowForm }) => {
         top: offsetPosition,
         behavior: 'smooth'
       });
-
-      // Ensure mobile menu is closed after clicking
-      setIsMobileMenuOpen(false);
-
-      // Add a small delay to handle any dynamic content loading
-      setTimeout(() => {
-        const finalPosition = element.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-        if (Math.abs(window.pageYOffset - finalPosition) > 10) {
-          window.scrollTo({
-            top: finalPosition,
-            behavior: 'smooth'
-          });
-        }
-      }, 100);
     }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -51,12 +46,13 @@ const Header = ({ onShowForm }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <a 
-            href="/" 
+          <Link 
+            to="/" 
             className="flex-shrink-0 transition-transform duration-500 hover:opacity-90"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+            onClick={() => {
+              if (isHomePage) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
             }}
           >
             <img
@@ -71,7 +67,7 @@ const Header = ({ onShowForm }) => {
                   : 'h-16 w-auto'
               }`}
             />
-          </a>
+          </Link>
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
