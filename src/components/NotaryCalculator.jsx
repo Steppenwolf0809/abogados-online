@@ -347,10 +347,21 @@ const NotaryCalculator = () => {
           {resultado && (
             <div className="p-8 bg-gray-50 rounded-xl shadow-sm relative overflow-hidden">
               {/* Marca de agua para capturas de pantalla */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none select-none">
-                <div className="transform -rotate-45 text-4xl md:text-6xl font-bold text-gray-900 whitespace-nowrap">
-                  www.abogadosonlineecuador.com
-                </div>
+              <div className="absolute inset-0 grid gap-2 opacity-[0.04] pointer-events-none select-none"
+                   style={{
+                     gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
+                     transform: 'rotate(-45deg)',
+                     transformOrigin: 'center',
+                     marginTop: '-50%',
+                     marginLeft: '-50%',
+                     width: '200%',
+                     height: '200%'
+                   }}>
+                {Array(80).fill('abogadosonlineecuador.com').map((text, i) => (
+                  <div key={i} className="text-xs font-bold text-gray-800 whitespace-nowrap text-center">
+                    {text}
+                  </div>
+                ))}
               </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-6">Resultado</h3>
               <div className="space-y-3">
@@ -376,9 +387,9 @@ const NotaryCalculator = () => {
 
             <div className="p-8 bg-gray-50 rounded-xl shadow-sm relative overflow-hidden">
               {/* Marca de agua para capturas de pantalla */}
-              <div className="absolute inset-0 grid gap-4 opacity-[0.03] pointer-events-none select-none"
+              <div className="absolute inset-0 grid gap-2 opacity-[0.04] pointer-events-none select-none"
                    style={{
-                     gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+                     gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
                      transform: 'rotate(-45deg)',
                      transformOrigin: 'center',
                      marginTop: '-50%',
@@ -386,8 +397,8 @@ const NotaryCalculator = () => {
                      width: '200%',
                      height: '200%'
                    }}>
-                {Array(40).fill('abogadosonlineecuador.com').map((text, i) => (
-                  <div key={i} className="text-sm font-bold text-gray-900 whitespace-nowrap">
+                {Array(80).fill('abogadosonlineecuador.com').map((text, i) => (
+                  <div key={i} className="text-xs font-bold text-gray-800 whitespace-nowrap text-center">
                     {text}
                   </div>
                 ))}

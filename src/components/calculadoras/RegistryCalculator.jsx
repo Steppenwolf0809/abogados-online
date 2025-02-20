@@ -148,9 +148,9 @@ const RegistryCalculator = () => {
           {resultado && (
             <div className="mt-8 bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden">
               {/* Marca de agua para capturas de pantalla */}
-              <div className="absolute inset-0 grid gap-4 opacity-[0.03] pointer-events-none select-none"
+              <div className="absolute inset-0 grid gap-2 opacity-[0.04] pointer-events-none select-none"
                    style={{
-                     gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+                     gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
                      transform: 'rotate(-45deg)',
                      transformOrigin: 'center',
                      marginTop: '-50%',
@@ -158,8 +158,8 @@ const RegistryCalculator = () => {
                      width: '200%',
                      height: '200%'
                    }}>
-                {Array(40).fill('abogadosonlineecuador.com').map((text, i) => (
-                  <div key={i} className="text-sm font-bold text-gray-900 whitespace-nowrap">
+                {Array(80).fill('abogadosonlineecuador.com').map((text, i) => (
+                  <div key={i} className="text-xs font-bold text-gray-800 whitespace-nowrap text-center">
                     {text}
                   </div>
                 ))}
