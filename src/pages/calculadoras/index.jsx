@@ -51,40 +51,53 @@ const CalculadorasPage = () => {
           </div>
 
           {/* SEO Content */}
-          <div className="mt-16 max-w-4xl mx-auto prose prose-blue">
-            <h2>Calculadoras para Trámites Inmobiliarios en Ecuador</h2>
-            <p>
-              Nuestras calculadoras en línea te ayudan a estimar los costos asociados con trámites inmobiliarios en Ecuador. 
-              Desde tasas notariales hasta impuestos municipales, te proporcionamos herramientas precisas y actualizadas 
-              para planificar tus transacciones.
-            </p>
+          <div className="mt-16 max-w-4xl mx-auto">
+            <div className="bg-white rounded-xl shadow-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Calculadoras para Trámites Inmobiliarios en Ecuador</h2>
+              <div className="prose prose-blue max-w-none">
+                <p className="text-gray-600">
+                  Nuestras calculadoras en línea te ayudan a estimar los costos asociados con trámites inmobiliarios en Ecuador. 
+                  Desde tasas notariales hasta impuestos municipales, te proporcionamos herramientas precisas y actualizadas 
+                  para planificar tus transacciones.
+                </p>
 
-            <h3>¿Por qué usar nuestras calculadoras?</h3>
-            <ul>
-              <li>Cálculos precisos basados en la legislación vigente</li>
-              <li>Interfaz fácil de usar y resultados instantáneos</li>
-              <li>Información detallada sobre cada costo y tarifa</li>
-              <li>Actualizaciones regulares según cambios en la normativa</li>
-            </ul>
+                <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">¿Por qué usar nuestras calculadoras?</h3>
+                <ul className="list-disc pl-6 text-gray-600 space-y-2">
+                  <li>Cálculos precisos basados en la legislación vigente</li>
+                  <li>Interfaz fácil de usar y resultados instantáneos</li>
+                  <li>Información detallada sobre cada costo y tarifa</li>
+                  <li>Actualizaciones regulares según cambios en la normativa</li>
+                </ul>
 
-            <h3>Tipos de Calculadoras Disponibles</h3>
-            <h4>Calculadora Notarial</h4>
-            <p>
-              Calcula los costos notariales para diferentes trámites como escrituras, poderes, 
-              declaraciones juramentadas y más. Incluye el desglose de tarifas según el tipo de trámite.
-            </p>
+                <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">Tipos de Calculadoras Disponibles</h3>
+                
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-lg font-medium text-gray-900 mb-2">Calculadora Notarial</h4>
+                    <p className="text-gray-600">
+                      Calcula los costos notariales para diferentes trámites como escrituras, poderes, 
+                      declaraciones juramentadas y más. Incluye el desglose de tarifas según el tipo de trámite.
+                    </p>
+                  </div>
 
-            <h4>Calculadora de Impuestos Municipales</h4>
-            <p>
-              Estima los impuestos municipales aplicables a transferencias de dominio, incluyendo 
-              alcabalas y plusvalía. Considera factores como tiempo de tenencia y mejoras realizadas.
-            </p>
+                  <div>
+                    <h4 className="text-lg font-medium text-gray-900 mb-2">Calculadora de Impuestos Municipales</h4>
+                    <p className="text-gray-600">
+                      Estima los impuestos municipales aplicables a transferencias de dominio, incluyendo 
+                      alcabalas y plusvalía. Considera factores como tiempo de tenencia y mejoras realizadas.
+                    </p>
+                  </div>
 
-            <h4>Calculadora de Registro de la Propiedad</h4>
-            <p>
-              Calcula los aranceles de inscripción del Registro de la Propiedad para tus trámites. 
-              Incluye descuentos para tercera edad y muestra una tabla detallada de rangos y tarifas.
-            </p>
+                  <div>
+                    <h4 className="text-lg font-medium text-gray-900 mb-2">Calculadora de Registro de la Propiedad</h4>
+                    <p className="text-gray-600">
+                      Calcula los aranceles de inscripción del Registro de la Propiedad para tus trámites. 
+                      Incluye descuentos para tercera edad y muestra una tabla detallada de rangos y tarifas.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

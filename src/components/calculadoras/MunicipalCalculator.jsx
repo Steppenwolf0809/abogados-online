@@ -258,7 +258,7 @@ const MunicipalCalculator = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between py-1 border-b">
                     <span className="text-gray-600">Utilidad Bruta:</span>
-                    <span className="font-medium">${resultado.utilidad.utilidadBruta}</span>
+                    <span className="font-medium">${resultado.utilidad.utilidadBruta.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b">
                     <span className="text-gray-600">Años Transcurridos:</span>
@@ -266,11 +266,11 @@ const MunicipalCalculator = () => {
                   </div>
                   <div className="flex justify-between py-1 border-b">
                     <span className="text-gray-600">Deducción por Tiempo:</span>
-                    <span className="font-medium">${resultado.utilidad.deduccionTiempo}</span>
+                    <span className="font-medium">${resultado.utilidad.deduccionTiempo.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b">
                     <span className="text-gray-600">Base Imponible:</span>
-                    <span className="font-medium">${resultado.utilidad.baseImponible}</span>
+                    <span className="font-medium">${resultado.utilidad.baseImponible.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b">
                     <span className="text-gray-600">Tarifa Aplicada:</span>
@@ -278,7 +278,7 @@ const MunicipalCalculator = () => {
                   </div>
                   <div className="flex justify-between py-1 border-b font-semibold">
                     <span className="text-gray-800">Impuesto a la Utilidad:</span>
-                    <span className="text-blue-600">${resultado.utilidad.impuesto}</span>
+                    <span className="text-blue-600">${resultado.utilidad.impuesto.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -289,7 +289,7 @@ const MunicipalCalculator = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between py-1 border-b">
                     <span className="text-gray-600">Base Imponible:</span>
-                    <span className="font-medium">${resultado.alcabala.baseImponible}</span>
+                    <span className="font-medium">${resultado.alcabala.baseImponible.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b">
                     <span className="text-gray-600">Rebaja Aplicada:</span>
@@ -297,16 +297,31 @@ const MunicipalCalculator = () => {
                   </div>
                   <div className="flex justify-between py-1 border-b font-semibold">
                     <span className="text-gray-800">Impuesto de Alcabala:</span>
-                    <span className="text-blue-600">${resultado.alcabala.impuesto}</span>
+                    <span className="text-blue-600">${resultado.alcabala.impuesto.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Total */}
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold text-gray-900">Total a Pagar:</span>
-                  <span className="text-2xl font-bold text-blue-600">${resultado.total}</span>
+              {/* Totales Separados */}
+              <div className="space-y-4">
+                <div className="bg-yellow-50 p-4 rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <span className="text-lg font-bold text-gray-900">Impuesto a la Utilidad</span>
+                      <p className="text-sm text-gray-600">(Paga el vendedor)</p>
+                    </div>
+                    <span className="text-2xl font-bold text-blue-600">${resultado.utilidad.impuesto.toFixed(2)}</span>
+                  </div>
+                </div>
+
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <span className="text-lg font-bold text-gray-900">Impuesto de Alcabala</span>
+                      <p className="text-sm text-gray-600">(Paga el comprador)</p>
+                    </div>
+                    <span className="text-2xl font-bold text-blue-600">${resultado.alcabala.impuesto.toFixed(2)}</span>
+                  </div>
                 </div>
               </div>
 
@@ -315,6 +330,7 @@ const MunicipalCalculator = () => {
                 <p>* Los valores son referenciales y están sujetos a verificación municipal.</p>
                 <p>* El impuesto de alcabala se calcula sobre el mayor valor entre el contractual y el avalúo.</p>
                 <p>* Algunas transferencias pueden estar exentas de alcabala según el Art. 527 del COOTAD.</p>
+                <p>* El impuesto a la utilidad lo paga el vendedor y el alcabala lo paga el comprador.</p>
               </div>
             </div>
           )}
