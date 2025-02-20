@@ -120,3 +120,47 @@
 .calculator-numbers {
   font-variant-numeric: tabular-nums;
 }
+
+/* Estilos de impresión */
+@media print {
+  /* Ocultar elementos que no queremos imprimir */
+  button:not(.print-button),
+  select,
+  input,
+  .bg-pattern,
+  .animate-gradient,
+  .animate-float,
+  .animate-float-delayed {
+    display: none !important;
+  }
+
+  /* Asegurar que el contenido se imprima en blanco y negro */
+  body {
+    color: black;
+    background: white;
+  }
+
+  /* Ajustar la marca de agua para impresión */
+  .watermark {
+    opacity: 0.1 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Asegurar que los resultados se muestren claramente */
+  .calculator-numbers {
+    color: black !important;
+    font-weight: bold !important;
+  }
+
+  /* Ajustar márgenes y tamaño de página */
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  /* Asegurar que los resultados no se corten entre páginas */
+  .results-section {
+    page-break-inside: avoid;
+  }
+}

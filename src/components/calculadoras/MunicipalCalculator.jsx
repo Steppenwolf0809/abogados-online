@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { calcularImpuestos } from './utils/municipalCalculations.js';
 import Button from '../ui/button';
+import PrintHeader from '../PrintHeader';
 
 const MunicipalCalculator = () => {
   const [formData, setFormData] = useState({
@@ -242,11 +243,12 @@ const MunicipalCalculator = () => {
           </Button>
 
           {resultado && (
-            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden">
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden results-section">
+              <PrintHeader />
               {/* Marca de agua para capturas de pantalla */}
-              <div className="absolute inset-0 grid gap-4 opacity-[0.04] pointer-events-none select-none"
+              <div className="absolute inset-0 grid gap-6 opacity-[0.06] pointer-events-none select-none"
                    style={{
-                     gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+                     gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
                      transform: 'rotate(-45deg)',
                      transformOrigin: 'center',
                      marginTop: '-50%',
@@ -254,8 +256,8 @@ const MunicipalCalculator = () => {
                      width: '200%',
                      height: '200%'
                    }}>
-                {Array(60).fill('www.abogadosonlineecuador.com').map((text, i) => (
-                  <div key={i} className="text-sm font-bold text-gray-800 whitespace-nowrap text-center tracking-wider">
+                {Array(40).fill('www.abogadosonlineecuador.com').map((text, i) => (
+                  <div key={i} className="text-xl md:text-2xl font-bold text-gray-800 whitespace-nowrap text-center tracking-widest">
                     {text}
                   </div>
                 ))}
@@ -337,8 +339,21 @@ const MunicipalCalculator = () => {
                 </div>
               </div>
 
+              {/* Botón de Imprimir */}
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={() => window.print()}
+                  className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clipRule="evenodd"/>
+                  </svg>
+                  Imprimir Resultados
+                </button>
+              </div>
+
               {/* Notas y Advertencias */}
-              <div className="mt-6 text-sm text-gray-500 space-y-2">
+              <div className="mt-4 text-sm text-gray-500 space-y-2">
                 <p>* Los valores son referenciales y están sujetos a verificación municipal.</p>
                 <p>* El impuesto de alcabala se calcula sobre el mayor valor entre el contractual y el avalúo.</p>
                 <p>* Algunas transferencias pueden estar exentas de alcabala según el Art. 527 del COOTAD.</p>
