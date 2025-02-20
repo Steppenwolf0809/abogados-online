@@ -3,7 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import ServicesSection from './components/ServicesSection';
-import NotaryCalculator from './components/NotaryCalculator';
+import TestimonialsSection from './components/testimonials/TestimonialsSection';
 import FAQ from './components/FAQ';
 import WhatsAppButton from './components/WhatsAppButton';
 import ScrollProgress from './components/ScrollProgress';
@@ -20,17 +20,12 @@ function App() {
       <main className="min-h-screen bg-white pt-16">
         <HeroSection onShowForm={() => setShowForm(true)} />
         
-        <section id="calculadora" className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4 max-w-5xl">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              Calculadora de Costos Notariales
-            </h2>
-            <NotaryCalculator />
-          </div>
-        </section>
-
         <section id="servicios" className="py-16 bg-white">
           <ServicesSection />
+        </section>
+
+        <section id="testimonios" className="py-16 bg-gray-50">
+          <TestimonialsSection />
         </section>
 
         <section id="faq" className="py-16 bg-gray-50">
@@ -71,7 +66,7 @@ function App() {
             <div>
               <ul className="flex flex-wrap justify-center md:justify-start gap-6">
                 <li><a href="#servicios" className="hover:text-accent transition-colors">Servicios</a></li>
-                <li><a href="#calculadora" className="hover:text-accent transition-colors">Calculadora</a></li>
+                <li><a href="/calculadoras" className="hover:text-accent transition-colors">Calculadoras</a></li>
                 <li><a href="#faq" className="hover:text-accent transition-colors">Preguntas Frecuentes</a></li>
               </ul>
             </div>

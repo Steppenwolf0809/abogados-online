@@ -74,18 +74,22 @@ const Header = ({ onShowForm }) => {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {['servicios', 'calculadora', 'contacto'].map((section) => (
+            {[
+              { id: 'servicios', name: 'Servicios', type: 'scroll' },
+              { id: 'calculadoras', name: 'Calculadoras', type: 'link', href: '/calculadoras' },
+              { id: 'contacto', name: 'Contacto', type: 'scroll' }
+            ].map((item) => (
               <button
-                key={section}
-                onClick={() => scrollToSection(section)}
+                key={item.id}
+                onClick={() => item.type === 'scroll' ? scrollToSection(item.id) : window.location.href = item.href}
                 className={`relative font-medium ${
                   isScrolled ? 'text-gray-800' : 'text-white'
-                } hover:text-blue-600 transition-colors duration-300 
+                } ${item.type === 'link' ? 'text-blue-600' : ''} hover:text-blue-600 transition-colors duration-300 
                 after:content-[''] after:absolute after:left-0 after:bottom-[-4px] 
                 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all 
                 after:duration-300 hover:after:w-full`}
               >
-                {section.charAt(0).toUpperCase() + section.slice(1)}
+                {item.name}
               </button>
             ))}
             <button
@@ -134,17 +138,28 @@ const Header = ({ onShowForm }) => {
           }`}
         >
           <div className="py-3 space-y-2">
-            {['servicios', 'calculadora', 'contacto'].map((section) => (
+            {[
+              { id: 'servicios', name: 'Servicios', type: 'scroll' },
+              { id: 'calculadoras', name: 'Calculadoras', type: 'link', href: '/calculadoras' },
+              { id: 'contacto', name: 'Contacto', type: 'scroll' }
+            ].map((item) => (
               <button
-                key={section}
-                onClick={() => scrollToSection(section)}
+                key={item.id}
+                onClick={() => {
+                  if (item.type === 'scroll') {
+                    scrollToSection(item.id);
+                  } else {
+                    window.location.href = item.href;
+                  }
+                  setIsMobileMenuOpen(false);
+                }}
                 className={`block w-full text-left px-4 py-2.5 font-medium transition-colors duration-300 ${
                   isScrolled 
                     ? 'text-gray-800 hover:bg-gray-50 hover:text-blue-600' 
                     : 'text-white hover:bg-white/10'
                 }`}
               >
-                {section.charAt(0).toUpperCase() + section.slice(1)}
+                {item.name}
               </button>
             ))}
             <button
