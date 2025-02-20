@@ -36,8 +36,8 @@ const RegistryCalculator = () => {
     <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
       <div className="relative">
         {/* Marca de agua */}
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none flex items-center justify-center z-0">
-          <div className="transform rotate-45 text-6xl font-bold text-gray-800">
+        <div className="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
+          <div className="transform rotate-45 text-6xl font-bold text-gray-300">
             Registro de la Propiedad
           </div>
         </div>
@@ -157,7 +157,7 @@ const RegistryCalculator = () => {
                 }} 
               />
               {/* Marca de agua para capturas de pantalla */}
-              <div className="absolute inset-0 grid gap-8 opacity-[0.04] pointer-events-none select-none z-0"
+              <div className="absolute inset-0 grid gap-8 opacity-[0.06] pointer-events-none select-none -z-10"
                    style={{
                      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
                      transform: 'rotate(-45deg)',
