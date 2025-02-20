@@ -4,25 +4,25 @@ const Watermark = ({ text = 'www.abogadosonlineecuador.com', size = 'large' }) =
   const sizeClasses = {
     small: {
       grid: 'gap-4',
-      text: 'text-sm',
+      fontSize: 'text-sm',
       columns: 'minmax(150px, 1fr)',
       count: 40
     },
     medium: {
       grid: 'gap-6',
-      text: 'text-lg md:text-xl',
+      fontSize: 'text-lg md:text-xl',
       columns: 'minmax(200px, 1fr)',
       count: 30
     },
     large: {
       grid: 'gap-8',
-      text: 'text-xl md:text-2xl',
+      fontSize: 'text-xl md:text-2xl',
       columns: 'minmax(300px, 1fr)',
       count: 20
     }
   };
 
-  const { grid, text, columns, count } = sizeClasses[size];
+  const { grid, fontSize, columns, count } = sizeClasses[size];
 
   return (
     <div 
@@ -38,12 +38,12 @@ const Watermark = ({ text = 'www.abogadosonlineecuador.com', size = 'large' }) =
         height: '150%'
       }}
     >
-      {Array(count).fill(text).map((text, i) => (
+      {Array(count).fill(text).map((item, i) => (
         <div 
           key={i} 
-          className={`${text} font-bold text-gray-800 whitespace-nowrap text-center tracking-widest print:!text-black`}
+          className={`${fontSize} font-bold text-gray-800 whitespace-nowrap text-center tracking-widest print:!text-black`}
         >
-          {text}
+          {item}
         </div>
       ))}
     </div>
