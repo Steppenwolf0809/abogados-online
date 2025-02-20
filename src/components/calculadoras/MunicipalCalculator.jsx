@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { calcularImpuestos } from './utils/municipalCalculations.js';
 import Button from '../ui/button';
-import PrintHeader from '../PrintHeader';
+import PrintableResult from '../PrintableResult';
 
 const MunicipalCalculator = () => {
   const [formData, setFormData] = useState({
@@ -244,7 +244,7 @@ const MunicipalCalculator = () => {
 
           {resultado && (
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden results-section">
-              <PrintHeader />
+              <PrintableResult resultado={resultado} tipo="municipal" />
               {/* Marca de agua para capturas de pantalla */}
               <div className="absolute inset-0 grid gap-8 opacity-[0.06] pointer-events-none select-none -z-10"
                    style={{

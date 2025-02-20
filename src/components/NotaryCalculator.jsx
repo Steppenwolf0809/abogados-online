@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import tarifas from '../data/tarifas.json';
 import RequisitosServicio from './RequisitosServicio';
-import PrintHeader from './PrintHeader';
+import PrintableResult from './PrintableResult';
 
 const TIPOS_SERVICIO = {
   TRANSFERENCIA: 'transferenciaDominio',
@@ -347,7 +347,7 @@ const NotaryCalculator = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
           {resultado && (
             <div className="p-8 bg-gray-50 rounded-xl shadow-sm relative overflow-hidden results-section">
-              <PrintHeader />
+              <PrintableResult resultado={resultado} tipo="notarial" />
               {/* Marca de agua para capturas de pantalla */}
               <div className="absolute inset-0 grid gap-8 opacity-[0.06] pointer-events-none select-none -z-10"
                    style={{
