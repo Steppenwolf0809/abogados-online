@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { calcularImpuestos } from './utils/municipalCalculations.js';
+import { calcularImpuestos } from '../../utils/municipalCalculations';
 import Button from '../ui/button';
 
 const MunicipalCalculator = () => {
@@ -37,7 +37,7 @@ const MunicipalCalculator = () => {
       return false;
     }
     if (!formData.valorTransferencia || !formData.valorAdquisicion || !formData.avaluoCatastral) {
-      setError('Los valores de transferencia, adquisición y avalúo catastral son obligatorios');
+      setError('Todos los valores monetarios son obligatorios');
       return false;
     }
     return true;
@@ -248,9 +248,7 @@ const MunicipalCalculator = () => {
 
           {resultado && (
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                Resultados del Cálculo
-              </h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">Resultados del Cálculo</h3>
               
               {/* Sección Utilidad */}
               <div className="mb-6">

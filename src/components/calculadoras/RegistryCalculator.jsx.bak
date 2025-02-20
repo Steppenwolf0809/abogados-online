@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
+import { RANGOS, calcularArancelFinal, formatearMoneda } from '../../utils/registryCalculations';
 import Button from '../ui/button';
-import { calcularArancelFinal, RANGOS } from './utils/registryCalculations.js';
 
 const RegistryCalculator = () => {
   const [formData, setFormData] = useState({
     valorContrato: '',
     terceraEdad: false
   });
-
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState('');
 
@@ -20,15 +19,32 @@ const RegistryCalculator = () => {
     setError('');
   };
 
-  const calcular = () => {
+  const validarFormulario = () => {
     const valor = parseFloat(formData.valorContrato);
     if (!valor || valor <= 0) {
       setError('El valor debe ser mayor a $0.01');
-      return;
+      return false;
     }
+    return true;
+  };
 
-    const resultado = calcularArancelFinal(valor, formData.terceraEdad);
+  const calcular = () => {
+    if (!validarFormulario()) return;
+
+    const resultado = calcularArancelFinal(
+      parseFloat(formData.valorContrato),
+      formData.terceraEdad
+    );
     setResultado(resultado);
+  };
+
+  const limpiar = () => {
+    setFormData({
+      valorContrato: '',
+      terceraEdad: false
+    });
+    setResultado(null);
+    setError('');
   };
 
   return (
@@ -37,7 +53,7 @@ const RegistryCalculator = () => {
         {/* Marca de agua */}
         <div className="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
           <div className="transform rotate-45 text-6xl font-bold text-gray-300">
-            Registro de la Propiedad
+            Quito Renace
           </div>
         </div>
 
@@ -93,12 +109,20 @@ const RegistryCalculator = () => {
                 </div>
               )}
 
-              <Button
-                onClick={calcular}
-                className="w-full bg-blue-600 text-white hover:bg-blue-700 py-3 rounded-lg mb-8"
-              >
-                Calcular Arancel
-              </Button>
+              <div className="flex space-x-4">
+                <Button
+                  onClick={calcular}
+                  className="flex-1 bg-blue-600 text-white hover:bg-blue-700 py-2 rounded-lg"
+                >
+                  Calcular
+                </Button>
+                <Button
+                  onClick={limpiar}
+                  className="flex-1 bg-gray-100 text-gray-700 hover:bg-gray-200 py-2 rounded-lg"
+                >
+                  Limpiar
+                </Button>
+              </div>
             </div>
 
             {/* Tabla de Rangos */}
@@ -126,15 +150,15 @@ const RegistryCalculator = () => {
                         }`}
                       >
                         <td className="px-4 py-2 text-sm text-gray-700">
-                          ${rango.min.toFixed(2)}
+                          {formatearMoneda(rango.min)}
                         </td>
                         <td className="px-4 py-2 text-sm text-gray-700">
-                          {rango.max === Infinity ? 'En adelante' : `$${rango.max.toFixed(2)}`}
+                          {rango.max === Infinity ? 'En adelante' : formatearMoneda(rango.max)}
                         </td>
                         <td className="px-4 py-2 text-sm text-gray-700">
                           {index === RANGOS.length - 1 
                             ? '$100.00 + 0.5% del exceso de $10,000'
-                            : `$${rango.arancel.toFixed(2)}`
+                            : formatearMoneda(rango.arancel)
                           }
                         </td>
                       </tr>
@@ -155,7 +179,7 @@ const RegistryCalculator = () => {
               <div className="space-y-3">
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-gray-600">Valor del contrato:</span>
-                  <span className="font-medium">${resultado.valorContrato.toFixed(2)}</span>
+                  <span className="font-medium">{formatearMoneda(resultado.valorContrato)}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-gray-600">Rango aplicado:</span>
@@ -163,20 +187,27 @@ const RegistryCalculator = () => {
                 </div>
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-gray-600">Arancel base:</span>
-                  <span className="font-medium">${resultado.arancelBase.toFixed(2)}</span>
+                  <span className="font-medium">{formatearMoneda(resultado.arancelBase)}</span>
                 </div>
 
-                {resultado.descuentoTerceraEdad > 0 && (
-                  <div className="flex justify-between py-2 border-b text-blue-600">
-                    <span>Descuento Tercera Edad (50%):</span>
-                    <span className="font-medium">-${resultado.descuentoTerceraEdad.toFixed(2)}</span>
+                {resultado.exceso && (
+                  <div className="flex justify-between py-2 border-b">
+                    <span className="text-gray-600">Exceso calculado (0.5%):</span>
+                    <span className="font-medium">{formatearMoneda(resultado.exceso * 0.005)}</span>
                   </div>
                 )}
+
+                {resultado.descuentos.map((descuento, index) => (
+                  <div key={index} className="flex justify-between py-2 border-b text-blue-600">
+                    <span>Descuento {descuento.tipo}:</span>
+                    <span className="font-medium">-{formatearMoneda(descuento.valor)}</span>
+                  </div>
+                ))}
 
                 <div className="flex justify-between py-3 bg-blue-50 px-4 rounded-lg mt-4">
                   <span className="font-bold text-gray-900">Arancel final a pagar:</span>
                   <span className="font-bold text-blue-600 text-xl">
-                    ${resultado.arancelFinal.toFixed(2)}
+                    {formatearMoneda(resultado.arancelFinal)}
                   </span>
                 </div>
 
@@ -186,15 +217,15 @@ const RegistryCalculator = () => {
                   </div>
                 )}
               </div>
-
-              {/* Notas y Advertencias */}
-              <div className="mt-6 text-sm text-gray-500 space-y-2">
-                <p>* Los valores son referenciales y están sujetos a verificación en el Registro de la Propiedad.</p>
-                <p>* Para valores superiores a $40,000.01 se aplica una tarifa base más 0.5% sobre el exceso de $10,000.</p>
-                <p>* El arancel máximo a pagar es de $500.00.</p>
-              </div>
             </div>
           )}
+
+          {/* Notas Informativas */}
+          <div className="mt-8 text-sm text-gray-500 space-y-2">
+            <p>* Los valores son referenciales y están sujetos a verificación en el Registro de la Propiedad.</p>
+            <p>* Para valores superiores a $40,000.01 se aplica una tarifa base más 0.5% sobre el exceso de $10,000.</p>
+            <p>* El arancel máximo a pagar es de $500.00.</p>
+          </div>
         </div>
       </div>
     </div>
