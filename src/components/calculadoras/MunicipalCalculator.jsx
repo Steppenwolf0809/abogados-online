@@ -246,17 +246,17 @@ const MunicipalCalculator = () => {
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden results-section">
               <PrintHeader />
               {/* Marca de agua para capturas de pantalla */}
-              <div className="absolute inset-0 grid gap-6 opacity-[0.06] pointer-events-none select-none"
+              <div className="absolute inset-0 grid gap-8 opacity-[0.06] pointer-events-none select-none -z-10"
                    style={{
-                     gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+                     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
                      transform: 'rotate(-45deg)',
                      transformOrigin: 'center',
-                     marginTop: '-50%',
-                     marginLeft: '-50%',
-                     width: '200%',
-                     height: '200%'
+                     marginTop: '-25%',
+                     marginLeft: '-25%',
+                     width: '150%',
+                     height: '150%'
                    }}>
-                {Array(40).fill('www.abogadosonlineecuador.com').map((text, i) => (
+                {Array(20).fill('www.abogadosonlineecuador.com').map((text, i) => (
                   <div key={i} className="text-xl md:text-2xl font-bold text-gray-800 whitespace-nowrap text-center tracking-widest">
                     {text}
                   </div>
