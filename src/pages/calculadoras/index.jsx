@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NotaryCalculator from '../../components/NotaryCalculator';
-import MunicipalCalculator from '../../components/NotaryCalculator';
-import RegistryCalculator from '../../components/NotaryCalculator';
+import MunicipalCalculator from '../../components/calculadoras/MunicipalCalculator';
+import RegistryCalculator from '../../components/calculadoras/RegistryCalculator';
 import Layout from '../../components/Layout';
 
 const CalculadorasPage = () => {

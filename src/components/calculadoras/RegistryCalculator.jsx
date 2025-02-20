@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { RANGOS, calcularArancelFinal, formatearMoneda } from '../../utils/registryCalculations';
 import Button from '../ui/button';
 
 const RegistryCalculator = () => {
@@ -7,8 +6,21 @@ const RegistryCalculator = () => {
     valorContrato: '',
     terceraEdad: false
   });
+
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState('');
+
+  const RANGOS = [
+    { min: 0.01, max: 3000.00, arancel: 22.00 },
+    { min: 3000.01, max: 6600.00, arancel: 30.00 },
+    { min: 6600.01, max: 10000.00, arancel: 35.00 },
+    { min: 10000.01, max: 15000.00, arancel: 40.00 },
+    { min: 15000.01, max: 25000.00, arancel: 50.00 },
+    { min: 25000.01, max: 30000.00, arancel: 100.00 },
+    { min: 30000.01, max: 35000.00, arancel: 160.00 },
+    { min: 35000.01, max: 40000.00, arancel: 200.00 },
+    { min: 40000.01, max: Infinity, baseArancel: 100.00, porcentajeExceso: 0.005 }
+  ];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -19,32 +31,49 @@ const RegistryCalculator = () => {
     setError('');
   };
 
-  const validarFormulario = () => {
-    const valor = parseFloat(formData.valorContrato);
-    if (!valor || valor <= 0) {
-      setError('El valor debe ser mayor a $0.01');
-      return false;
+  const calcularArancel = (valorContrato) => {
+    if (valorContrato <= 0) return { arancel: 0, rango: null };
+
+    const rango = RANGOS.find(r => valorContrato >= r.min && valorContrato <= r.max);
+    let arancel;
+    
+    if (valorContrato > 40000.01) {
+      const exceso = valorContrato - 10000.00;
+      arancel = 100.00 + (exceso * 0.005); // 0.5%
+    } else {
+      arancel = rango.arancel;
     }
-    return true;
+
+    return {
+      arancel: Math.min(arancel, 500.00),
+      rango: RANGOS.indexOf(rango) + 1,
+      excedeMaximo: arancel > 500.00
+    };
   };
 
   const calcular = () => {
-    if (!validarFormulario()) return;
+    const valor = parseFloat(formData.valorContrato);
+    if (!valor || valor <= 0) {
+      setError('El valor debe ser mayor a $0.01');
+      return;
+    }
 
-    const resultado = calcularArancelFinal(
-      parseFloat(formData.valorContrato),
-      formData.terceraEdad
-    );
-    setResultado(resultado);
-  };
+    const { arancel, rango, excedeMaximo } = calcularArancel(valor);
+    let arancelFinal = arancel;
 
-  const limpiar = () => {
-    setFormData({
-      valorContrato: '',
-      terceraEdad: false
+    // Aplicar descuento tercera edad
+    if (formData.terceraEdad) {
+      arancelFinal = arancelFinal * 0.5; // 50% de descuento
+    }
+
+    setResultado({
+      valorContrato: valor,
+      rango,
+      arancelBase: arancel,
+      descuentoTerceraEdad: formData.terceraEdad ? arancel * 0.5 : 0,
+      arancelFinal,
+      excedeMaximo
     });
-    setResultado(null);
-    setError('');
   };
 
   return (
@@ -53,7 +82,7 @@ const RegistryCalculator = () => {
         {/* Marca de agua */}
         <div className="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
           <div className="transform rotate-45 text-6xl font-bold text-gray-300">
-            Quito Renace
+            Registro de la Propiedad
           </div>
         </div>
 
@@ -109,20 +138,12 @@ const RegistryCalculator = () => {
                 </div>
               )}
 
-              <div className="flex space-x-4">
-                <Button
-                  onClick={calcular}
-                  className="flex-1 bg-blue-600 text-white hover:bg-blue-700 py-2 rounded-lg"
-                >
-                  Calcular
-                </Button>
-                <Button
-                  onClick={limpiar}
-                  className="flex-1 bg-gray-100 text-gray-700 hover:bg-gray-200 py-2 rounded-lg"
-                >
-                  Limpiar
-                </Button>
-              </div>
+              <Button
+                onClick={calcular}
+                className="w-full bg-blue-600 text-white hover:bg-blue-700 py-3 rounded-lg mb-8"
+              >
+                Calcular Arancel
+              </Button>
             </div>
 
             {/* Tabla de Rangos */}
@@ -150,15 +171,15 @@ const RegistryCalculator = () => {
                         }`}
                       >
                         <td className="px-4 py-2 text-sm text-gray-700">
-                          {formatearMoneda(rango.min)}
+                          ${rango.min.toFixed(2)}
                         </td>
                         <td className="px-4 py-2 text-sm text-gray-700">
-                          {rango.max === Infinity ? 'En adelante' : formatearMoneda(rango.max)}
+                          {rango.max === Infinity ? 'En adelante' : `$${rango.max.toFixed(2)}`}
                         </td>
                         <td className="px-4 py-2 text-sm text-gray-700">
                           {index === RANGOS.length - 1 
                             ? '$100.00 + 0.5% del exceso de $10,000'
-                            : formatearMoneda(rango.arancel)
+                            : `$${rango.arancel.toFixed(2)}`
                           }
                         </td>
                       </tr>
@@ -179,7 +200,7 @@ const RegistryCalculator = () => {
               <div className="space-y-3">
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-gray-600">Valor del contrato:</span>
-                  <span className="font-medium">{formatearMoneda(resultado.valorContrato)}</span>
+                  <span className="font-medium">${resultado.valorContrato.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-gray-600">Rango aplicado:</span>
@@ -187,27 +208,20 @@ const RegistryCalculator = () => {
                 </div>
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-gray-600">Arancel base:</span>
-                  <span className="font-medium">{formatearMoneda(resultado.arancelBase)}</span>
+                  <span className="font-medium">${resultado.arancelBase.toFixed(2)}</span>
                 </div>
 
-                {resultado.exceso && (
-                  <div className="flex justify-between py-2 border-b">
-                    <span className="text-gray-600">Exceso calculado (0.5%):</span>
-                    <span className="font-medium">{formatearMoneda(resultado.exceso * 0.005)}</span>
+                {resultado.descuentoTerceraEdad > 0 && (
+                  <div className="flex justify-between py-2 border-b text-blue-600">
+                    <span>Descuento Tercera Edad (50%):</span>
+                    <span className="font-medium">-${resultado.descuentoTerceraEdad.toFixed(2)}</span>
                   </div>
                 )}
-
-                {resultado.descuentos.map((descuento, index) => (
-                  <div key={index} className="flex justify-between py-2 border-b text-blue-600">
-                    <span>Descuento {descuento.tipo}:</span>
-                    <span className="font-medium">-{formatearMoneda(descuento.valor)}</span>
-                  </div>
-                ))}
 
                 <div className="flex justify-between py-3 bg-blue-50 px-4 rounded-lg mt-4">
                   <span className="font-bold text-gray-900">Arancel final a pagar:</span>
                   <span className="font-bold text-blue-600 text-xl">
-                    {formatearMoneda(resultado.arancelFinal)}
+                    ${resultado.arancelFinal.toFixed(2)}
                   </span>
                 </div>
 
@@ -217,15 +231,15 @@ const RegistryCalculator = () => {
                   </div>
                 )}
               </div>
+
+              {/* Notas y Advertencias */}
+              <div className="mt-6 text-sm text-gray-500 space-y-2">
+                <p>* Los valores son referenciales y están sujetos a verificación en el Registro de la Propiedad.</p>
+                <p>* Para valores superiores a $40,000.01 se aplica una tarifa base más 0.5% sobre el exceso de $10,000.</p>
+                <p>* El arancel máximo a pagar es de $500.00.</p>
+              </div>
             </div>
           )}
-
-          {/* Notas Informativas */}
-          <div className="mt-8 text-sm text-gray-500 space-y-2">
-            <p>* Los valores son referenciales y están sujetos a verificación en el Registro de la Propiedad.</p>
-            <p>* Para valores superiores a $40,000.01 se aplica una tarifa base más 0.5% sobre el exceso de $10,000.</p>
-            <p>* El arancel máximo a pagar es de $500.00.</p>
-          </div>
         </div>
       </div>
     </div>
