@@ -214,11 +214,10 @@ const NotaryCalculator = () => {
             <label className="block text-base font-medium text-gray-700 mb-3">
               {tipoServicio === TIPOS_SERVICIO.ARRIENDO ? 'Canon Mensual' : 'Monto'}
             </label>
-            <div className="relative flex items-center">
-              <span className="absolute left-4 text-gray-500 text-lg">$</span>
+            <div>
               <input
                 type="number"
-                className="input-field pl-8"
+                className="input-field"
                 value={monto}
                 onChange={(e) => setMonto(e.target.value)}
                 min="0"
@@ -346,7 +345,13 @@ const NotaryCalculator = () => {
         {/* Resultados y Requisitos */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
           {resultado && (
-            <div className="p-8 bg-gray-50 rounded-xl shadow-sm">
+            <div className="p-8 bg-gray-50 rounded-xl shadow-sm relative overflow-hidden">
+              {/* Marca de agua para capturas de pantalla */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none select-none">
+                <div className="transform -rotate-45 text-4xl md:text-6xl font-bold text-gray-900 whitespace-nowrap">
+                  www.abogadosonlineecuador.com
+                </div>
+              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-6">Resultado</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center py-3 border-b border-gray-200">

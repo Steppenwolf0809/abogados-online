@@ -53,14 +53,13 @@ const RegistryCalculator = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Valor del Contrato/Acto
                 </label>
-                <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-500">$</span>
-                  <input
-                    type="number"
-                    name="valorContrato"
-                    value={formData.valorContrato}
-                    onChange={handleChange}
-                    className="input-field w-full pl-8"
+              <div>
+                <input
+                  type="number"
+                  name="valorContrato"
+                  value={formData.valorContrato}
+                  onChange={handleChange}
+                  className="input-field w-full"
                     placeholder="0.00"
                     min="0.01"
                     step="0.01"
@@ -147,7 +146,13 @@ const RegistryCalculator = () => {
 
           {/* Resultados */}
           {resultado && (
-            <div className="mt-8 bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <div className="mt-8 bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden">
+              {/* Marca de agua para capturas de pantalla */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none select-none">
+                <div className="transform -rotate-45 text-4xl md:text-6xl font-bold text-gray-900 whitespace-nowrap">
+                  www.abogadosonlineecuador.com
+                </div>
+              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">
                 Resultados del Cálculo
               </h3>
