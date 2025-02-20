@@ -148,7 +148,14 @@ const RegistryCalculator = () => {
           {/* Resultados */}
           {resultado && (
             <div className="mt-8 bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden results-section">
-              <PrintableResult resultado={resultado} tipo="registro" />
+              <PrintableResult 
+                resultado={resultado} 
+                tipo="registro" 
+                formData={{
+                  valorContrato: formData.valorContrato,
+                  terceraEdad: formData.terceraEdad
+                }} 
+              />
               {/* Marca de agua para capturas de pantalla */}
               <div className="absolute inset-0 grid gap-8 opacity-[0.06] pointer-events-none select-none -z-10"
                    style={{

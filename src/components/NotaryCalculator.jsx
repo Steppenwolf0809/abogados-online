@@ -347,7 +347,18 @@ const NotaryCalculator = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
           {resultado && (
             <div className="p-8 bg-gray-50 rounded-xl shadow-sm relative overflow-hidden results-section">
-              <PrintableResult resultado={resultado} tipo="notarial" />
+              <PrintableResult 
+                resultado={resultado} 
+                tipo="notarial" 
+                formData={{
+                  tipoServicio: SERVICIOS_INDETERMINADOS[tipoServicio]?.nombre || tipoServicio,
+                  monto: monto,
+                  otorgantes: otorgantes,
+                  numeroFirmas: numeroFirmas,
+                  numeroMenores: numeroMenores,
+                  numeroHojas: numeroHojas
+                }} 
+              />
               {/* Marca de agua para capturas de pantalla */}
               <div className="absolute inset-0 grid gap-8 opacity-[0.06] pointer-events-none select-none -z-10"
                    style={{
