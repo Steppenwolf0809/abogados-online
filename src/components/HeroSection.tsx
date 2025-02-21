@@ -1,10 +1,12 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import BackgroundVideo from './BackgroundVideo';
 
 export default function HeroSection() {
   return (
-    <div className="relative h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden">
       <BackgroundVideo
         src="/videos/hero-background.mp4"
         className="opacity-50"

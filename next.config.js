@@ -3,10 +3,14 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['www.abogadosonlineecuador.com'],
-  },
-  experimental: {
-    appDir: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.abogadosonlineecuador.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   webpack(config) {
     config.module.rules.push({

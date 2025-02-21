@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 interface Testimonial {
@@ -5,7 +7,6 @@ interface Testimonial {
   name: string;
   role: string;
   content: string;
-  image: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -13,22 +14,19 @@ const testimonials: Testimonial[] = [
     id: 1,
     name: "María Fernanda López",
     role: "Cliente",
-    content: "El servicio fue excelente. Me ayudaron con mi trámite de poder notarial de manera rápida y profesional. La calculadora en línea me permitió conocer los costos exactos antes de iniciar el proceso.",
-    image: "/testimonials/profile-1.jpg"
+    content: "El servicio fue excelente. Me ayudaron con mi trámite de poder notarial de manera rápida y profesional. La calculadora en línea me permitió conocer los costos exactos antes de iniciar el proceso."
   },
   {
     id: 2,
     name: "Juan Carlos Mendoza",
     role: "Cliente",
-    content: "Muy satisfecho con la atención recibida. El proceso fue transparente y la asesoría fue fundamental para completar mi trámite de declaración juramentada sin contratiempos.",
-    image: "/testimonials/profile-2.jpg"
+    content: "Muy satisfecho con la atención recibida. El proceso fue transparente y la asesoría fue fundamental para completar mi trámite de declaración juramentada sin contratiempos."
   },
   {
     id: 3,
     name: "Andrea Sánchez",
     role: "Cliente",
-    content: "Excelente servicio y atención personalizada. Me guiaron en todo el proceso de transferencia de dominio y los costos fueron exactamente los calculados en la plataforma.",
-    image: "/testimonials/profile-3.jpg"
+    content: "Excelente servicio y atención personalizada. Me guiaron en todo el proceso de transferencia de dominio y los costos fueron exactamente los calculados en la plataforma."
   }
 ];
 
@@ -65,7 +63,11 @@ export default function TestimonialsSection() {
                 </p>
               </div>
               <div className="mt-8 flex items-center">
-                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300" />
+                <div className="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
+                  <span className="text-gray-500 text-sm font-medium">
+                    {testimonial.name.charAt(0)}
+                  </span>
+                </div>
                 <div className="ml-4">
                   <div className="text-base font-medium text-gray-900">
                     {testimonial.name}
