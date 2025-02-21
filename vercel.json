@@ -5,6 +5,9 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["cdg1"],
+  "outputDirectory": ".next",
+  "public": false,
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",
@@ -60,6 +63,12 @@
       "source": "/home",
       "destination": "/",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
     }
   ]
 }
