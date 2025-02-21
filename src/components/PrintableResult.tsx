@@ -1,6 +1,49 @@
 import React from 'react';
+import Watermark from '../components/ui/Watermark';
+import { formatCurrency } from '../utils/municipalCalculations';
 
-const PrintableResult = ({ resultado, tipo, formData }) => {
+interface MunicipalResult {
+  utilidad: {
+    utilidadBruta: number;
+    añosTranscurridos: number;
+    deduccionTiempo: number;
+    baseImponible: number;
+    tarifa: string;
+    impuesto: number;
+  };
+  alcabala: {
+    baseImponible: number;
+    rebaja: string;
+    impuesto: number;
+  };
+  total: number;
+}
+
+interface NotarialResult {
+  subtotal: string;
+  iva: string;
+  total: string;
+}
+
+interface RegistryResult {
+  valorContrato: number;
+  rango: string;
+  arancelBase: number;
+  descuentoTerceraEdad: number;
+  arancelFinal: number;
+}
+
+interface FormData {
+  [key: string]: string | number;
+}
+
+interface PrintableResultProps {
+  resultado: MunicipalResult | NotarialResult | RegistryResult;
+  tipo: 'municipal' | 'notarial' | 'registro';
+  formData: FormData;
+}
+
+export default function PrintableResult({ resultado, tipo, formData }: PrintableResultProps) {
   return (
     <div className="print:block">
       {/* Estilos específicos para impresión */}
@@ -36,23 +79,7 @@ const PrintableResult = ({ resultado, tipo, formData }) => {
           </div>
         </div>
 
-        {/* Marca de agua repetida */}
-        <div className="watermark absolute inset-0 grid gap-8 opacity-[0.08]"
-             style={{
-               gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-               transform: 'rotate(-45deg)',
-               transformOrigin: 'center',
-               marginTop: '-25%',
-               marginLeft: '-25%',
-               width: '150%',
-               height: '150%'
-             }}>
-          {Array(20).fill('www.abogadosonlineecuador.com').map((text, i) => (
-            <div key={i} className="text-xl font-bold text-gray-800 whitespace-nowrap text-center tracking-widest">
-              {text}
-            </div>
-          ))}
-        </div>
+        <Watermark />
 
         {/* Contenido */}
         <div className="print-content relative z-10">
@@ -103,7 +130,7 @@ const PrintableResult = ({ resultado, tipo, formData }) => {
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Resultados del Cálculo</h3>
 
-            {tipo === 'municipal' && (
+            {tipo === 'municipal' && 'utilidad' in resultado && (
               <>
                 <div className="space-y-4">
                   <div className="bg-yellow-50 p-4 rounded-lg">
@@ -129,7 +156,7 @@ const PrintableResult = ({ resultado, tipo, formData }) => {
               </>
             )}
 
-            {tipo === 'notarial' && (
+            {tipo === 'notarial' && 'subtotal' in resultado && (
               <div className="space-y-3">
                 <div className="flex justify-between items-center py-3 border-b">
                   <span className="text-gray-600">Subtotal:</span>
@@ -146,7 +173,7 @@ const PrintableResult = ({ resultado, tipo, formData }) => {
               </div>
             )}
 
-            {tipo === 'registro' && (
+            {tipo === 'registro' && 'valorContrato' in resultado && (
               <div className="space-y-3">
                 <div className="flex justify-between py-2 border-b">
                   <span className="text-gray-600">Valor del contrato:</span>
@@ -186,6 +213,4 @@ const PrintableResult = ({ resultado, tipo, formData }) => {
       </div>
     </div>
   );
-};
-
-export default PrintableResult;
+}

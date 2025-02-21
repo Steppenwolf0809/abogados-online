@@ -126,7 +126,6 @@
   /* Ocultar elementos que no queremos imprimir */
   button:not(.print-button),
   select,
-  input,
   .bg-pattern,
   .animate-gradient,
   .animate-float,
@@ -136,31 +135,60 @@
 
   /* Asegurar que el contenido se imprima en blanco y negro */
   body {
-    color: black;
-    background: white;
+    color: black !important;
+    background: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   /* Ajustar la marca de agua para impresión */
-  .watermark {
-    opacity: 0.1 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+  [class*="absolute inset-0 grid gap"] {
+    opacity: 0.08 !important;
+    z-index: -1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
 
   /* Asegurar que los resultados se muestren claramente */
-  .calculator-numbers {
+  .calculator-numbers,
+  input[type="number"],
+  input[type="text"],
+  input[type="date"] {
     color: black !important;
     font-weight: bold !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   /* Ajustar márgenes y tamaño de página */
   @page {
-    margin: 2cm;
+    margin: 1.5cm;
     size: A4;
   }
 
   /* Asegurar que los resultados no se corten entre páginas */
   .results-section {
     page-break-inside: avoid;
+    background-color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Preservar valores de inputs */
+  input {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Asegurar que los colores de fondo se impriman */
+  .bg-yellow-50,
+  .bg-green-50,
+  .bg-blue-50,
+  .bg-gray-50 {
+    background-color: #fff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
