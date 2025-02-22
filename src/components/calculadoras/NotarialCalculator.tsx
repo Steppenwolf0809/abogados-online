@@ -109,8 +109,10 @@ export default function CalculadoraNotarial() {
 
   const calcularTarifaIndeterminada = (tipo: string): number => {
     let servicioKey = tipo;
-    if (tipo === 'poderes' || tipo === 'declaracionesJuramentadas') {
-      servicioKey = `${tipo}_${tipoPersona}`;
+    if (tipo === 'poderes') {
+      servicioKey = 'poderes_' + tipoPersona;
+    } else if (tipo === 'declaracionesJuramentadas') {
+      servicioKey = 'declaraciones_' + tipoPersona;
     }
 
     const servicio = SERVICIOS_INDETERMINADOS[servicioKey];
@@ -351,7 +353,11 @@ export default function CalculadoraNotarial() {
               }}
               tipo="notarial"
               formData={{
-                tipoServicio: SERVICIOS_INDETERMINADOS[`${tipoServicio}${tipoPersona === 'juridica' ? '_juridica' : ''}`]?.nombre || tipoServicio,
+                tipoServicio: SERVICIOS_INDETERMINADOS[
+                  tipoServicio === 'poderes' ? 'poderes_' + tipoPersona :
+                  tipoServicio === 'declaracionesJuramentadas' ? 'declaraciones_' + tipoPersona :
+                  tipoServicio
+                ]?.nombre || tipoServicio,
                 monto: monto,
                 otorgantes: otorgantes,
                 numeroFirmas: numeroFirmas,
