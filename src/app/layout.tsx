@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import '@/styles/globals.css';
+import './globals.css';
 import Header from '@/components/Header';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { Analytics } from '@vercel/analytics/react';
