@@ -5,6 +5,10 @@ import { calcularImpuestos, MunicipalFormData, ResultadoMunicipal } from '@/util
 import PrintableResult from '@/components/PrintableResult';
 import Watermark from '@/components/ui/Watermark';
 
+const formatNumber = (num: number): string => {
+  return num.toFixed(2);
+};
+
 export default function CalculadoraMunicipal() {
   const [formData, setFormData] = useState<MunicipalFormData>({
     fechaAdquisicion: '',
@@ -270,7 +274,7 @@ export default function CalculadoraMunicipal() {
             <div className="space-y-2">
               <div className="flex justify-between py-1 border-b">
                 <span className="text-gray-600">Utilidad Bruta:</span>
-                <span className="font-medium">${resultado.utilidad.utilidadBruta.toFixed(2)}</span>
+                <span className="font-medium">${formatNumber(resultado.utilidad.utilidadBruta)}</span>
               </div>
               <div className="flex justify-between py-1 border-b">
                 <span className="text-gray-600">Años Transcurridos:</span>
@@ -278,11 +282,11 @@ export default function CalculadoraMunicipal() {
               </div>
               <div className="flex justify-between py-1 border-b">
                 <span className="text-gray-600">Deducción por Tiempo:</span>
-                <span className="font-medium">${resultado.utilidad.deduccionTiempo.toFixed(2)}</span>
+                <span className="font-medium">${formatNumber(resultado.utilidad.deduccionTiempo)}</span>
               </div>
               <div className="flex justify-between py-1 border-b">
                 <span className="text-gray-600">Base Imponible:</span>
-                <span className="font-medium">${resultado.utilidad.baseImponible.toFixed(2)}</span>
+                <span className="font-medium">${formatNumber(resultado.utilidad.baseImponible)}</span>
               </div>
               <div className="flex justify-between py-1 border-b">
                 <span className="text-gray-600">Tarifa Aplicada:</span>
@@ -290,7 +294,7 @@ export default function CalculadoraMunicipal() {
               </div>
               <div className="flex justify-between py-1 border-b font-semibold">
                 <span className="text-gray-800">Impuesto a la Utilidad:</span>
-                <span className="text-blue-600">${resultado.utilidad.impuesto.toFixed(2)}</span>
+                <span className="text-blue-600">${formatNumber(resultado.utilidad.impuesto)}</span>
               </div>
             </div>
           </div>
@@ -301,7 +305,7 @@ export default function CalculadoraMunicipal() {
             <div className="space-y-2">
               <div className="flex justify-between py-1 border-b">
                 <span className="text-gray-600">Base Imponible:</span>
-                <span className="font-medium">${resultado.alcabala.baseImponible.toFixed(2)}</span>
+                <span className="font-medium">${formatNumber(resultado.alcabala.baseImponible)}</span>
               </div>
               <div className="flex justify-between py-1 border-b">
                 <span className="text-gray-600">Rebaja Aplicada:</span>
@@ -309,7 +313,7 @@ export default function CalculadoraMunicipal() {
               </div>
               <div className="flex justify-between py-1 border-b font-semibold">
                 <span className="text-gray-800">Impuesto de Alcabala:</span>
-                <span className="text-blue-600">${resultado.alcabala.impuesto.toFixed(2)}</span>
+                <span className="text-blue-600">${formatNumber(resultado.alcabala.impuesto)}</span>
               </div>
             </div>
           </div>
@@ -322,7 +326,7 @@ export default function CalculadoraMunicipal() {
                   <span className="text-lg font-bold text-gray-900">Impuesto a la Utilidad</span>
                   <p className="text-sm text-gray-600">(Paga el vendedor)</p>
                 </div>
-                <span className="text-2xl font-bold text-blue-600">${resultado.utilidad.impuesto.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-blue-600">${formatNumber(resultado.utilidad.impuesto)}</span>
               </div>
             </div>
 
@@ -332,7 +336,7 @@ export default function CalculadoraMunicipal() {
                   <span className="text-lg font-bold text-gray-900">Impuesto de Alcabala</span>
                   <p className="text-sm text-gray-600">(Paga el comprador)</p>
                 </div>
-                <span className="text-2xl font-bold text-blue-600">${resultado.alcabala.impuesto.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-blue-600">${formatNumber(resultado.alcabala.impuesto)}</span>
               </div>
             </div>
           </div>
