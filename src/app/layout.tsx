@@ -25,15 +25,6 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
   },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-    other: {
-      rel: 'apple-touch-icon-precomposed',
-      url: '/apple-touch-icon-precomposed.png',
-    },
-  },
 };
 
 export default function RootLayout({
@@ -44,7 +35,8 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/brand/Logo/Logo - Imágenes/Favicon/Favicon 32x32 px.png" sizes="32x32" />
+        <link rel="icon" href="/brand/Logo/Logo - Imágenes/Favicon/Favicon 16x16 px.png" sizes="16x16" />
       </head>
       <body className={inter.className}>
         <Header />
