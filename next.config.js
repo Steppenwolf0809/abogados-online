@@ -1,18 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  output: 'standalone',
   images: {
-    remotePatterns: [
+    domains: ['localhost'],
+  },
+  async redirects() {
+    return [
       {
-        protocol: 'https',
-        hostname: 'www.abogadosonlineecuador.com',
-        port: '',
-        pathname: '/**',
+        source: '/contacto/:path*',
+        destination: '/contacto',
+        permanent: true,
       },
-    ],
-    domains: ['www.abogadosonlineecuador.com'],
+      {
+        source: '/servicios/:path*',
+        destination: '/servicios',
+        permanent: true,
+      },
+    ];
   },
   webpack(config) {
     config.module.rules.push({
@@ -21,36 +25,6 @@ const nextConfig = {
     });
     return config;
   },
-  async redirects() {
-    return [
-      {
-        source: '/home',
-        destination: '/',
-        permanent: true,
-      },
-    ];
-  },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-        ],
-      },
-    ];
-  },
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;

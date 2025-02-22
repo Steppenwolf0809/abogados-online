@@ -10,6 +10,10 @@ interface FormData {
   terceraEdad: boolean;
 }
 
+const formatNumber = (num: number): string => {
+  return num.toFixed(2);
+};
+
 export default function CalculadoraRegistro() {
   const [formData, setFormData] = useState<FormData>({
     valorContrato: '',
@@ -129,15 +133,15 @@ export default function CalculadoraRegistro() {
                       }`}
                     >
                       <td className="px-4 py-2 text-sm text-gray-700">
-                        ${rango.min.toFixed(2)}
+                        ${formatNumber(rango.min)}
                       </td>
                       <td className="px-4 py-2 text-sm text-gray-700">
-                        {rango.max === Infinity ? 'En adelante' : `$${rango.max.toFixed(2)}`}
+                        {rango.max === Infinity ? 'En adelante' : `$${formatNumber(rango.max)}`}
                       </td>
                       <td className="px-4 py-2 text-sm text-gray-700">
                         {index === RANGOS.length - 1 
                           ? '$100.00 + 0.5% del exceso de $10,000'
-                          : `$${rango.arancel.toFixed(2)}`
+                          : `$${formatNumber(rango.arancel)}`
                         }
                       </td>
                     </tr>
@@ -171,7 +175,7 @@ export default function CalculadoraRegistro() {
           <div className="space-y-3">
             <div className="flex justify-between py-2 border-b">
               <span className="text-gray-600">Valor del contrato:</span>
-              <span className="font-medium">${resultado.valorContrato.toFixed(2)}</span>
+              <span className="font-medium">${formatNumber(resultado.valorContrato)}</span>
             </div>
             <div className="flex justify-between py-2 border-b">
               <span className="text-gray-600">Rango aplicado:</span>
@@ -179,20 +183,20 @@ export default function CalculadoraRegistro() {
             </div>
             <div className="flex justify-between py-2 border-b">
               <span className="text-gray-600">Arancel base:</span>
-              <span className="font-medium">${resultado.arancelBase.toFixed(2)}</span>
+              <span className="font-medium">${formatNumber(resultado.arancelBase)}</span>
             </div>
 
             {resultado.descuentoTerceraEdad > 0 && (
               <div className="flex justify-between py-2 border-b text-blue-600">
                 <span>Descuento Tercera Edad (50%):</span>
-                <span className="font-medium">-${resultado.descuentoTerceraEdad.toFixed(2)}</span>
+                <span className="font-medium">-${formatNumber(resultado.descuentoTerceraEdad)}</span>
               </div>
             )}
 
             <div className="flex justify-between py-3 bg-blue-50 px-4 rounded-lg mt-4">
               <span className="font-bold text-gray-900">Arancel final a pagar:</span>
               <span className="font-bold text-blue-600 text-xl">
-                ${resultado.arancelFinal.toFixed(2)}
+                ${formatNumber(resultado.arancelFinal)}
               </span>
             </div>
 

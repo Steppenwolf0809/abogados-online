@@ -25,6 +25,15 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
   },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/apple-touch-icon-precomposed.png',
+    },
+  },
 };
 
 export default function RootLayout({
@@ -34,12 +43,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body className={inter.className}>
         <Header />
         <main className="min-h-screen pt-16">
           {children}
         </main>
-        <WhatsAppButton phoneNumber="0999266015" />
+        <WhatsAppButton phoneNumber="593979317579" />
         <Analytics />
         <SpeedInsights />
       </body>
