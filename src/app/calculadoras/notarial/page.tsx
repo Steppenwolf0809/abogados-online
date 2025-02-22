@@ -21,15 +21,23 @@ interface Resultado {
 }
 
 const SERVICIOS_INDETERMINADOS: Record<string, ServicioIndeterminado> = {
-  poderes: {
+  poderes_natural: {
     nombre: "Poder (Persona Natural)",
     tarifa: (tarifas as Tarifas).serviciosIndeterminados.poderes.personaNatural.tarifa,
     otorganteAdicional: (tarifas as Tarifas).serviciosIndeterminados.poderes.personaNatural.otorganteAdicional
   },
-  declaracionesJuramentadas: {
+  poderes_juridica: {
+    nombre: "Poder (Persona Jurídica)",
+    tarifa: (tarifas as Tarifas).serviciosIndeterminados.poderes.personaJuridica.tarifa
+  },
+  declaraciones_natural: {
     nombre: "Declaración Juramentada (Persona Natural)",
     tarifa: (tarifas as Tarifas).serviciosIndeterminados.declaracionesJuramentadas.personaNatural.tarifa,
     otorganteAdicional: (tarifas as Tarifas).serviciosIndeterminados.declaracionesJuramentadas.personaNatural.otorganteAdicional
+  },
+  declaraciones_juridica: {
+    nombre: "Declaración Juramentada (Persona Jurídica)",
+    tarifa: (tarifas as Tarifas).serviciosIndeterminados.declaracionesJuramentadas.personaJuridica.tarifa
   },
   testamentoAbierto: {
     nombre: "Testamento Abierto",
@@ -76,6 +84,7 @@ const SERVICIOS_INDETERMINADOS: Record<string, ServicioIndeterminado> = {
 
 export default function CalculadoraNotarial() {
   const [tipoServicio, setTipoServicio] = useState<TipoServicio>('transferenciaDominio');
+  const [tipoPersona, setTipoPersona] = useState<'natural' | 'juridica'>('natural');
   const [monto, setMonto] = useState('');
   const [otorgantes, setOtorgantes] = useState(1);
   const [numeroFirmas, setNumeroFirmas] = useState(1);
@@ -83,8 +92,15 @@ export default function CalculadoraNotarial() {
   const [numeroHojas, setNumeroHojas] = useState(1);
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
-  const calcularTarifaIndeterminada = (tipo: TipoServicio): number => {
-    const servicio = SERVICIOS_INDETERMINADOS[tipo];
+  const calcularTarifaIndeterminada = (tipo: string): number => {
+    let servicioKey = tipo;
+    if (tipo === 'poderes' || tipo === 'declaracionesJuramentadas') {
+      servicioKey = `${tipo}_${tipoPersona}`;
+    }
+
+    const servicio = SERVICIOS_INDETERMINADOS[servicioKey];
+    if (!servicio) return 0;
+
     let subtotal = servicio.tarifa;
 
     if (tipo === 'reconocimientoFirma' || tipo === 'compraventaVehiculos') {
@@ -93,7 +109,7 @@ export default function CalculadoraNotarial() {
       subtotal = servicio.tarifa * numeroMenores;
     } else if (tipo === 'copiaCertificada' || tipo === 'materializacion' || tipo === 'protocolizacion') {
       subtotal = servicio.tarifa * numeroHojas;
-    } else if (servicio.otorganteAdicional && otorgantes > 1) {
+    } else if (tipoPersona === 'natural' && servicio.otorganteAdicional && otorgantes > 1) {
       subtotal += servicio.otorganteAdicional * (otorgantes - 1);
     }
 
@@ -148,7 +164,7 @@ export default function CalculadoraNotarial() {
     if (!esTipoServicioConCuantia(tipoServicio) || monto) {
       calcularTotal();
     }
-  }, [monto, tipoServicio, otorgantes, numeroFirmas, numeroMenores, numeroHojas]);
+  }, [monto, tipoServicio, tipoPersona, otorgantes, numeroFirmas, numeroMenores, numeroHojas]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -165,7 +181,12 @@ export default function CalculadoraNotarial() {
             <select
               className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
               value={tipoServicio}
-              onChange={(e) => setTipoServicio(e.target.value as TipoServicio)}
+              onChange={(e) => {
+                setTipoServicio(e.target.value as TipoServicio);
+                if (!['poderes', 'declaracionesJuramentadas'].includes(e.target.value)) {
+                  setTipoPersona('natural');
+                }
+              }}
             >
               <optgroup label="Servicios con Cuantía">
                 <option value="transferenciaDominio">Transferencia de Dominio</option>
@@ -175,9 +196,9 @@ export default function CalculadoraNotarial() {
               </optgroup>
               <optgroup label="Servicios sin Cuantía">
                 <option value="reconocimientoFirma">Reconocimiento de Firma</option>
-                <option value="declaracionesJuramentadas">Declaración Juramentada (Persona Natural)</option>
+                <option value="declaracionesJuramentadas">Declaración Juramentada</option>
                 <option value="copiaCertificada">Copia Certificada</option>
-                <option value="poderes">Poder (Persona Natural)</option>
+                <option value="poderes">Poder</option>
                 <option value="autorizacionSalidaPais">Autorización de Viaje</option>
                 <option value="materializacion">Materialización</option>
                 <option value="disolucionSociedadConyugal">Divorcio</option>
@@ -189,6 +210,22 @@ export default function CalculadoraNotarial() {
               </optgroup>
             </select>
           </div>
+
+          {(tipoServicio === 'poderes' || tipoServicio === 'declaracionesJuramentadas') && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Tipo de Persona
+              </label>
+              <select
+                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                value={tipoPersona}
+                onChange={(e) => setTipoPersona(e.target.value as 'natural' | 'juridica')}
+              >
+                <option value="natural">Persona Natural</option>
+                <option value="juridica">Persona Jurídica</option>
+              </select>
+            </div>
+          )}
 
           {esTipoServicioConCuantia(tipoServicio) && (
             <div>
@@ -217,7 +254,7 @@ export default function CalculadoraNotarial() {
             </div>
           )}
 
-          {(tipoServicio === 'poderes' || tipoServicio === 'declaracionesJuramentadas') && (
+          {(tipoServicio === 'poderes' || tipoServicio === 'declaracionesJuramentadas') && tipoPersona === 'natural' && (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Número de Otorgantes
@@ -336,7 +373,7 @@ export default function CalculadoraNotarial() {
               }}
               tipo="notarial"
               formData={{
-                tipoServicio: SERVICIOS_INDETERMINADOS[tipoServicio]?.nombre || tipoServicio,
+                tipoServicio: SERVICIOS_INDETERMINADOS[`${tipoServicio}${tipoPersona === 'juridica' ? '_juridica' : ''}`]?.nombre || tipoServicio,
                 monto: monto,
                 otorgantes: otorgantes.toString(),
                 numeroFirmas: numeroFirmas.toString(),
