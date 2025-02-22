@@ -1,0 +1,118 @@
+{
+  "remuneracionBasica": 460,
+  "iva": 0.12,
+  "tablas": {
+    "transferenciaDominio": {
+      "rangos": [
+        { "min": 0, "max": 10000, "tarifa": 50 },
+        { "min": 10000.01, "max": 25000, "tarifa": 100 },
+        { "min": 25000.01, "max": 50000, "tarifa": 150 },
+        { "min": 50000.01, "max": 100000, "tarifa": 200 },
+        { "min": 100000.01, "max": 500000, "tarifa": 300 },
+        { "min": 500000.01, "max": 1000000, "tarifa": 500 }
+      ],
+      "excedente": {
+        "limite": 1000000,
+        "formula": {
+          "base": "1",
+          "porcentajeExcedente": 0.0001
+        }
+      }
+    },
+    "promesas": {
+      "rangos": [
+        { "min": 0, "max": 10000, "tarifa": 30 },
+        { "min": 10000.01, "max": 25000, "tarifa": 50 },
+        { "min": 25000.01, "max": 50000, "tarifa": 80 },
+        { "min": 50000.01, "max": 100000, "tarifa": 120 },
+        { "min": 100000.01, "max": 500000, "tarifa": 200 },
+        { "min": 500000.01, "max": 1000000, "tarifa": 300 }
+      ],
+      "excedente": {
+        "limite": 1000000,
+        "formula": {
+          "base": "0.5",
+          "porcentajeExcedente": 0.0001
+        }
+      }
+    },
+    "hipotecas": {
+      "rangos": [
+        { "min": 0, "max": 10000, "tarifa": 50 },
+        { "min": 10000.01, "max": 25000, "tarifa": 100 },
+        { "min": 25000.01, "max": 50000, "tarifa": 150 },
+        { "min": 50000.01, "max": 100000, "tarifa": 200 },
+        { "min": 100000.01, "max": 500000, "tarifa": 300 },
+        { "min": 500000.01, "max": 1000000, "tarifa": 500 }
+      ],
+      "excedente": {
+        "limite": 1000000,
+        "formula": {
+          "base": "1",
+          "porcentajeExcedente": 0.0001
+        }
+      }
+    },
+    "contratos_arriendo": {
+      "rangos": [
+        { "min": 0, "max": 1000, "tarifa": 15 },
+        { "min": 1000.01, "max": 3000, "tarifa": 25 },
+        { "min": 3000.01, "max": 5000, "tarifa": 40 },
+        { "min": 5000.01, "max": 10000, "tarifa": 60 },
+        { "min": 10000.01, "max": 20000, "tarifa": 80 },
+        { "min": 20000.01, "max": 50000, "tarifa": 120 }
+      ]
+    }
+  },
+  "serviciosIndeterminados": {
+    "poderes": {
+      "personaNatural": {
+        "tarifa": 15,
+        "otorganteAdicional": 5
+      },
+      "personaJuridica": {
+        "tarifa": 30
+      }
+    },
+    "declaracionesJuramentadas": {
+      "personaNatural": {
+        "tarifa": 15,
+        "otorganteAdicional": 5
+      },
+      "personaJuridica": {
+        "tarifa": 30
+      }
+    },
+    "testamentoAbierto": {
+      "tarifa": 50
+    },
+    "disolucionSociedadConyugal": {
+      "tarifa": 80
+    },
+    "unionHecho": {
+      "tarifa": 80
+    },
+    "autorizacionSalidaPais": {
+      "tarifa": 15
+    },
+    "reconocimientoFirma": {
+      "tarifa": 3
+    },
+    "copiaCertificada": {
+      "tarifa": 3
+    },
+    "materializacion": {
+      "tarifa": 5
+    },
+    "posesionEfectiva": {
+      "tarifa": 50
+    },
+    "protocolizacion": {
+      "tarifa": 20
+    },
+    "compraventaVehiculos": {
+      "tarifa": 30,
+      "firmanteAdicional": 5
+    }
+  }
+}

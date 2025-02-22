@@ -347,10 +347,10 @@ export default function CalculadoraNotarial() {
           <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden results-section">
             <PrintableResult 
               resultado={{
-                total: parseFloat(resultado.total),
+                total: resultado.total,
                 desglose: {
-                  'Subtotal': parseFloat(resultado.subtotal),
-                  'IVA (12%)': parseFloat(resultado.iva)
+                  'Subtotal': resultado.subtotal,
+                  'IVA (12%)': resultado.iva
                 }
               }}
               tipo="notarial"

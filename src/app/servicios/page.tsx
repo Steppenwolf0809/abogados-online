@@ -74,10 +74,10 @@ export default function ServiciosPage() {
                   {service.description}
                 </p>
                 <Link
-                  href="/calculadoras"
+                  href={`/servicios/${service.id}`}
                   className="text-blue-600 hover:text-blue-700 font-medium"
                 >
-                  Calcular costos →
+                  Ver más detalles →
                 </Link>
               </div>
             </div>

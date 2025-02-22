@@ -2,8 +2,8 @@ import React from 'react';
 import { MunicipalFormData } from '@/utils/municipalCalculations';
 
 interface ResultadoGenerico {
-  total: number;
-  desglose: Record<string, number>;
+  total: number | string;
+  desglose: Record<string, number | string>;
 }
 
 interface PrintableResultProps {
