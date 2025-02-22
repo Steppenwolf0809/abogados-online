@@ -6,7 +6,7 @@ import BackgroundVideo from './BackgroundVideo';
 
 export default function HeroSection() {
   return (
-    <div className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden pt-16 sm:pt-0">
       <BackgroundVideo
         src="/videos/hero-background.mp4"
         className="opacity-50"
@@ -14,7 +14,7 @@ export default function HeroSection() {
       
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12 sm:py-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-8 sm:py-16">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 sm:mb-8">
           Trámites Notariales Simplificados
         </h1>
