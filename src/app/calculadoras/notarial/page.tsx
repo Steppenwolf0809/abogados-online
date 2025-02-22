@@ -86,10 +86,10 @@ export default function CalculadoraNotarial() {
   const [tipoServicio, setTipoServicio] = useState<TipoServicio>('transferenciaDominio');
   const [tipoPersona, setTipoPersona] = useState<'natural' | 'juridica'>('natural');
   const [monto, setMonto] = useState('');
-  const [otorgantes, setOtorgantes] = useState(1);
-  const [numeroFirmas, setNumeroFirmas] = useState(1);
-  const [numeroMenores, setNumeroMenores] = useState(1);
-  const [numeroHojas, setNumeroHojas] = useState(1);
+  const [otorgantes, setOtorgantes] = useState('1');
+  const [numeroFirmas, setNumeroFirmas] = useState('1');
+  const [numeroMenores, setNumeroMenores] = useState('1');
+  const [numeroHojas, setNumeroHojas] = useState('1');
   const [resultado, setResultado] = useState<Resultado | null>(null);
 
   const calcularTarifaIndeterminada = (tipo: string): number => {
@@ -104,13 +104,16 @@ export default function CalculadoraNotarial() {
     let subtotal = servicio.tarifa;
 
     if (tipo === 'reconocimientoFirma' || tipo === 'compraventaVehiculos') {
-      subtotal = servicio.tarifa * numeroFirmas;
+      subtotal = servicio.tarifa * parseInt(numeroFirmas || '1');
     } else if (tipo === 'autorizacionSalidaPais') {
-      subtotal = servicio.tarifa * numeroMenores;
+      subtotal = servicio.tarifa * parseInt(numeroMenores || '1');
     } else if (tipo === 'copiaCertificada' || tipo === 'materializacion' || tipo === 'protocolizacion') {
-      subtotal = servicio.tarifa * numeroHojas;
-    } else if (tipoPersona === 'natural' && servicio.otorganteAdicional && otorgantes > 1) {
-      subtotal += servicio.otorganteAdicional * (otorgantes - 1);
+      subtotal = servicio.tarifa * parseInt(numeroHojas || '1');
+    } else if (tipoPersona === 'natural' && servicio.otorganteAdicional) {
+      const numOtorgantes = parseInt(otorgantes || '1');
+      if (numOtorgantes > 1) {
+        subtotal += servicio.otorganteAdicional * (numOtorgantes - 1);
+      }
     }
 
     return subtotal;
@@ -260,21 +263,15 @@ export default function CalculadoraNotarial() {
                 Número de Otorgantes
               </label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 value={otorgantes}
                 onChange={(e) => {
-                  const value = e.target.value;
-                  if (value === '') {
-                    setOtorgantes(1);
-                  } else {
-                    const numValue = parseInt(value);
-                    if (!isNaN(numValue)) {
-                      setOtorgantes(numValue);
-                    }
-                  }
+                  const value = e.target.value.replace(/[^0-9]/g, '');
+                  setOtorgantes(value || '1');
                 }}
-                min="1"
                 placeholder="Número de otorgantes"
               />
             </div>
@@ -286,21 +283,15 @@ export default function CalculadoraNotarial() {
                 {tipoServicio === 'compraventaVehiculos' ? 'Número de Firmantes' : 'Número de Firmas'}
               </label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 value={numeroFirmas}
                 onChange={(e) => {
-                  const value = e.target.value;
-                  if (value === '') {
-                    setNumeroFirmas(1);
-                  } else {
-                    const numValue = parseInt(value);
-                    if (!isNaN(numValue)) {
-                      setNumeroFirmas(numValue);
-                    }
-                  }
+                  const value = e.target.value.replace(/[^0-9]/g, '');
+                  setNumeroFirmas(value || '1');
                 }}
-                min="1"
                 placeholder="Número de firmas a reconocer"
               />
             </div>
@@ -312,21 +303,15 @@ export default function CalculadoraNotarial() {
                 Número de Hojas
               </label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 value={numeroHojas}
                 onChange={(e) => {
-                  const value = e.target.value;
-                  if (value === '') {
-                    setNumeroHojas(1);
-                  } else {
-                    const numValue = parseInt(value);
-                    if (!isNaN(numValue)) {
-                      setNumeroHojas(numValue);
-                    }
-                  }
+                  const value = e.target.value.replace(/[^0-9]/g, '');
+                  setNumeroHojas(value || '1');
                 }}
-                min="1"
                 placeholder="Número de hojas"
               />
             </div>
@@ -338,21 +323,15 @@ export default function CalculadoraNotarial() {
                 Número de Menores
               </label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 value={numeroMenores}
                 onChange={(e) => {
-                  const value = e.target.value;
-                  if (value === '') {
-                    setNumeroMenores(1);
-                  } else {
-                    const numValue = parseInt(value);
-                    if (!isNaN(numValue)) {
-                      setNumeroMenores(numValue);
-                    }
-                  }
+                  const value = e.target.value.replace(/[^0-9]/g, '');
+                  setNumeroMenores(value || '1');
                 }}
-                min="1"
                 placeholder="Número de menores que viajan"
               />
             </div>
@@ -375,10 +354,10 @@ export default function CalculadoraNotarial() {
               formData={{
                 tipoServicio: SERVICIOS_INDETERMINADOS[`${tipoServicio}${tipoPersona === 'juridica' ? '_juridica' : ''}`]?.nombre || tipoServicio,
                 monto: monto,
-                otorgantes: otorgantes.toString(),
-                numeroFirmas: numeroFirmas.toString(),
-                numeroMenores: numeroMenores.toString(),
-                numeroHojas: numeroHojas.toString()
+                otorgantes: otorgantes,
+                numeroFirmas: numeroFirmas,
+                numeroMenores: numeroMenores,
+                numeroHojas: numeroHojas
               }}
             />
             <Watermark />
