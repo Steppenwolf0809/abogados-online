@@ -39,7 +39,7 @@ const services = {
       'Contratos de prestación de servicios'
     ]
   },
-  transferencias: {
+  transferencia: {
     title: 'Transferencia de Dominio',
     description: 'Compraventa de bienes inmuebles y vehículos.',
     icon: '/icons/transferencia.svg',
@@ -50,7 +50,7 @@ const services = {
       'Dación en pago'
     ]
   },
-  promesas: {
+  promesa: {
     title: 'Promesa de Compraventa',
     description: 'Contratos de promesa para bienes inmuebles.',
     icon: '/icons/promesa.svg',
@@ -61,7 +61,7 @@ const services = {
       'Promesa de donación'
     ]
   },
-  viajes: {
+  viaje: {
     title: 'Autorización de Viaje',
     description: 'Permisos de salida del país para menores de edad.',
     icon: '/icons/viaje.svg',
