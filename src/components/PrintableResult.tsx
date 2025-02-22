@@ -13,20 +13,28 @@ interface PrintableResultProps {
 }
 
 const PrintableResult: React.FC<PrintableResultProps> = ({ resultado, tipo, formData }) => {
-  const formatCurrency = (value: number) => {
+  const formatCurrency = (value: number | string | undefined) => {
+    if (value === undefined || value === null) return '$0.00';
+    const numValue = typeof value === 'string' ? parseFloat(value) : value;
+    if (isNaN(numValue)) return '$0.00';
+    
     return new Intl.NumberFormat('es-EC', {
       style: 'currency',
       currency: 'USD'
-    }).format(value);
+    }).format(numValue);
   };
 
   const formatDate = (date: string) => {
     if (!date) return '';
-    return new Date(date).toLocaleDateString('es-EC', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    try {
+      return new Date(date).toLocaleDateString('es-EC', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch (e) {
+      return '';
+    }
   };
 
   const renderMunicipalDetails = () => {
@@ -36,9 +44,9 @@ const PrintableResult: React.FC<PrintableResultProps> = ({ resultado, tipo, form
         <div className="mb-4">
           <p><strong>Fecha de Adquisición:</strong> {formatDate(data.fechaAdquisicion)}</p>
           <p><strong>Fecha de Transferencia:</strong> {formatDate(data.fechaTransferencia)}</p>
-          <p><strong>Valor de Transferencia:</strong> {formatCurrency(Number(data.valorTransferencia))}</p>
-          <p><strong>Valor de Adquisición:</strong> {formatCurrency(Number(data.valorAdquisicion))}</p>
-          <p><strong>Avalúo Catastral:</strong> {formatCurrency(Number(data.avaluoCatastral))}</p>
+          <p><strong>Valor de Transferencia:</strong> {formatCurrency(data.valorTransferencia)}</p>
+          <p><strong>Valor de Adquisición:</strong> {formatCurrency(data.valorAdquisicion)}</p>
+          <p><strong>Avalúo Catastral:</strong> {formatCurrency(data.avaluoCatastral)}</p>
           <p><strong>Tipo de Transferencia:</strong> {data.tipoTransferencia}</p>
           <p><strong>Tipo de Transferente:</strong> {data.tipoTransferente}</p>
         </div>
