@@ -387,7 +387,7 @@ export default function CalculadoraNotarial() {
         )}
 
         <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden">
-          <RequisitosServicio tramiteId={tipoServicio} />
+          <RequisitosServicio tramiteId={tipoServicio} tipoPersona={tipoPersona} />
         </div>
       </div>
     </div>

@@ -1,8 +1,31 @@
 import React from 'react';
 import requisitos from '../data/requisitos.json';
 
-const RequisitosServicio = ({ tramiteId }) => {
-  const listaRequisitos = requisitos[tramiteId];
+const RequisitosServicio = ({ tramiteId, tipoPersona = 'natural' }) => {
+  const getRequisitos = (tramiteId, tipoPersona) => {
+    // Mapeo de IDs de la calculadora a IDs de requisitos
+    const idMap = {
+      'poderes': tipoPersona === 'juridica' ? 'poder_juridico' : 'poder_natural',
+      'declaracionesJuramentadas': tipoPersona === 'juridica' ? 'declaracion_juridica' : 'declaracion',
+      'transferenciaDominio': 'transferenciaDominio',
+      'hipotecas': 'hipotecas',
+      'promesas': 'promesas',
+      'contratos_arriendo': 'contratos_arriendo',
+      'autorizacionSalidaPais': 'autorizacion_viaje',
+      'disolucionSociedadConyugal': 'divorcio',
+      'unionHecho': 'union_hecho',
+      'testamentoAbierto': 'testamento',
+      'reconocimientoFirma': 'reconocimiento_firma',
+      'posesionEfectiva': 'posesion_efectiva',
+      'protocolizacion': 'protocolizacion',
+      'compraventaVehiculos': 'compraventaVehiculos'
+    };
+
+    const requisitosId = idMap[tramiteId];
+    return requisitos[requisitosId] || null;
+  };
+
+  const listaRequisitos = getRequisitos(tramiteId, tipoPersona);
 
   if (!listaRequisitos) return null;
 
