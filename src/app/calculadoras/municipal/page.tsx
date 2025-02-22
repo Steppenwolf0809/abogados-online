@@ -18,8 +18,8 @@ export default function CalculadoraMunicipal() {
     avaluoCatastral: '',
     tipoTransferencia: 'Compraventa',
     tipoTransferente: 'Natural',
-    mejoras: '0',
-    contribucionMejoras: '0'
+    mejoras: '',
+    contribucionMejoras: ''
   });
 
   const [resultado, setResultado] = useState<ResultadoMunicipal | null>(null);
@@ -27,10 +27,24 @@ export default function CalculadoraMunicipal() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    
+    // Para campos numéricos, asegurarse de que solo se ingresen números
+    if (['valorTransferencia', 'valorAdquisicion', 'avaluoCatastral', 'mejoras', 'contribucionMejoras'].includes(name)) {
+      // Permitir valores vacíos
+      if (value === '') {
+        setFormData(prev => ({ ...prev, [name]: '' }));
+        return;
+      }
+      
+      // Validar que sea un número válido
+      const numValue = parseFloat(value);
+      if (!isNaN(numValue)) {
+        setFormData(prev => ({ ...prev, [name]: value }));
+      }
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+    
     setError('');
   };
 
@@ -103,14 +117,14 @@ export default function CalculadoraMunicipal() {
                   <span className="text-gray-500 sm:text-sm">$</span>
                 </div>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*\.?[0-9]*"
                   name="valorTransferencia"
                   value={formData.valorTransferencia}
                   onChange={handleChange}
                   className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
                   placeholder="0.00"
-                  min="0"
-                  step="0.01"
                   required
                 />
               </div>
@@ -124,14 +138,14 @@ export default function CalculadoraMunicipal() {
                   <span className="text-gray-500 sm:text-sm">$</span>
                 </div>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*\.?[0-9]*"
                   name="valorAdquisicion"
                   value={formData.valorAdquisicion}
                   onChange={handleChange}
                   className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
                   placeholder="0.00"
-                  min="0"
-                  step="0.01"
                   required
                 />
               </div>
@@ -145,14 +159,14 @@ export default function CalculadoraMunicipal() {
                   <span className="text-gray-500 sm:text-sm">$</span>
                 </div>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*\.?[0-9]*"
                   name="avaluoCatastral"
                   value={formData.avaluoCatastral}
                   onChange={handleChange}
                   className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
                   placeholder="0.00"
-                  min="0"
-                  step="0.01"
                   required
                 />
               </div>
@@ -201,14 +215,14 @@ export default function CalculadoraMunicipal() {
                   <span className="text-gray-500 sm:text-sm">$</span>
                 </div>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*\.?[0-9]*"
                   name="mejoras"
                   value={formData.mejoras}
                   onChange={handleChange}
                   className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
                   placeholder="0.00"
-                  min="0"
-                  step="0.01"
                 />
               </div>
             </div>
@@ -221,14 +235,14 @@ export default function CalculadoraMunicipal() {
                   <span className="text-gray-500 sm:text-sm">$</span>
                 </div>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*\.?[0-9]*"
                   name="contribucionMejoras"
                   value={formData.contribucionMejoras}
                   onChange={handleChange}
                   className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
                   placeholder="0.00"
-                  min="0"
-                  step="0.01"
                 />
               </div>
             </div>

@@ -25,10 +25,23 @@ export default function CalculadoraRegistro() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+    
+    if (type === 'checkbox') {
+      setFormData(prev => ({ ...prev, [name]: checked }));
+    } else if (name === 'valorContrato') {
+      // Permitir valores vacíos
+      if (value === '') {
+        setFormData(prev => ({ ...prev, valorContrato: '' }));
+        return;
+      }
+      
+      // Validar que sea un número válido
+      const numValue = parseFloat(value);
+      if (!isNaN(numValue)) {
+        setFormData(prev => ({ ...prev, valorContrato: value }));
+      }
+    }
+    
     setError('');
   };
 
@@ -62,14 +75,14 @@ export default function CalculadoraRegistro() {
                   <span className="text-gray-500 sm:text-sm">$</span>
                 </div>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*\.?[0-9]*"
                   name="valorContrato"
                   value={formData.valorContrato}
                   onChange={handleChange}
                   className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
                   placeholder="0.00"
-                  min="0.01"
-                  step="0.01"
                   required
                 />
               </div>
