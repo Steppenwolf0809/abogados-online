@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/Header';
-import WhatsAppButton from '@/components/WhatsAppButton';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import ScrollProgress from '@/components/ScrollProgress';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,11 +19,12 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -33,17 +33,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" className="scroll-smooth">
       <head>
         <link rel="icon" href="/brand/Logo/Logo - Imágenes/Favicon/Favicon 32x32 px.png" sizes="32x32" />
         <link rel="icon" href="/brand/Logo/Logo - Imágenes/Favicon/Favicon 16x16 px.png" sizes="16x16" />
       </head>
       <body className={inter.className}>
-        <Header />
-        <main className="min-h-screen pt-16">
+        <ScrollProgress />
+        <div className="relative">
           {children}
-        </main>
-        <WhatsAppButton phoneNumber="593979317579" />
+        </div>
         <Analytics />
         <SpeedInsights />
       </body>

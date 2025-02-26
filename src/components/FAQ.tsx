@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import ScrollAnimation from './ScrollAnimation';
 
 interface FAQItem {
   question: string;
@@ -9,20 +10,24 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: '¿Qué documentos necesito para realizar un trámite notarial?',
-    answer: 'Los documentos necesarios varían según el tipo de trámite. En general, se requiere cédula de identidad original y copia, certificado de votación vigente, y documentos específicos según el trámite. Para más detalles, puede consultar la sección de requisitos de cada servicio o contactarnos directamente.'
+    question: "¿Qué servicios notariales ofrecen?",
+    answer: "Ofrecemos una amplia gama de servicios notariales, incluyendo poderes, declaraciones juramentadas, contratos, promesas de compraventa, transferencias de dominio, y permisos de viaje para menores, entre otros."
   },
   {
-    question: '¿Cuánto tiempo toma realizar un trámite notarial?',
-    answer: 'El tiempo de procesamiento depende del tipo de trámite y la complejidad del caso. La mayoría de los trámites simples pueden completarse en el mismo día. Para trámites más complejos, podemos proporcionarle un estimado de tiempo una vez que revisemos su caso específico.'
+    question: "¿Cómo puedo solicitar un servicio notarial?",
+    answer: "Puede solicitar nuestros servicios a través de nuestro sitio web, completando el formulario de contacto, o llamándonos directamente. Un asesor se pondrá en contacto con usted para guiarle en el proceso."
   },
   {
-    question: '¿Existen descuentos o exenciones en los trámites notariales?',
-    answer: 'Sí, existen descuentos y exenciones para ciertos grupos, como adultos mayores y personas con discapacidad. También aplicamos tarifas preferenciales en casos específicos. Le recomendamos consultar su caso particular con nuestro equipo.'
+    question: "¿Cuánto tiempo toma completar un trámite notarial?",
+    answer: "El tiempo varía según el tipo de trámite. Algunos servicios pueden completarse el mismo día, mientras que otros pueden tomar entre 24 y 48 horas. Le proporcionaremos un estimado de tiempo al momento de solicitar el servicio."
   },
   {
-    question: '¿Puedo realizar trámites notariales en línea?',
-    answer: 'Algunos trámites pueden iniciarse en línea, pero la mayoría requieren presencia física en la notaría para la firma de documentos. Sin embargo, ofrecemos asesoría inicial y preparación de documentos de forma remota para agilizar el proceso.'
+    question: "¿Cuáles son los costos de los servicios notariales?",
+    answer: "Los costos varían según el tipo de servicio. Puede consultar nuestra calculadora de tarifas en línea para obtener un estimado, o contactarnos directamente para recibir información detallada sobre los costos específicos de su trámite."
+  },
+  {
+    question: "¿Qué documentos necesito para realizar un trámite notarial?",
+    answer: "Los documentos requeridos dependen del tipo de trámite. En general, se necesita identificación válida y documentos específicos relacionados con el trámite. Le proporcionaremos una lista detallada de requisitos al momento de solicitar el servicio."
   }
 ];
 
@@ -34,34 +39,44 @@ export default function FAQ() {
   };
 
   return (
-    <div className="py-24 bg-gray-50">
+    <section id="faq" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-          Preguntas Frecuentes
-        </h2>
+        <ScrollAnimation animation="fadeIn">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900">
+              Preguntas Frecuentes
+            </h2>
+            <p className="mt-4 text-xl text-gray-600">
+              Respuestas a las dudas más comunes sobre nuestros servicios
+            </p>
+          </div>
+        </ScrollAnimation>
 
-        <div className="space-y-6">
+        <div className="max-w-3xl mx-auto divide-y divide-gray-200">
           {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl shadow-sm overflow-hidden"
+            <ScrollAnimation 
+              key={index} 
+              animation="slideUp" 
+              delay={index * 100}
+              className="py-6"
             >
-              <button
-                className="w-full px-6 py-4 text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                onClick={() => toggleFAQ(index)}
-              >
-                <div className="flex justify-between items-center">
+              <div>
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="flex justify-between items-center w-full text-left focus:outline-none"
+                >
                   <h3 className="text-lg font-medium text-gray-900">
                     {faq.question}
                   </h3>
                   <span className="ml-6 flex-shrink-0">
                     <svg
-                      className={`w-6 h-6 transform ${
-                        openIndex === index ? 'rotate-180' : ''
-                      } text-gray-500`}
+                      className={`h-6 w-6 transform ${
+                        openIndex === index ? 'rotate-180' : 'rotate-0'
+                      } transition-transform duration-300 text-brand-500`}
+                      xmlns="http://www.w3.org/2000/svg"
                       fill="none"
-                      stroke="currentColor"
                       viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
                       <path
                         strokeLinecap="round"
@@ -71,17 +86,19 @@ export default function FAQ() {
                       />
                     </svg>
                   </span>
+                </button>
+                <div
+                  className={`mt-2 transition-all duration-300 overflow-hidden ${
+                    openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <p className="text-base text-gray-600">{faq.answer}</p>
                 </div>
-              </button>
-              {openIndex === index && (
-                <div className="px-6 pb-4">
-                  <p className="text-gray-600">{faq.answer}</p>
-                </div>
-              )}
-            </div>
+              </div>
+            </ScrollAnimation>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

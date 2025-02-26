@@ -1,82 +1,136 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
+import ScrollAnimation from './ScrollAnimation';
 
 interface Testimonial {
   id: number;
-  name: string;
-  role: string;
   content: string;
+  author: string;
+  role: string;
+  imageUrl: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "María Fernanda López",
+    content: "El servicio fue excelente. Me ayudaron con todos los trámites notariales de manera rápida y eficiente. Recomiendo ampliamente sus servicios.",
+    author: "María Fernanda",
     role: "Cliente",
-    content: "El servicio fue excelente. Me ayudaron con mi trámite de poder notarial de manera rápida y profesional. La calculadora en línea me permitió conocer los costos exactos antes de iniciar el proceso."
+    imageUrl: "https://randomuser.me/api/portraits/women/1.jpg"
   },
   {
     id: 2,
-    name: "Juan Carlos Mendoza",
+    content: "Gracias a Abogados Online Ecuador pude realizar todos mis trámites sin complicaciones. El equipo es muy profesional y atento.",
+    author: "Carlos Mendoza",
     role: "Cliente",
-    content: "Muy satisfecho con la atención recibida. El proceso fue transparente y la asesoría fue fundamental para completar mi trámite de declaración juramentada sin contratiempos."
+    imageUrl: "https://randomuser.me/api/portraits/men/2.jpg"
   },
   {
     id: 3,
-    name: "Andrea Sánchez",
+    content: "Excelente atención y asesoría legal. Me explicaron todo el proceso de manera clara y me ayudaron a resolver mi caso rápidamente.",
+    author: "Ana Lucía Torres",
     role: "Cliente",
-    content: "Excelente servicio y atención personalizada. Me guiaron en todo el proceso de transferencia de dominio y los costos fueron exactamente los calculados en la plataforma."
+    imageUrl: "https://randomuser.me/api/portraits/women/3.jpg"
   }
 ];
 
 export default function TestimonialsSection() {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  const nextTestimonial = () => {
+    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900">
-            Lo que dicen nuestros clientes
-          </h2>
-          <p className="mt-4 text-xl text-gray-600">
-            Testimonios de personas que han confiado en nuestros servicios
-          </p>
-        </div>
+        <ScrollAnimation animation="fadeIn">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900">
+              Lo que dicen nuestros clientes
+            </h2>
+            <p className="mt-4 text-xl text-gray-600">
+              Testimonios de personas que han confiado en nuestros servicios
+            </p>
+          </div>
+        </ScrollAnimation>
 
-        <div className="mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="bg-white rounded-xl shadow-sm p-8 relative"
-            >
-              <div className="relative">
-                <svg
-                  className="absolute -top-6 -left-6 h-12 w-12 text-blue-600 transform -rotate-12"
-                  fill="currentColor"
-                  viewBox="0 0 32 32"
-                  aria-hidden="true"
-                >
-                  <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                </svg>
-                <p className="relative text-lg text-gray-600">
-                  {testimonial.content}
-                </p>
-              </div>
-              <div className="mt-8 flex items-center">
-                <div className="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
-                  <span className="text-gray-500 text-sm font-medium">
-                    {testimonial.name.charAt(0)}
-                  </span>
-                </div>
-                <div className="ml-4">
-                  <div className="text-base font-medium text-gray-900">
-                    {testimonial.name}
+        <div className="relative max-w-3xl mx-auto">
+          <ScrollAnimation animation="zoom" delay={200}>
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+              <div className="px-6 py-8 sm:p-10 sm:pb-6">
+                <div className="flex items-center space-x-4">
+                  <div className="flex-shrink-0">
+                    <Image
+                      className="h-12 w-12 rounded-full object-cover"
+                      src={testimonials[activeTestimonial].imageUrl}
+                      alt={testimonials[activeTestimonial].author}
+                      width={48}
+                      height={48}
+                    />
                   </div>
-                  <div className="text-sm text-gray-500">{testimonial.role}</div>
+                  <div>
+                    <h3 className="text-lg font-medium text-gray-900">
+                      {testimonials[activeTestimonial].author}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      {testimonials[activeTestimonial].role}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <p className="text-lg text-gray-700 italic">
+                    "{testimonials[activeTestimonial].content}"
+                  </p>
                 </div>
               </div>
             </div>
-          ))}
+          </ScrollAnimation>
+
+          {/* Navigation buttons */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 -ml-4 sm:-ml-6 flex items-center justify-center">
+            <button
+              onClick={prevTestimonial}
+              className="p-2 rounded-full bg-white shadow-md text-gray-600 hover:text-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+            >
+              <span className="sr-only">Previous</span>
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          </div>
+          <div className="absolute top-1/2 -translate-y-1/2 right-0 -mr-4 sm:-mr-6 flex items-center justify-center">
+            <button
+              onClick={nextTestimonial}
+              className="p-2 rounded-full bg-white shadow-md text-gray-600 hover:text-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+            >
+              <span className="sr-only">Next</span>
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Indicators */}
+          <div className="mt-8 flex justify-center space-x-2">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveTestimonial(index)}
+                className={`h-2 w-2 rounded-full focus:outline-none ${
+                  index === activeTestimonial ? 'bg-brand-600' : 'bg-gray-300'
+                }`}
+              >
+                <span className="sr-only">Testimonial {index + 1}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>
