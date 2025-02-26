@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Header from './Header';
+import ScrollIndicator from './ScrollIndicator';
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -14,6 +15,9 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
+      {/* SEO-friendly heading that's visually hidden */}
+      <h1 className="sr-only">Abogados Online Ecuador - Servicios Notariales y Legales en Ecuador</h1>
+      
       {/* Background with subtle animation */}
       <div className="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-no-repeat">
         <div 
@@ -58,9 +62,17 @@ export default function HeroSection() {
               className="mx-auto w-auto h-auto max-w-[90%] sm:max-w-[800px] drop-shadow-lg"
               priority
             />
+            
+            {/* Tagline with SEO-friendly text */}
+            <p className="mt-8 text-xl text-white/90 max-w-2xl mx-auto font-light">
+              Servicios notariales y legales en línea en Ecuador. Trámites rápidos y eficientes.
+            </p>
           </div>
         </div>
       </div>
+
+      {/* Scroll indicator */}
+      <ScrollIndicator />
 
       {/* Header is positioned at the bottom of hero section */}
       <div className="relative z-20">
