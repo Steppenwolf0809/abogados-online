@@ -6,29 +6,40 @@ import Image from 'next/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [headerState, setHeaderState] = useState('at-bottom');
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const heroHeight = window.innerHeight - 80; // Height of hero section minus header height
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const headerHeight = 80;
       
-      // Only consider scrolled when we've scrolled past the hero section
-      setIsScrolled(scrollPosition > heroHeight * 0.5);
+      // When at the top of the page or in the hero section
+      if (scrollY < viewportHeight - headerHeight - 10) {
+        setHeaderState('at-bottom');
+      } 
+      // When scrolled to the next section
+      else if (scrollY < viewportHeight + 100) {
+        setHeaderState('transitioning');
+      } 
+      // When scrolled further down
+      else {
+        setHeaderState('fixed-top');
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial scroll position
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Check initial position
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <header 
-      className={`fixed left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'top-0 bg-brand-600/90 shadow-md' 
-          : 'bottom-0 bg-brand-600/50'
-      } backdrop-blur-sm`}
+      className={`left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm
+        ${headerState === 'at-bottom' ? 'fixed bottom-0 bg-brand-600/50' : 
+          headerState === 'transitioning' ? 'absolute top-0 bg-brand-600/70' : 
+          'fixed top-0 bg-brand-600/90 shadow-md'}`}
     >
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-yellow via-yellow to-yellow"></div>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,7 +47,9 @@ export default function Header() {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center relative h-10">
               <Image
-                src="/brand/Logo/Logo - Imágenes/Logo horizontal/Logo horizontal blanco.png"
+                src={headerState === 'at-bottom' ? 
+                  "/brand/Logo/Logo - Imágenes/Logo horizontal/Logo horizontal.png" : 
+                  "/brand/Logo/Logo - Imágenes/Logo horizontal/Logo horizontal blanco.png"}
                 alt="Abogados Online Ecuador"
                 width={180}
                 height={36}
@@ -59,6 +72,12 @@ export default function Header() {
               className="text-sm font-medium text-white hover:text-white/80 transition-colors duration-200"
             >
               Calculadoras
+            </Link>
+            <Link
+              href="/blog"
+              className="text-sm font-medium text-white hover:text-white/80 transition-colors duration-200"
+            >
+              Blog
             </Link>
             <Link
               href="/contacto"
@@ -132,6 +151,13 @@ export default function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Calculadoras
+            </Link>
+            <Link
+              href="/blog"
+              className="block px-4 py-3 text-base font-medium text-white hover:text-white/80 hover:bg-white/10 rounded-xl transition-colors duration-200"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Blog
             </Link>
             <div className="px-4 pt-2">
               <Link

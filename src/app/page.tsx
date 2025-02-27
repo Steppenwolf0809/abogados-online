@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import HeroSection from '@/components/HeroSection';
 import StatsSection from '@/components/StatsSection';
 import ServicesSection from '@/components/ServicesSection';
+import CalculadorasSection from '@/components/CalculadorasSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import BlogSection from '@/components/BlogSection';
 import FAQ from '@/components/FAQ';
@@ -11,7 +12,7 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 export const metadata: Metadata = {
   title: 'Abogados Online Ecuador | Servicios Notariales y Legales',
   description: 'Servicios notariales y legales en línea en Ecuador. Calculadoras de costos, asesoría legal y trámites notariales rápidos y eficientes.',
-  keywords: 'abogados, notaría, Ecuador, servicios legales, trámites notariales, calculadora notarial, documentos legales, poderes, compraventas',
+  keywords: 'abogados, notaría, Ecuador, servicios legales, trámites notariales, calculadora notarial, documentos legales, poderes, compraventas, impuestos municipales, registro de la propiedad',
 };
 
 export default function Home() {
@@ -28,6 +29,7 @@ export default function Home() {
         {/* Main content */}
         <div>
           <ServicesSection />
+          <CalculadorasSection />
           <StatsSection />
           <TestimonialsSection />
           <BlogSection />
