@@ -71,16 +71,20 @@ export interface ResultadoImpuestos {
 
 export function calcularImpuestos(formData: MunicipalFormData): ResultadoImpuestos {
   // 1. Cálculo de Utilidad
-  const valorBase = Math.max(formData.valorTransferencia, formData.avaluoCatastral);
-  const utilidadBruta = valorBase - (
+  // Para la utilidad, usamos el valor de transferencia (no el máximo con el avalúo)
+  const utilidadBruta = formData.valorTransferencia - (
     formData.valorAdquisicion +
     formData.mejoras +
     formData.contribucionMejoras
   );
 
   const añosTranscurridos = calcularAños(formData.fechaAdquisicion, formData.fechaTransferencia);
-  const deduccionTiempo = utilidadBruta * 0.05 * añosTranscurridos;
-  const baseImponibleUtilidad = utilidadBruta - deduccionTiempo;
+  
+  // La deducción por tiempo solo se aplica si hay utilidad positiva
+  const deduccionTiempo = utilidadBruta > 0 ? utilidadBruta * 0.05 * añosTranscurridos : 0;
+  
+  // La base imponible no puede ser negativa
+  const baseImponibleUtilidad = Math.max(0, utilidadBruta - deduccionTiempo);
 
   // Determinar tarifa de utilidad
   let tarifaUtilidad: number;
@@ -92,10 +96,23 @@ export function calcularImpuestos(formData: MunicipalFormData): ResultadoImpuest
     tarifaUtilidad = 0.10; // 10% para persona natural
   }
 
-  // Si la base imponible es negativa o cero, el impuesto es cero, pero mantenemos la tarifa correcta
-  const impuestoUtilidad = baseImponibleUtilidad <= 0 ? 0 : Math.round(baseImponibleUtilidad * tarifaUtilidad * 100) / 100;
+  // Debugging
+  console.log('Valores de cálculo:', {
+    valorTransferencia: formData.valorTransferencia,
+    valorAdquisicion: formData.valorAdquisicion,
+    utilidadBruta,
+    añosTranscurridos,
+    deduccionTiempo,
+    baseImponibleUtilidad,
+    tarifaUtilidad,
+    tipoTransferente: formData.tipoTransferente
+  });
+
+  // Calcular impuesto a la utilidad (redondeado a 2 decimales)
+  const impuestoUtilidad = Math.round(baseImponibleUtilidad * tarifaUtilidad * 100) / 100;
 
   // 2. Cálculo de Alcabala
+  // Para alcabala, usamos el mayor entre valor de transferencia y avalúo catastral
   const baseImponibleAlcabala = Math.max(formData.valorTransferencia, formData.avaluoCatastral);
   const tarifaAlcabala = 0.01; // 1%
   const rebajaAlcabala = calcularRebajaAlcabala(formData.fechaAdquisicion, formData.fechaTransferencia);
@@ -107,7 +124,7 @@ export function calcularImpuestos(formData: MunicipalFormData): ResultadoImpuest
       añosTranscurridos,
       deduccionTiempo: Math.round(deduccionTiempo * 100) / 100,
       baseImponible: Math.round(baseImponibleUtilidad * 100) / 100,
-      tarifa: (tarifaUtilidad * 100).toFixed(1).replace('.0', '') + '%',
+      tarifa: tarifaUtilidad * 100 + '%', // Aseguramos que se muestre como porcentaje
       impuesto: impuestoUtilidad
     },
     alcabala: {

@@ -71,7 +71,10 @@ export default function CalculadoraMunicipal() {
     const mejoras = parseFloat(formData.mejoras) || 0;
     const contribucionMejoras = parseFloat(formData.contribucionMejoras) || 0;
 
+    // Mostrar los valores que se están usando para el cálculo
     console.log('Valores para cálculo:', {
+      fechaAdquisicion: formData.fechaAdquisicion,
+      fechaTransferencia: formData.fechaTransferencia,
       valorTransferencia,
       valorAdquisicion,
       avaluoCatastral,
@@ -81,13 +84,20 @@ export default function CalculadoraMunicipal() {
       tipoTransferente: formData.tipoTransferente
     });
 
+    // Asegurarse de que el tipo de transferente sea correcto
+    const tipoTransferente = formData.tipoTransferente as TipoTransferente;
+    const tipoTransferencia = formData.tipoTransferencia as TipoTransferencia;
+
     const resultado = calcularImpuestos({
-      ...formData,
+      fechaAdquisicion: formData.fechaAdquisicion,
+      fechaTransferencia: formData.fechaTransferencia,
       valorTransferencia,
       valorAdquisicion,
       avaluoCatastral,
       mejoras,
-      contribucionMejoras
+      contribucionMejoras,
+      tipoTransferente,
+      tipoTransferencia
     });
 
     console.log('Resultado del cálculo:', resultado);
@@ -301,6 +311,10 @@ export default function CalculadoraMunicipal() {
                       <div className="flex justify-between py-1 border-b">
                         <span className="text-gray-600">Tarifa Aplicada:</span>
                         <span className="font-medium">{resultado.utilidad.tarifa}</span>
+                      </div>
+                      <div className="flex justify-between py-1 border-b">
+                        <span className="text-gray-600">Tipo Transferente:</span>
+                        <span className="font-medium">{formData.tipoTransferente}</span>
                       </div>
                       <div className="flex justify-between py-1 border-b font-semibold">
                         <span className="text-gray-800">Impuesto a la Utilidad:</span>
