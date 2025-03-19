@@ -1,12 +1,32 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  calcularImpuestos, 
-  ResultadoImpuestos, 
-  TipoTransferencia, 
-  TipoTransferente 
-} from '@/utils/municipalCalculations';
+import { calcularImpuestos } from './utils/municipalCalculations.js';
+
+// Define interfaces locally since we're importing from JS
+interface ResultadoUtilidad {
+  utilidadBruta: number;
+  añosTranscurridos: number;
+  deduccionTiempo: number;
+  baseImponible: number;
+  tarifa: string;
+  impuesto: number;
+}
+
+interface ResultadoAlcabala {
+  baseImponible: number;
+  rebaja: string;
+  impuesto: number;
+}
+
+interface ResultadoImpuestos {
+  utilidad: ResultadoUtilidad;
+  alcabala: ResultadoAlcabala;
+  total: number;
+}
+
+type TipoTransferencia = 'Compraventa' | 'Donación' | 'Dación en pago';
+type TipoTransferente = 'Natural' | 'Inmobiliaria';
 
 interface FormData {
   fechaAdquisicion: string;
@@ -64,44 +84,63 @@ export default function CalculadoraMunicipal() {
   const calcular = () => {
     if (!validarFormulario()) return;
 
-    // Convertir valores a números y asegurar que no sean NaN
-    const valorTransferencia = parseFloat(formData.valorTransferencia) || 0;
-    const valorAdquisicion = parseFloat(formData.valorAdquisicion) || 0;
-    const avaluoCatastral = parseFloat(formData.avaluoCatastral) || 0;
-    const mejoras = parseFloat(formData.mejoras) || 0;
-    const contribucionMejoras = parseFloat(formData.contribucionMejoras) || 0;
+    try {
+      // Convertir valores a números y asegurar que no sean NaN
+      const valorTransferencia = parseFloat(formData.valorTransferencia) || 0;
+      const valorAdquisicion = parseFloat(formData.valorAdquisicion) || 0;
+      const avaluoCatastral = parseFloat(formData.avaluoCatastral) || 0;
+      const mejoras = parseFloat(formData.mejoras) || 0;
+      const contribucionMejoras = parseFloat(formData.contribucionMejoras) || 0;
 
-    // Mostrar los valores que se están usando para el cálculo
-    console.log('Valores para cálculo:', {
-      fechaAdquisicion: formData.fechaAdquisicion,
-      fechaTransferencia: formData.fechaTransferencia,
-      valorTransferencia,
-      valorAdquisicion,
-      avaluoCatastral,
-      mejoras,
-      contribucionMejoras,
-      tipoTransferencia: formData.tipoTransferencia,
-      tipoTransferente: formData.tipoTransferente
-    });
+      // Mostrar los valores que se están usando para el cálculo
+      console.log('Valores para cálculo (antes de enviar):', {
+        fechaAdquisicion: formData.fechaAdquisicion,
+        fechaTransferencia: formData.fechaTransferencia,
+        valorTransferencia,
+        valorAdquisicion,
+        avaluoCatastral,
+        mejoras,
+        contribucionMejoras,
+        tipoTransferencia: formData.tipoTransferencia,
+        tipoTransferente: formData.tipoTransferente
+      });
 
-    // Asegurarse de que el tipo de transferente sea correcto
-    const tipoTransferente = formData.tipoTransferente as TipoTransferente;
-    const tipoTransferencia = formData.tipoTransferencia as TipoTransferencia;
+      // Asegurarse de que el tipo de transferente sea correcto
+      const tipoTransferente = formData.tipoTransferente as TipoTransferente;
+      const tipoTransferencia = formData.tipoTransferencia as TipoTransferencia;
 
-    const resultado = calcularImpuestos({
-      fechaAdquisicion: formData.fechaAdquisicion,
-      fechaTransferencia: formData.fechaTransferencia,
-      valorTransferencia,
-      valorAdquisicion,
-      avaluoCatastral,
-      mejoras,
-      contribucionMejoras,
-      tipoTransferente,
-      tipoTransferencia
-    });
+      // Crear el objeto de datos para el cálculo
+      const datosCalculo = {
+        fechaAdquisicion: formData.fechaAdquisicion,
+        fechaTransferencia: formData.fechaTransferencia,
+        valorTransferencia,
+        valorAdquisicion,
+        avaluoCatastral,
+        mejoras,
+        contribucionMejoras,
+        tipoTransferente,
+        tipoTransferencia
+      };
 
-    console.log('Resultado del cálculo:', resultado);
-    setResultado(resultado);
+      console.log('Objeto de datos para cálculo:', datosCalculo);
+
+      // Realizar el cálculo
+      const resultado = calcularImpuestos(datosCalculo);
+
+      console.log('Resultado del cálculo (después de recibir):', resultado);
+      
+      // Verificar que el resultado tenga los valores esperados
+      if (!resultado || !resultado.utilidad) {
+        console.error('El resultado del cálculo no tiene la estructura esperada:', resultado);
+        setError('Error en el cálculo. Por favor, revise los datos ingresados.');
+        return;
+      }
+
+      setResultado(resultado);
+    } catch (error) {
+      console.error('Error al calcular impuestos:', error);
+      setError('Ocurrió un error al realizar el cálculo. Por favor, intente nuevamente.');
+    }
   };
 
   return (

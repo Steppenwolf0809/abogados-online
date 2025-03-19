@@ -66,6 +66,18 @@ export function calcularImpuestos({
     tarifaUtilidad = 0.10; // 10% para persona natural
   }
 
+  // Debugging
+  console.log('Valores de cálculo en utils/municipalCalculations.js:', {
+    valorTransferencia,
+    valorAdquisicion,
+    utilidadBruta,
+    añosTranscurridos,
+    deduccionTiempo,
+    baseImponibleUtilidad,
+    tarifaUtilidad,
+    tipoTransferente
+  });
+
   const impuestoUtilidad = Math.round(baseImponibleUtilidad * tarifaUtilidad * 100) / 100;
 
   // 2. Cálculo de Alcabala
