@@ -1,14 +1,27 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [headerState, setHeaderState] = useState('at-bottom');
-  const menuRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [debugLogs, setDebugLogs] = useState<string[]>([]);
+
+  // Add debug log function
+  const addLog = (message: string) => {
+    console.log(`[Header Debug] ${message}`);
+    setDebugLogs(prev => [...prev, `${new Date().toISOString()} - ${message}`]);
+  };
+
+  // Display logs in console on update
+  useEffect(() => {
+    if (debugLogs.length > 0) {
+      console.log('=== HEADER DEBUG LOGS ===');
+      debugLogs.forEach(log => console.log(log));
+      console.log('========================');
+    }
+  }, [debugLogs]);
 
   // Handle scroll effect for header background
   useEffect(() => {
@@ -34,41 +47,30 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle clicks and touches outside the menu to close it
+  // Handle clicks outside the menu to close it
   useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
-      if (!isMenuOpen) return;
-      
-      const target = event.target as HTMLElement;
-      const isOutsideMenu = menuRef.current && !menuRef.current.contains(target);
-      const isOutsideButton = buttonRef.current && !buttonRef.current.contains(target);
-      
-      if (isOutsideMenu && isOutsideButton) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMenuOpen) {
+        addLog(`Click outside detected: ${event.target}`);
         setIsMenuOpen(false);
       }
     };
 
-    // Add both mouse and touch event listeners
-    document.addEventListener('mousedown', handleOutsideClick);
-    document.addEventListener('touchstart', handleOutsideClick);
-    
+    document.addEventListener('click', handleClickOutside, { capture: true });
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('touchstart', handleOutsideClick);
+      document.removeEventListener('click', handleClickOutside, { capture: true });
     };
   }, [isMenuOpen]);
 
-  // Close menu when route changes
-  useEffect(() => {
-    if (isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-  }, []);
-
   const toggleMenu = (e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
+    addLog(`Menu button clicked, current state: ${isMenuOpen}`);
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleNavLinkClick = (e: React.MouseEvent, destination: string) => {
+    addLog(`Navigation link clicked: ${destination}`);
+    // No need to prevent default - we want normal navigation
   };
 
   return (
@@ -77,13 +79,18 @@ export default function Header() {
         ${headerState === 'at-bottom' ? 'bg-brand-600/50' : 
           headerState === 'transitioning' ? 'bg-brand-600/70' : 
           'bg-brand-600/90 shadow-md'}`}
+      onClick={(e) => addLog(`Header clicked: ${e.target}`)}
     >
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-yellow via-yellow to-yellow"></div>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 md:h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center relative h-10">
+            <a 
+              href="/" 
+              className="flex items-center relative h-10"
+              onClick={(e) => addLog('Logo clicked')}
+            >
               <Image
                 src={headerState === 'at-bottom' ? 
                   "/brand/Logo/Logo - Imágenes/Logo horizontal/Logo horizontal.png" : 
@@ -94,49 +101,52 @@ export default function Header() {
                 className="h-10 w-auto"
                 priority
               />
-            </Link>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-6">
-            <Link
+            <a
               href="/servicios"
               className="text-sm font-medium text-white hover:text-white/80 transition-colors duration-200 relative group"
+              onClick={(e) => handleNavLinkClick(e, '/servicios')}
             >
               Servicios
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link
+            </a>
+            <a
               href="/calculadoras"
               className="text-sm font-medium text-white hover:text-white/80 transition-colors duration-200 relative group flex items-center"
+              onClick={(e) => handleNavLinkClick(e, '/calculadoras')}
             >
               <span className="relative">
                 Calculadora
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
               </span>
               <span className="ml-1 px-1.5 py-0.5 text-xs bg-yellow text-brand-700 rounded-md font-bold">PRO</span>
-            </Link>
-            <Link
+            </a>
+            <a
               href="/blog"
               className="text-sm font-medium text-white hover:text-white/80 transition-colors duration-200 relative group"
+              onClick={(e) => handleNavLinkClick(e, '/blog')}
             >
               Blog
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-            </Link>
+            </a>
             
-            <Link
+            <a
               href="/contacto"
               className="group px-6 py-2.5 text-sm font-medium text-white border-2 border-white hover:bg-white hover:text-brand-600 rounded-xl transition-all duration-300 relative overflow-hidden"
+              onClick={(e) => handleNavLinkClick(e, '/contacto')}
             >
               <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
               Agendar Cita
-            </Link>
+            </a>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex items-center md:hidden">
             <button
-              ref={buttonRef}
               type="button"
               aria-expanded={isMenuOpen ? "true" : "false"}
               aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
@@ -178,25 +188,29 @@ export default function Header() {
       </nav>
 
       {/* Mobile menu */}
-      <div 
-        ref={menuRef}
-        className={`fixed inset-x-0 top-16 transform transition-all duration-300 ease-in-out md:hidden ${
-          isMenuOpen ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-full opacity-0 pointer-events-none'
-        }`}
-      >
-        <div className="bg-brand-600/95 backdrop-blur-lg shadow-soft-xl">
+      {isMenuOpen && (
+        <div 
+          className="fixed inset-x-0 top-16 bg-brand-600/95 backdrop-blur-lg shadow-soft-xl md:hidden"
+          onClick={(e) => addLog(`Mobile menu clicked: ${e.target}`)}
+        >
           <div className="px-4 py-6 space-y-4">
             <a
               href="/servicios"
               className="block px-4 py-3 text-base font-medium text-white hover:text-white/80 hover:bg-white/10 rounded-xl transition-colors duration-200"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => {
+                addLog('Mobile menu: Servicios link clicked');
+                // Let the default navigation happen
+              }}
             >
               Servicios
             </a>
             <a
               href="/calculadoras"
               className="block px-4 py-3 text-base font-medium text-white hover:text-white/80 hover:bg-white/10 rounded-xl transition-colors duration-200 flex items-center justify-between"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => {
+                addLog('Mobile menu: Calculadoras link clicked');
+                // Let the default navigation happen
+              }}
             >
               <span>Calculadora</span>
               <span className="px-1.5 py-0.5 text-xs bg-yellow text-brand-700 rounded-md font-bold">PRO</span>
@@ -204,7 +218,10 @@ export default function Header() {
             <a
               href="/blog"
               className="block px-4 py-3 text-base font-medium text-white hover:text-white/80 hover:bg-white/10 rounded-xl transition-colors duration-200"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => {
+                addLog('Mobile menu: Blog link clicked');
+                // Let the default navigation happen
+              }}
             >
               Blog
             </a>
@@ -212,7 +229,10 @@ export default function Header() {
               <a
                 href="/contacto"
                 className="group block w-full text-center py-3 text-base font-medium text-white border-2 border-white hover:bg-white hover:text-brand rounded-xl transition-all duration-300 relative overflow-hidden"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  addLog('Mobile menu: Contacto link clicked');
+                  // Let the default navigation happen
+                }}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
                 Agendar Cita
@@ -220,7 +240,19 @@ export default function Header() {
             </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Debug panel - only visible in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="fixed bottom-0 left-0 right-0 bg-black/80 text-white text-xs p-2 max-h-32 overflow-y-auto z-50">
+          <h4 className="font-bold">Header Debug Logs:</h4>
+          <ul>
+            {debugLogs.map((log, i) => (
+              <li key={i}>{log}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </header>
   );
 }
