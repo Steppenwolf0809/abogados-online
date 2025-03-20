@@ -8,9 +8,9 @@ import ScrollProgress from '@/components/ScrollProgress';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Abogados Online Ecuador - Servicios Notariales y Legales',
-  description: 'Servicios notariales y legales en línea en Ecuador. Calculadoras de costos, asesoría legal y trámites notariales.',
-  keywords: 'abogados, notaría, Ecuador, servicios legales, trámites notariales, calculadora notarial',
+  title: 'Abogados Online Ecuador - Servicios Notariales y Legales en Ecuador',
+  description: 'Servicios notariales y legales en línea en Ecuador. Trámites notariales, escrituras, poderes, declaraciones juramentadas, compraventa de inmuebles y calculadoras de costos notariales.',
+  keywords: 'abogados, notaría, Ecuador, servicios notariales, trámites notariales, escrituras, poderes, declaraciones juramentadas, compraventa de inmuebles, promesa de compraventa, calculadora notarial, valor de escrituras, servicios legales',
   authors: [{ name: 'Abogados Online Ecuador' }],
   creator: 'Abogados Online Ecuador',
   publisher: 'Abogados Online Ecuador',
@@ -18,6 +18,14 @@ export const metadata: Metadata = {
     email: false,
     address: false,
     telephone: false,
+  },
+  openGraph: {
+    title: 'Abogados Online Ecuador - Servicios Notariales y Legales en Ecuador',
+    description: 'Servicios notariales y legales en línea en Ecuador. Trámites notariales, escrituras, poderes, declaraciones juramentadas y calculadoras de costos.',
+    url: 'https://abogadosonlineecuador.com',
+    siteName: 'Abogados Online Ecuador',
+    locale: 'es_EC',
+    type: 'website',
   },
 };
 
