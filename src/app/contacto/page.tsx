@@ -9,13 +9,9 @@ export default function ContactoPage() {
   return (
     <>
       {/* Header */}
-      <header className="bg-brand-600 shadow-sm py-4 mb-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Header />
-        </div>
-      </header>
+      <Header />
       
-      <div className="max-w-4xl mx-auto px-4 py-8 pt-24">
+      <div className="max-w-4xl mx-auto px-4 py-8 pt-24 mt-16">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">
           Contáctanos
         </h1>
