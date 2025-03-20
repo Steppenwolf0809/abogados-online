@@ -158,6 +158,7 @@ export default function Header() {
               type="button"
               onClick={(e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 setIsMenuOpen(!isMenuOpen);
               }}
               className="inline-flex items-center justify-center p-2 rounded-lg transition-colors duration-200 text-white hover:text-white/80"
@@ -269,14 +270,18 @@ export default function Header() {
               Blog
             </Link>
             <div className="px-4 pt-2">
-              <Link
-                href="/contacto"
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = '/contacto';
+                  setIsMenuOpen(false);
+                }}
                 className="group block w-full text-center py-3 text-base font-medium text-white border-2 border-white hover:bg-white hover:text-brand rounded-xl transition-all duration-300 relative overflow-hidden"
-                onClick={() => setIsMenuOpen(false)}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
                 Agendar Cita
-              </Link>
+              </button>
             </div>
           </div>
         </div>
