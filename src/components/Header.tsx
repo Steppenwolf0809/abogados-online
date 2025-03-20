@@ -156,9 +156,12 @@ export default function Header() {
           <div className="flex items-center md:hidden">
             <button
               type="button"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsMenuOpen(!isMenuOpen);
+              }}
               className="inline-flex items-center justify-center p-2 rounded-lg transition-colors duration-200 text-white hover:text-white/80"
-              aria-expanded="false"
+              aria-expanded={isMenuOpen ? "true" : "false"}
             >
               <span className="sr-only">Abrir menú principal</span>
               <svg
