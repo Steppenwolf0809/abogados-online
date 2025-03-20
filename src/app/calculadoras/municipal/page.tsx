@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { calcularImpuestos, MunicipalFormData, ResultadoMunicipal } from '@/utils/municipalCalculations';
+import { calcularImpuestos, MunicipalFormData, ResultadoImpuestos } from '@/utils/municipalCalculations';
 import PrintableResult from '@/components/PrintableResult';
 import Watermark from '@/components/ui/Watermark';
 
@@ -22,7 +22,7 @@ export default function CalculadoraMunicipal() {
     contribucionMejoras: ''
   });
 
-  const [resultado, setResultado] = useState<ResultadoMunicipal | null>(null);
+  const [resultado, setResultado] = useState<ResultadoImpuestos | null>(null);
   const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

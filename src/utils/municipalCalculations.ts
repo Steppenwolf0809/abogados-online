@@ -6,13 +6,13 @@ export type TipoTransferente = 'Natural' | 'Inmobiliaria';
 export interface MunicipalFormData {
   fechaAdquisicion: string;
   fechaTransferencia: string;
-  valorTransferencia: number;
-  valorAdquisicion: number;
-  avaluoCatastral: number;
+  valorTransferencia: number | string;
+  valorAdquisicion: number | string;
+  avaluoCatastral: number | string;
   tipoTransferencia: TipoTransferencia;
   tipoTransferente: TipoTransferente;
-  mejoras: number;
-  contribucionMejoras: number;
+  mejoras: number | string;
+  contribucionMejoras: number | string;
 }
 
 export function calcularAños(fechaAdquisicion: string, fechaTransferencia: string): number {
@@ -70,12 +70,35 @@ export interface ResultadoImpuestos {
 }
 
 export function calcularImpuestos(formData: MunicipalFormData): ResultadoImpuestos {
+  console.log("Datos recibidos para cálculo:", formData);
+
+  // Convertir valores de string a number si es necesario
+  const valorTransferencia = typeof formData.valorTransferencia === 'string' 
+    ? parseFloat(formData.valorTransferencia) || 0 
+    : formData.valorTransferencia;
+  
+  const valorAdquisicion = typeof formData.valorAdquisicion === 'string' 
+    ? parseFloat(formData.valorAdquisicion) || 0 
+    : formData.valorAdquisicion;
+  
+  const avaluoCatastral = typeof formData.avaluoCatastral === 'string' 
+    ? parseFloat(formData.avaluoCatastral) || 0 
+    : formData.avaluoCatastral;
+  
+  const mejoras = typeof formData.mejoras === 'string' 
+    ? parseFloat(formData.mejoras) || 0 
+    : formData.mejoras;
+  
+  const contribucionMejoras = typeof formData.contribucionMejoras === 'string' 
+    ? parseFloat(formData.contribucionMejoras) || 0 
+    : formData.contribucionMejoras;
+
   // 1. Cálculo de Utilidad
   // Para la utilidad, usamos el valor de transferencia (no el máximo con el avalúo)
-  const utilidadBruta = formData.valorTransferencia - (
-    formData.valorAdquisicion +
-    formData.mejoras +
-    formData.contribucionMejoras
+  const utilidadBruta = valorTransferencia - (
+    valorAdquisicion +
+    mejoras +
+    contribucionMejoras
   );
 
   const añosTranscurridos = calcularAños(formData.fechaAdquisicion, formData.fechaTransferencia);
@@ -113,12 +136,12 @@ export function calcularImpuestos(formData: MunicipalFormData): ResultadoImpuest
 
   // 2. Cálculo de Alcabala
   // Para alcabala, usamos el mayor entre valor de transferencia y avalúo catastral
-  const baseImponibleAlcabala = Math.max(formData.valorTransferencia, formData.avaluoCatastral);
+  const baseImponibleAlcabala = Math.max(valorTransferencia, avaluoCatastral);
   const tarifaAlcabala = 0.01; // 1%
   const rebajaAlcabala = calcularRebajaAlcabala(formData.fechaAdquisicion, formData.fechaTransferencia);
   const impuestoAlcabala = Math.round(baseImponibleAlcabala * tarifaAlcabala * (1 - rebajaAlcabala) * 100) / 100;
 
-  return {
+  const resultado = {
     utilidad: {
       utilidadBruta: Math.round(utilidadBruta * 100) / 100,
       añosTranscurridos,
@@ -134,4 +157,7 @@ export function calcularImpuestos(formData: MunicipalFormData): ResultadoImpuest
     },
     total: Math.round((impuestoUtilidad + impuestoAlcabala) * 100) / 100
   };
+
+  console.log("Resultado del cálculo:", resultado);
+  return resultado;
 }

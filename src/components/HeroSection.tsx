@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Header from './Header';
 import ScrollIndicator from './ScrollIndicator';
+import Link from 'next/link';
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -14,7 +15,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden">
+    <section className="relative min-h-[80vh] flex flex-col overflow-hidden">
       {/* SEO-friendly heading that's visually hidden */}
       <h1 className="sr-only">Abogados Online Ecuador - Servicios Notariales y Legales en Ecuador</h1>
       
@@ -54,19 +55,44 @@ export default function HeroSection() {
               isLoaded ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'
             }`}
           >
-            <Image
-              src="/brand/Logo/Logo - Imágenes/Logo con slogan/Logo con slogan.png"
-              alt="Abogados Online Ecuador"
-              width={800}
-              height={400}
-              className="mx-auto w-auto h-auto max-w-[90%] sm:max-w-[800px] drop-shadow-lg"
-              priority
-            />
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-black/10 backdrop-blur-sm rounded-2xl transform scale-105"></div>
+              <Image
+                src="/brand/Logo/Logo - Imágenes/Logo con slogan/Logo con slogan.png"
+                alt="Abogados Online Ecuador"
+                width={800}
+                height={400}
+                className="relative mx-auto w-auto h-auto max-w-[90%] sm:max-w-[800px] drop-shadow-lg"
+                priority
+              />
+            </div>
             
             {/* Tagline with SEO-friendly text */}
-            <p className="mt-8 text-xl text-white/90 max-w-2xl mx-auto font-light">
+            <p className="mt-6 text-xl text-white/90 max-w-2xl mx-auto font-light">
               Servicios notariales y legales en línea en Ecuador. Trámites rápidos y eficientes.
             </p>
+            
+            {/* CTA Buttons - Improved responsiveness and brand consistency */}
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-3xl mx-auto px-4">
+              <Link 
+                href="/servicios" 
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-white text-brand-600 rounded-full font-medium text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-gray-100 hover:scale-105 transform flex justify-center items-center"
+              >
+                Ver Servicios
+              </Link>
+              <Link 
+                href="/calculadoras#notarial" 
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-yellow text-brand-800 rounded-full font-medium text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-yellow/90 hover:scale-105 transform flex justify-center items-center"
+              >
+                Calcular Costos
+              </Link>
+              <Link 
+                href="/contacto" 
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-brand-600 text-white rounded-full font-medium text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-brand-700 hover:scale-105 transform flex justify-center items-center"
+              >
+                Agendar Cita
+              </Link>
+            </div>
           </div>
         </div>
       </div>

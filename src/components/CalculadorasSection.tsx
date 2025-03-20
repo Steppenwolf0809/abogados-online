@@ -9,10 +9,12 @@ const calculadoras = [
   {
     id: 'notarial',
     title: 'Calculadora Notarial',
-    description: 'Calcula los costos notariales para diferentes trámites como transferencias de dominio, poderes, declaraciones juramentadas y más.',
+    description: 'Calcula el valor de escrituras y costos notariales para compraventa de inmuebles, promesas de compraventa, poderes, declaraciones juramentadas y más.',
     icon: '/icons/contratos.svg',
     link: '/calculadoras',
     color: 'brand',
+    featured: true,
+    badge: 'RECOMENDADO',
   },
   {
     id: 'municipal',
@@ -21,6 +23,7 @@ const calculadoras = [
     icon: '/icons/transferencia.svg',
     link: '/calculadoras',
     color: 'yellow',
+    featured: false,
   },
   {
     id: 'registro',
@@ -29,6 +32,7 @@ const calculadoras = [
     icon: '/icons/promesa.svg',
     link: '/calculadoras',
     color: 'brand',
+    featured: false,
   },
 ];
 
@@ -40,10 +44,10 @@ export default function CalculadorasSection() {
           <div className="text-center">
             <span className="inline-block px-3 py-1 text-sm font-semibold text-brand-700 bg-brand-100 rounded-full mb-3">Herramientas Gratuitas</span>
             <h2 className="text-4xl font-bold text-gray-900 tracking-tight">
-              Calculadoras de Costos
+              Calculadora de Valor de Escrituras
             </h2>
             <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-              Herramientas para calcular costos notariales, impuestos municipales y tasas de registro de la propiedad
+              Herramientas para calcular el valor de escrituras, costos notariales para compraventa de inmuebles, promesas de compraventa, impuestos municipales y tasas de registro de la propiedad
             </p>
           </div>
         </ScrollAnimation>
@@ -54,26 +58,36 @@ export default function CalculadorasSection() {
               key={calculadora.id} 
               animation="slideUp" 
               delay={index * 100}
-              className="h-full"
+              className={`h-full ${calculadora.featured ? 'md:-mt-4 md:mb-4' : ''}`}
             >
               <Link
-                href={calculadora.link}
-                className={`block h-full overflow-hidden rounded-2xl transition-all duration-300 bg-white border border-gray-100 shadow-md hover:shadow-xl group`}
+                href={`${calculadora.link}${calculadora.featured ? '#notarial' : ''}`}
+                className={`block h-full overflow-hidden rounded-2xl transition-all duration-300 bg-white border ${calculadora.featured ? 'border-brand-300 ring-2 ring-brand-500/30' : 'border-gray-100'} shadow-md hover:shadow-xl group relative`}
               >
-                <div className={`h-3 w-full bg-${calculadora.color}-500`}></div>
-                <div className="p-8">
-                  <div className={`rounded-full w-16 h-16 flex items-center justify-center mb-6 bg-${calculadora.color}-50 group-hover:bg-${calculadora.color}-100 transition-colors`}>
+                {calculadora.featured && (
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-100 text-brand-800">
+                      {calculadora.badge}
+                    </span>
+                  </div>
+                )}
+                <div className={`h-3 w-full ${calculadora.featured ? 'bg-brand-600' : `bg-${calculadora.color}-500`}`}></div>
+                <div className={`p-8 ${calculadora.featured ? 'bg-gradient-to-br from-white to-brand-50/30' : ''}`}>
+                  <div className={`rounded-full w-16 h-16 flex items-center justify-center mb-6 ${calculadora.featured ? 'bg-brand-100 group-hover:bg-brand-200' : `bg-${calculadora.color}-50 group-hover:bg-${calculadora.color}-100`} transition-colors duration-300`}>
                     <Image
                       src={calculadora.icon}
                       alt={calculadora.title}
                       width={32}
                       height={32}
-                      className={`h-8 w-8 text-${calculadora.color}-600`}
+                      className={`h-8 w-8 ${calculadora.featured ? 'text-brand-700' : `text-${calculadora.color}-600`} group-hover:scale-110 transition-transform duration-300`}
                     />
                   </div>
                   
-                  <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-brand-600 transition-colors">
+                  <h3 className={`text-xl font-bold mb-3 ${calculadora.featured ? 'text-brand-700' : 'text-gray-900'} group-hover:text-brand-600 transition-colors`}>
                     {calculadora.title}
+                    {calculadora.featured && (
+                      <span className="ml-2 inline-block animate-pulse">★</span>
+                    )}
                   </h3>
                   
                   <p className="text-gray-600 mb-6">
