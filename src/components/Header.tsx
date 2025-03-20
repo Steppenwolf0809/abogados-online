@@ -86,12 +86,27 @@ export default function Header() {
         ${headerState === 'at-bottom' ? 'bg-brand-600/50' : 
           headerState === 'transitioning' ? 'bg-brand-600/70' : 
           'bg-brand-600/90 shadow-md'}`}
+      onClick={(e) => {
+        // Prevent clicks on the header from bubbling up
+        e.stopPropagation();
+      }}
     >
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-yellow via-yellow to-yellow"></div>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 md:h-20">
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center relative h-10">
+            <Link 
+              href="/" 
+              className="flex items-center relative h-10"
+              onClick={(e) => {
+                // Prevent default only if we're in mobile view and menu is open
+                if (window.innerWidth < 768 && isMenuOpen) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsMenuOpen(false);
+                }
+              }}
+            >
               <Image
                 src={headerState === 'at-bottom' ? 
                   "/brand/Logo/Logo - Imágenes/Logo horizontal/Logo horizontal.png" : 
@@ -242,8 +257,12 @@ export default function Header() {
       {/* Mobile menu */}
       <div 
         className={`fixed inset-x-0 top-[5rem] transform transition-all duration-300 ease-in-out md:hidden ${
-          isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+          isMenuOpen ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-full opacity-0 pointer-events-none'
         }`}
+        onClick={(e) => {
+          // Prevent clicks on the menu from bubbling up
+          e.stopPropagation();
+        }}
       >
         <div className="bg-brand-600/95 backdrop-blur-lg shadow-soft-xl">
           <div className="px-4 py-6 space-y-4">
