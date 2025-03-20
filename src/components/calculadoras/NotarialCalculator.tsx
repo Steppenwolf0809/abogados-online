@@ -96,15 +96,29 @@ export default function CalculadoraNotarial() {
     // Eliminar cualquier caracter que no sea número
     const numericValue = value.replace(/[^0-9]/g, '');
     
-    // Si el valor está vacío o es 0, establecer como 1
-    if (!numericValue || numericValue === '0') {
-      setter('1');
+    // Permitir valores vacíos durante la edición
+    if (numericValue === '') {
+      setter('');
+      return;
+    }
+    
+    // Si el valor es 0, establecer como vacío para permitir ingresar otro número
+    if (numericValue === '0') {
+      setter('');
       return;
     }
     
     // Convertir a número y establecer el valor
     const numValue = parseInt(numericValue);
     setter(numValue.toString());
+  };
+
+  // Función para manejar cuando un campo pierde el foco
+  const handleNumericBlur = (value: string, setter: (value: string) => void) => {
+    // Si el valor está vacío, establecer como 1
+    if (!value) {
+      setter('1');
+    }
   };
 
   const calcularTarifaIndeterminada = (tipo: string): number => {
@@ -195,7 +209,7 @@ export default function CalculadoraNotarial() {
               Tipo de Servicio
             </label>
             <select
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+              className="mt-1 block w-full pl-4 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
               value={tipoServicio}
               onChange={(e) => {
                 setTipoServicio(e.target.value as TipoServicio);
@@ -233,7 +247,7 @@ export default function CalculadoraNotarial() {
                 Tipo de Persona
               </label>
               <select
-                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                className="mt-1 block w-full pl-4 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
                 value={tipoPersona}
                 onChange={(e) => setTipoPersona(e.target.value as 'natural' | 'juridica')}
               >
@@ -254,7 +268,7 @@ export default function CalculadoraNotarial() {
                 </div>
                 <input
                   type="number"
-                  className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
+                  className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 py-3 text-base border-gray-300 rounded-md"
                   value={monto}
                   onChange={(e) => setMonto(e.target.value)}
                   min="0"
@@ -279,9 +293,10 @@ export default function CalculadoraNotarial() {
                 type="text"
                 inputMode="numeric"
                 pattern="[0-9]*"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-3 text-base"
                 value={otorgantes}
                 onChange={(e) => handleNumericInput(e.target.value, setOtorgantes)}
+                onBlur={() => handleNumericBlur(otorgantes, setOtorgantes)}
                 placeholder="Número de otorgantes"
               />
             </div>
@@ -296,9 +311,10 @@ export default function CalculadoraNotarial() {
                 type="text"
                 inputMode="numeric"
                 pattern="[0-9]*"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-3 text-base"
                 value={numeroFirmas}
                 onChange={(e) => handleNumericInput(e.target.value, setNumeroFirmas)}
+                onBlur={() => handleNumericBlur(numeroFirmas, setNumeroFirmas)}
                 placeholder="Número de firmas a reconocer"
               />
             </div>
@@ -313,9 +329,10 @@ export default function CalculadoraNotarial() {
                 type="text"
                 inputMode="numeric"
                 pattern="[0-9]*"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-3 text-base"
                 value={numeroHojas}
                 onChange={(e) => handleNumericInput(e.target.value, setNumeroHojas)}
+                onBlur={() => handleNumericBlur(numeroHojas, setNumeroHojas)}
                 placeholder="Número de hojas"
               />
             </div>
@@ -330,9 +347,10 @@ export default function CalculadoraNotarial() {
                 type="text"
                 inputMode="numeric"
                 pattern="[0-9]*"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-3 text-base"
                 value={numeroMenores}
                 onChange={(e) => handleNumericInput(e.target.value, setNumeroMenores)}
+                onBlur={() => handleNumericBlur(numeroMenores, setNumeroMenores)}
                 placeholder="Número de menores que viajan"
               />
             </div>
