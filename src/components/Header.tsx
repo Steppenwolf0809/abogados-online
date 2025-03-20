@@ -36,8 +36,19 @@ export default function Header() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
+      console.log('Click event:', {
+        target: target.tagName,
+        classList: Array.from(target.classList),
+        id: target.id,
+        isMenuOpen,
+        isMenuButton: !!target.closest('.menu-button'),
+        isMenu: !!target.closest('.mobile-menu'),
+        path: event.composedPath().map(el => (el as HTMLElement).tagName || 'unknown').join(' > ')
+      });
+      
       // Check if the click is outside the menu and the menu button
       if (isMenuOpen && !target.closest('.mobile-menu') && !target.closest('.menu-button')) {
+        console.log('Closing menu due to outside click');
         setIsMenuOpen(false);
       }
     };
@@ -117,6 +128,7 @@ export default function Header() {
               className="menu-button inline-flex items-center justify-center p-2 rounded-lg transition-colors duration-200 text-white hover:text-white/80"
               aria-expanded={isMenuOpen ? "true" : "false"}
               onClick={(e) => {
+                console.log('Menu button clicked', { isMenuOpen, target: e.target });
                 e.preventDefault();
                 e.stopPropagation();
                 setIsMenuOpen(!isMenuOpen);
@@ -190,7 +202,10 @@ export default function Header() {
               <Link
                 href="/contacto"
                 className="group block w-full text-center py-3 text-base font-medium text-white border-2 border-white hover:bg-white hover:text-brand rounded-xl transition-all duration-300 relative overflow-hidden"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  console.log('Contact link clicked', { isMenuOpen });
+                  setIsMenuOpen(false);
+                }}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
                 Agendar Cita
