@@ -76,6 +76,11 @@ export default function Header() {
           headerState === 'transitioning' ? 'bg-brand-600/70' :
           'bg-brand-600/90 shadow-md'}`}
     >
+      {/* Texto de prueba para verificar despliegue */}
+      <div className="absolute top-0 left-0 bg-red-500 text-white px-2 py-1 text-xs z-50">
+        PRUEBA MÓVILES - V1 - 21/03/2025
+      </div>
+      
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-yellow via-yellow to-yellow"></div>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 md:h-20">
