@@ -27,7 +27,7 @@ export default function NotariaAd() {
         <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 w-64 max-w-full">
           <div className="flex justify-between items-center bg-blue-600 text-white p-2">
             <h3 className="font-semibold">
-              Notaría recomendada en Quito
+              Notaría 18 - Dra. Glenda Zapata
             </h3>
             <button 
               onClick={(e) => {
@@ -44,10 +44,13 @@ export default function NotariaAd() {
           </div>
           
           <div className="p-3">
-            <p className="text-sm text-gray-600 mb-3">
-              <strong>Atención prioritaria</strong> para usuarios de Abogados Online
-            </p>
-            <div className="text-xs text-gray-500 space-y-1">
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-2 mb-3">
+              <p className="text-blue-800 font-medium text-xs text-center">
+                Atención prioritaria para usuarios de Abogados Online
+              </p>
+            </div>
+            
+            <div className="text-xs text-gray-600 space-y-1">
               <p>
                 <strong>Dirección:</strong> Calle Azuay E2-231 entre Av. Amazonas y Av. República, Quito
               </p>

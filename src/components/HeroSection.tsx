@@ -48,7 +48,7 @@ export default function HeroSection() {
         </div>
       </div>
       
-      <div className="flex-grow flex flex-col justify-center items-center pt-16 pb-20">
+      <div className="flex-grow flex flex-col justify-center items-center pt-24 pb-20">
         <div className="text-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
           <div 
             className={`transition-all duration-1000 transform ${

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 
 interface NotariaResultPopupProps {
   isVisible: boolean;
@@ -45,19 +44,19 @@ export default function NotariaResultPopup({ isVisible, onClose }: NotariaResult
         </div>
 
         <div className="p-6">
-          {/* Banner image */}
-          <div className="w-full h-40 mb-4 overflow-hidden rounded">
-            <img
-              src="https://i.imgur.com/Yx8Fwjl.jpg"
-              alt="Notaría 18 - Dra. Glenda Zapata Silva"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
           {/* Content */}
           <div className="space-y-4">
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4">
+              <h4 className="text-lg font-semibold text-blue-800 mb-1 text-center">
+                Notaría 18 - Dra. Glenda Zapata Silva
+              </h4>
+              <p className="text-blue-700 text-sm text-center">
+                Cantón Quito
+              </p>
+            </div>
+            
             <p className="text-lg font-medium text-gray-800">
-              Realice este trámite con Notaría 18 del cantón Quito y ahorre tiempo y dinero
+              Realice este trámite con Notaría 18 y ahorre tiempo y dinero
             </p>
             
             <div className="bg-green-50 border border-green-200 rounded-lg p-3">
