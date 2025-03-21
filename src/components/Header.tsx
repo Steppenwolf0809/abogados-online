@@ -77,8 +77,8 @@ export default function Header() {
           'bg-brand-600/90 shadow-md'}`}
     >
       {/* Texto de prueba para verificar despliegue */}
-      <div className="absolute top-0 left-0 bg-red-500 text-white px-2 py-1 text-xs z-50">
-        PRUEBA MÓVILES - V1 - 21/03/2025
+      <div className="absolute top-0 left-0 bg-blue-500 text-white px-2 py-1 text-xs z-50">
+        PRUEBA TSX - V2 - 21/03/2025
       </div>
       
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-yellow via-yellow to-yellow"></div>

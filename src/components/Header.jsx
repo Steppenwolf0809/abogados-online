@@ -65,8 +65,8 @@ const Header = ({ onShowForm }) => {
         : 'bg-primary/95 py-4'
     }`}>
       {/* Texto de prueba para verificar despliegue */}
-      <div className="absolute top-0 left-0 bg-red-500 text-white px-2 py-1 text-xs z-50">
-        PRUEBA MÓVILES - V1 - 21/03/2025
+      <div className="absolute top-0 left-0 bg-green-500 text-white px-2 py-1 text-xs z-50">
+        PRUEBA JSX - V2 - 21/03/2025
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
