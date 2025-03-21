@@ -7,40 +7,146 @@
   <!-- Página principal -->
   <url>
     <loc>https://www.abogadosonlineecuador.com/</loc>
-    <lastmod>2024-01-16</lastmod>
+    <lastmod>2025-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Servicios Notariales -->
+  <!-- Páginas de Servicios -->
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/servicios</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/servicios/documentos-ai</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Página de Calculadoras con anclas -->
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/calculadoras</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/calculadoras#notarial</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/calculadoras#municipal</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/calculadoras#registro</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Páginas de Documentos -->
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/documentos</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/documentos/poderes</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/documentos/declaraciones</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/documentos/contratos</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/documentos/transferencia</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/documentos/promesa</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/documentos/viaje</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/documentos-ai</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Página de Contacto -->
+  <url>
+    <loc>https://www.abogadosonlineecuador.com/contacto</loc>
+    <lastmod>2025-03-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Secciones de la página principal (para compatibilidad con enlaces antiguos) -->
   <url>
     <loc>https://www.abogadosonlineecuador.com/#servicios</loc>
-    <lastmod>2024-01-16</lastmod>
+    <lastmod>2025-03-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
   </url>
 
-  <!-- Calculadora de Costos -->
   <url>
     <loc>https://www.abogadosonlineecuador.com/#calculadora</loc>
-    <lastmod>2024-01-16</lastmod>
+    <lastmod>2025-03-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
   </url>
 
-  <!-- Información de Contacto -->
   <url>
     <loc>https://www.abogadosonlineecuador.com/#contacto</loc>
-    <lastmod>2024-01-16</lastmod>
+    <lastmod>2025-03-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 
-  <!-- Preguntas Frecuentes -->
   <url>
     <loc>https://www.abogadosonlineecuador.com/#faq</loc>
-    <lastmod>2024-01-16</lastmod>
+    <lastmod>2025-03-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>
