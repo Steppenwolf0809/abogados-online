@@ -29,13 +29,13 @@ export default function Header() {
       const scrollY = window.scrollY;
       const viewportHeight = window.innerHeight;
       const headerHeight = 80;
-      
+
       if (scrollY < 50) {
         setHeaderState('at-bottom');
-      } 
+      }
       else if (scrollY < viewportHeight - headerHeight) {
         setHeaderState('transitioning');
-      } 
+      }
       else {
         setHeaderState('fixed-top');
       }
@@ -43,7 +43,7 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Check initial position
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -63,37 +63,34 @@ export default function Header() {
   }, [isMenuOpen]);
 
   const toggleMenu = (e: React.MouseEvent) => {
-    e.stopPropagation();
+    e.preventDefault(); // Prevent default behavior
+    e.stopPropagation(); // Prevent event bubbling
     addLog(`Menu button clicked, current state: ${isMenuOpen}`);
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleNavLinkClick = (e: React.MouseEvent, destination: string) => {
-    addLog(`Navigation link clicked: ${destination}`);
-    // No need to prevent default - we want normal navigation
-  };
-
   return (
-    <header 
+    <header
       className={`left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm fixed top-0
-        ${headerState === 'at-bottom' ? 'bg-brand-600/50' : 
-          headerState === 'transitioning' ? 'bg-brand-600/70' : 
+        ${headerState === 'at-bottom' ? 'bg-brand-600/50' :
+          headerState === 'transitioning' ? 'bg-brand-600/70' :
           'bg-brand-600/90 shadow-md'}`}
-      onClick={(e) => addLog(`Header clicked: ${e.target}`)}
     >
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-yellow via-yellow to-yellow"></div>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 md:h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <a 
-              href="/" 
+            <a
+              href="/"
               className="flex items-center relative h-10"
-              onClick={(e) => addLog('Logo clicked')}
+              onClick={(e) => {
+                addLog('Logo clicked');
+              }}
             >
               <Image
-                src={headerState === 'at-bottom' ? 
-                  "/brand/Logo/Logo - Imágenes/Logo horizontal/Logo horizontal.png" : 
+                src={headerState === 'at-bottom' ?
+                  "/brand/Logo/Logo - Imágenes/Logo horizontal/Logo horizontal.png" :
                   "/brand/Logo/Logo - Imágenes/Logo horizontal/Logo horizontal blanco.png"}
                 alt="Abogados Online Ecuador"
                 width={180}
@@ -109,7 +106,6 @@ export default function Header() {
             <a
               href="/servicios"
               className="text-sm font-medium text-white hover:text-white/80 transition-colors duration-200 relative group"
-              onClick={(e) => handleNavLinkClick(e, '/servicios')}
             >
               Servicios
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
@@ -117,7 +113,6 @@ export default function Header() {
             <a
               href="/calculadoras"
               className="text-sm font-medium text-white hover:text-white/80 transition-colors duration-200 relative group flex items-center"
-              onClick={(e) => handleNavLinkClick(e, '/calculadoras')}
             >
               <span className="relative">
                 Calculadora
@@ -128,16 +123,14 @@ export default function Header() {
             <a
               href="/blog"
               className="text-sm font-medium text-white hover:text-white/80 transition-colors duration-200 relative group"
-              onClick={(e) => handleNavLinkClick(e, '/blog')}
             >
               Blog
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
             </a>
-            
+
             <a
               href="/contacto"
               className="group px-6 py-2.5 text-sm font-medium text-white border-2 border-white hover:bg-white hover:text-brand-600 rounded-xl transition-all duration-300 relative overflow-hidden"
-              onClick={(e) => handleNavLinkClick(e, '/contacto')}
             >
               <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
               Agendar Cita
@@ -189,17 +182,17 @@ export default function Header() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div 
+        <div
           className="fixed inset-x-0 top-16 bg-brand-600/95 backdrop-blur-lg shadow-soft-xl md:hidden"
-          onClick={(e) => addLog(`Mobile menu clicked: ${e.target}`)}
+          onClick={(e) => e.stopPropagation()} // Prevent clicks from closing the menu
         >
           <div className="px-4 py-6 space-y-4">
             <a
               href="/servicios"
               className="block px-4 py-3 text-base font-medium text-white hover:text-white/80 hover:bg-white/10 rounded-xl transition-colors duration-200"
-              onClick={(e) => {
+              onClick={() => {
                 addLog('Mobile menu: Servicios link clicked');
-                // Let the default navigation happen
+                setIsMenuOpen(false); // Close menu after click
               }}
             >
               Servicios
@@ -207,9 +200,9 @@ export default function Header() {
             <a
               href="/calculadoras"
               className="block px-4 py-3 text-base font-medium text-white hover:text-white/80 hover:bg-white/10 rounded-xl transition-colors duration-200 flex items-center justify-between"
-              onClick={(e) => {
+              onClick={() => {
                 addLog('Mobile menu: Calculadoras link clicked');
-                // Let the default navigation happen
+                setIsMenuOpen(false); // Close menu after click
               }}
             >
               <span>Calculadora</span>
@@ -218,9 +211,9 @@ export default function Header() {
             <a
               href="/blog"
               className="block px-4 py-3 text-base font-medium text-white hover:text-white/80 hover:bg-white/10 rounded-xl transition-colors duration-200"
-              onClick={(e) => {
+              onClick={() => {
                 addLog('Mobile menu: Blog link clicked');
-                // Let the default navigation happen
+                setIsMenuOpen(false); // Close menu after click
               }}
             >
               Blog
@@ -229,9 +222,9 @@ export default function Header() {
               <a
                 href="/contacto"
                 className="group block w-full text-center py-3 text-base font-medium text-white border-2 border-white hover:bg-white hover:text-brand rounded-xl transition-all duration-300 relative overflow-hidden"
-                onClick={(e) => {
+                onClick={() => {
                   addLog('Mobile menu: Contacto link clicked');
-                  // Let the default navigation happen
+                  setIsMenuOpen(false); // Close menu after click
                 }}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
