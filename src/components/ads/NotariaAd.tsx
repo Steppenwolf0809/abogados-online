@@ -6,7 +6,7 @@ export default function NotariaAd() {
   const [isExpanded, setIsExpanded] = useState(false);
   
   return (
-    <div className="fixed right-4 bottom-24 z-40">
+    <div className="fixed right-4 bottom-24 z-40 max-w-[90vw] md:max-w-none">
       {/* Banner colapsado */}
       {!isExpanded && (
         <div 
@@ -24,14 +24,17 @@ export default function NotariaAd() {
       
       {/* Banner expandido */}
       {isExpanded && (
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 w-64">
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 w-64 max-w-full">
           <div className="flex justify-between items-center bg-blue-600 text-white p-2">
             <h3 className="font-semibold">
               Notaría recomendada en Quito
             </h3>
             <button 
-              onClick={() => setIsExpanded(false)}
-              className="text-white hover:text-gray-200"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsExpanded(false);
+              }}
+              className="text-white hover:text-gray-200 p-2"
               aria-label="Cerrar"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

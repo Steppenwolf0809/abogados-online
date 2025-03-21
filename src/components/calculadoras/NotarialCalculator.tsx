@@ -7,7 +7,7 @@ import RequisitosServicio from '@/components/RequisitosServicio';
 import PrintableResult from '@/components/PrintableResult';
 import Watermark from '@/components/ui/Watermark';
 import NotariaAd from '@/components/ads/NotariaAd';
-import NotariaResultPopup from '@/components/ads/NotariaResultPopup';
+import NotariaAdInline from '@/components/ads/NotariaAdInline';
 
 interface ServicioIndeterminado {
   nombre: string;
@@ -93,7 +93,6 @@ export default function CalculadoraNotarial() {
   const [numeroMenores, setNumeroMenores] = useState('1');
   const [numeroHojas, setNumeroHojas] = useState('1');
   const [resultado, setResultado] = useState<Resultado | null>(null);
-  const [showPopup, setShowPopup] = useState(false);
 
   const handleNumericInput = (value: string, setter: (value: string) => void) => {
     // Eliminar cualquier caracter que no sea número
@@ -195,11 +194,6 @@ export default function CalculadoraNotarial() {
       iva,
       total
     });
-    
-    // Mostrar el popup después de calcular
-    setTimeout(() => {
-      setShowPopup(true);
-    }, 1000);
   };
 
   useEffect(() => {
@@ -210,14 +204,8 @@ export default function CalculadoraNotarial() {
 
   return (
     <div className="max-w-4xl mx-auto relative">
-      {/* Notaría Ad */}
+      {/* Notaría Ad flotante */}
       <NotariaAd />
-      
-      {/* Popup de resultados */}
-      <NotariaResultPopup 
-        isVisible={showPopup} 
-        onClose={() => setShowPopup(false)} 
-      />
       <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
         <form className="space-y-6">
           <div>
@@ -420,8 +408,13 @@ export default function CalculadoraNotarial() {
           </div>
         )}
 
-        <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden">
-          <RequisitosServicio tramiteId={tipoServicio} tipoPersona={tipoPersona} />
+        <div className="space-y-4">
+          <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 relative overflow-hidden">
+            <RequisitosServicio tramiteId={tipoServicio} tipoPersona={tipoPersona} />
+          </div>
+          
+          {/* Notaría Ad Inline */}
+          <NotariaAdInline />
         </div>
       </div>
     </div>
