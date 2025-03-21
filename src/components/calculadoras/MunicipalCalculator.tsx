@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { calcularImpuestos } from './utils/municipalCalculations.js';
+import NotariaAd from '@/components/ads/NotariaAd';
+import NotariaResultPopup from '@/components/ads/NotariaResultPopup';
 
 // Define interfaces locally since we're importing from JS
 interface ResultadoUtilidad {
@@ -55,6 +57,7 @@ export default function CalculadoraMunicipal() {
 
   const [resultado, setResultado] = useState<ResultadoImpuestos | null>(null);
   const [error, setError] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -137,6 +140,11 @@ export default function CalculadoraMunicipal() {
       }
 
       setResultado(resultado);
+      
+      // Mostrar el popup después de calcular
+      setTimeout(() => {
+        setShowPopup(true);
+      }, 1000);
     } catch (error) {
       console.error('Error al calcular impuestos:', error);
       setError('Ocurrió un error al realizar el cálculo. Por favor, intente nuevamente.');
@@ -144,7 +152,15 @@ export default function CalculadoraMunicipal() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8 relative">
+      {/* Notaría Ad */}
+      <NotariaAd />
+      
+      {/* Popup de resultados */}
+      <NotariaResultPopup 
+        isVisible={showPopup} 
+        onClose={() => setShowPopup(false)} 
+      />
       <div className="relative">
         <div className="relative z-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">

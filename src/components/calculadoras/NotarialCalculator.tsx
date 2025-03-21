@@ -6,6 +6,8 @@ import { Tarifas, TipoServicio, esTipoServicioConCuantia } from '@/types/tarifas
 import RequisitosServicio from '@/components/RequisitosServicio';
 import PrintableResult from '@/components/PrintableResult';
 import Watermark from '@/components/ui/Watermark';
+import NotariaAd from '@/components/ads/NotariaAd';
+import NotariaResultPopup from '@/components/ads/NotariaResultPopup';
 
 interface ServicioIndeterminado {
   nombre: string;
@@ -91,6 +93,7 @@ export default function CalculadoraNotarial() {
   const [numeroMenores, setNumeroMenores] = useState('1');
   const [numeroHojas, setNumeroHojas] = useState('1');
   const [resultado, setResultado] = useState<Resultado | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleNumericInput = (value: string, setter: (value: string) => void) => {
     // Eliminar cualquier caracter que no sea número
@@ -192,6 +195,11 @@ export default function CalculadoraNotarial() {
       iva,
       total
     });
+    
+    // Mostrar el popup después de calcular
+    setTimeout(() => {
+      setShowPopup(true);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -201,7 +209,15 @@ export default function CalculadoraNotarial() {
   }, [monto, tipoServicio, tipoPersona, otorgantes, numeroFirmas, numeroMenores, numeroHojas]);
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto relative">
+      {/* Notaría Ad */}
+      <NotariaAd />
+      
+      {/* Popup de resultados */}
+      <NotariaResultPopup 
+        isVisible={showPopup} 
+        onClose={() => setShowPopup(false)} 
+      />
       <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
         <form className="space-y-6">
           <div>

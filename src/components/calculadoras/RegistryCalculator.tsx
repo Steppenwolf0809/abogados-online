@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { calcularArancelFinal, RANGOS, ResultadoRegistro } from '@/utils/registryCalculations';
+import NotariaAd from '@/components/ads/NotariaAd';
+import NotariaResultPopup from '@/components/ads/NotariaResultPopup';
 
 interface FormData {
   valorContrato: string;
@@ -16,6 +18,7 @@ export default function CalculadoraRegistro() {
 
   const [resultado, setResultado] = useState<ResultadoRegistro | null>(null);
   const [error, setError] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -35,10 +38,23 @@ export default function CalculadoraRegistro() {
 
     const resultado = calcularArancelFinal(valor, formData.terceraEdad);
     setResultado(resultado);
+    
+    // Mostrar el popup después de calcular
+    setTimeout(() => {
+      setShowPopup(true);
+    }, 1000);
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8 relative">
+      {/* Notaría Ad */}
+      <NotariaAd />
+      
+      {/* Popup de resultados */}
+      <NotariaResultPopup 
+        isVisible={showPopup} 
+        onClose={() => setShowPopup(false)} 
+      />
       <div className="relative">
         {/* Marca de agua */}
         <div className="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
