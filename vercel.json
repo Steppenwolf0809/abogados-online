@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
-  "installCommand": "npm install",
+  "installCommand": "npm install --legacy-peer-deps",
   "framework": "nextjs",
   "regions": ["cdg1"],
   "outputDirectory": ".next",
@@ -19,14 +19,6 @@
         {
           "key": "X-Frame-Options",
           "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
         }
       ]
     },
@@ -66,6 +58,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
     {
       "source": "/(.*)",
       "destination": "/$1"
