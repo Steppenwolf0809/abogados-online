@@ -9,6 +9,8 @@ Allow: /#servicios
 Allow: /#calculadora
 Allow: /#contacto
 Allow: /#faq
+Allow: /blog/
+Allow: /calculadoras/
 
 # Recursos estáticos
 Allow: /images/
@@ -23,6 +25,8 @@ Disallow: /*.map$
 Disallow: /api/
 Disallow: /.git/
 Disallow: /node_modules/
+Disallow: /studio/
+Disallow: /admin/
 
 # Crawl delay
 Crawl-delay: 10
