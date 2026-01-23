@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../ui/button';
-import { calcularArancelFinal, RANGOS } from './utils/registryCalculations.js';
+import { calcularArancelFinal, RANGOS } from '../../utils/registryCalculations.js';
 import PrintableResult from '../PrintableResult';
 
 const RegistryCalculator = () => {
